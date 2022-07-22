@@ -18,7 +18,7 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"email\":\"new-user\",\n    \"password\":\"1234\"\n}"
+                    "raw": "{\n    \"email\":\"new-user\",\n    \"password\":\"1234\",\n    \"type\":\"vendor\",\n    \"phone\":\"555-123-4567\"\n}"
                 },
                 "url": "http://localhost:5000/api/user/register",
                 "description": "Registration"
