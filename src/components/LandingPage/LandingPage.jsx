@@ -14,6 +14,7 @@ function LandingPage() {
   }
 
   return (
+    
     <div className="container">
       <h2>{heading}</h2>
 
