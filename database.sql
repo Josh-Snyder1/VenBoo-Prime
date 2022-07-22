@@ -60,7 +60,7 @@ CREATE TABLE "user" (
 	"id" SERIAL PRIMARY KEY,
 	"email" domain_email UNIQUE NOT NULL,
 	"password" VARCHAR (1000) NOT NULL,
-	"type" VARCHAR (31) NOT NULL,
+	"type" VARCHAR (31),
 	"first_name" VARCHAR (63),
 	"last_name" VARCHAR (63),
 	"title" VARCHAR (63),

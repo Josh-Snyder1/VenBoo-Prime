@@ -11,7 +11,7 @@ function LandingPage() {
 
   const onLogin = (event) => {
     history.push('/login');
-  };
+  }
 
   return (
     <div className="container">
