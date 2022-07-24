@@ -29,7 +29,8 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_EVENTS'})
+    dispatch({ type: 'FETCH_EVENTS'});
+    dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
   }, [dispatch]);
 
   return (

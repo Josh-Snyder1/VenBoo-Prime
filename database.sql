@@ -150,4 +150,28 @@ VALUES
 (1, 'Billys Bee Bonanza', 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17'),
 (1, 'Minnesota State Fair', 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-25', '2022-09-5'),
 (1, 'Farm Fest', 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07'),
-(1, 'Comic Con', 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07')
+(1, 'Comic Con', 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07');
+
+INSERT INTO "booths" (event_id, type, dimensions, quantity, description, cost)
+VALUES
+(5, 'small', '5x5', 1, '1 table and 2 chairs', 200), (7, 'premium', '20x25', 2, '1 tent, 4 tables, and 8 chairs', 1200);
+
+INSERT INTO "booth_applications" (booth_id, user_id)
+VALUES
+(1, 2), (2, 2);
+
+SELECT
+	events.name,
+	booths.type,
+	booths.dimensions,
+	booths.quantity,
+	booths.description,
+	booths.cost,
+	booth_applications.approved_by_host,
+	booth_applications.requested_on
+FROM booths
+JOIN booth_applications
+	ON booth_applications.booth_id = booths.id
+JOIN events
+	ON booths.event_id = events.id
+WHERE booth_applications.user_id = 2;
