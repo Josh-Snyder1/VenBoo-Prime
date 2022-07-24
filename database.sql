@@ -159,3 +159,19 @@ VALUES
 INSERT INTO "booth_applications" (booth_id, user_id)
 VALUES
 (1, 2), (2, 2);
+
+SELECT
+	events.name,
+	booths.type,
+	booths.dimensions,
+	booths.quantity,
+	booths.description,
+	booths.cost,
+	booth_applications.approved_by_host,
+	booth_applications.requested_on
+FROM booths
+JOIN booth_applications
+	ON booth_applications.booth_id = booths.id
+JOIN events
+	ON booths.event_id = events.id
+WHERE booth_applications.user_id = 2;
