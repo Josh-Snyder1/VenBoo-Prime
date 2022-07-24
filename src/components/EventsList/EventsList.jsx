@@ -24,6 +24,13 @@ function EventsList() {
             </>
         )
     }
+    else if (user.type === 'vendor') {
+        return (
+            <>
+                <p>Hello World</p>
+            </>
+        )
+    }
 
 }
 export default EventsList;
