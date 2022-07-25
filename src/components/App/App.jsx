@@ -22,7 +22,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from '../ReuseableComponents/MultiSelect'
-
+import EventDetails from "../EventDetails/EventDetails";
 
 import "./App.css";
 
