@@ -12,13 +12,14 @@ console.log('event booth', eventBoothDetails)
         <>
       <h1>Available Booths</h1>
       <div>
-        <table className='eventdetails'>
+        <table className='booths'>
             <thead>
                 <tr>
                     <th>Type</th>
                     <th>Available</th>
                     <th>Dimensions</th>
                     <th>Info</th>
+                    <th>Cost</th>
                 </tr>
             </thead>
             
@@ -30,11 +31,23 @@ console.log('event booth', eventBoothDetails)
                     <td>{items.quantity}</td>
                     <td>{items.dimensions}</td>
                     <td>{items.description}</td>
+                    <td>{items.cost}</td>
                 </tr>
                    )
                 })}
             </tbody>
-
+        </table>
+      </div>
+      <div>
+        <h1>Pending Approval</h1>
+        <table className="pending">
+                <thead>
+                    <tr>
+                        <th>Vendor Name</th>
+                        <th>Tags</th>
+                        <th>Booth Size</th>
+                    </tr>
+                </thead>
         </table>
       </div>
         </>
