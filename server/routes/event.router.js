@@ -42,7 +42,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(sqlQuery, sqlParams)
     .then((dbRes) => {
-      //   res.sendStatus(200);
       console.log(
         "????",
         dbRes.rows[0],
