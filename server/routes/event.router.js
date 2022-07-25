@@ -7,6 +7,18 @@ const pool = require("../modules/pool");
 
 const router = express.Router();
 
+router.get('/', rejectUnauthenticated, (req, res) => {
+
+  const sqlQuery = `SELECT * FROM "events"`
+  console.log('in route.get for events')
+  pool.query( sqlQuery ).then((result) => {
+      res.send(result.rows);
+  }).catch((error) => {
+      console.log('in get events router', error)
+      res.sendStatus(500);
+  });
+});
+
 router.post("/", rejectUnauthenticated, (req, res) => {
   //   console.log("action.payload is", req.body.date[1]);
 
