@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import Calender from "./DatePicker";
 import { useSelector, useDispatch } from "react-redux";
 import "./AddEventForm.css";
@@ -43,6 +44,10 @@ function AddEventForm() {
     });
   dispatch({ type: 'FETCH_TAGS'})
   };
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_TAGS' });
+  }, []);
 
   const tags = useSelector(store => store.tags);
   return (
