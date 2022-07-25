@@ -22,7 +22,7 @@ export default function* rootSaga() {
     userSaga(),
     eventSaga(),
     boothsSaga(),
-    eventBooths()
+    eventBooths(),
     tagSaga(),
   ]);
 }
