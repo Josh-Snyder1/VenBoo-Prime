@@ -20,16 +20,21 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import MultiSelect from '../ReuseableComponents/MultiSelect'
 
 import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user);
+  const user = useSelector(store => store.user);
+  const tags = useSelector(store => store.tags);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER" });
+    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_EVENTS'});
+    dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
+    dispatch({ type: 'FETCH_TAGS' });
   }, [dispatch]);
 
   return (
@@ -66,6 +71,7 @@ function App() {
             path="/user"
           >
             <UserPage />
+            <MultiSelect selectionArray={tags} />
           </ProtectedRoute>
 
           <ProtectedRoute
