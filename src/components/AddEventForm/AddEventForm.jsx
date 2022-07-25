@@ -6,8 +6,7 @@ import "./AddEventForm.css";
 function AddEventForm() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const date = useSelector((store) => store.date);
-
+  const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
   const [address, setLocation] = useState("");
   const [venue, setVenue] = useState("");
@@ -38,7 +37,7 @@ function AddEventForm() {
         state: state,
         description: description,
         tag: tag,
-        date: date,
+        date: dateRange,
       },
     });
   };
@@ -68,7 +67,7 @@ function AddEventForm() {
         />
         <br />
         <label htmlFor="datepicker">StartDate - EndDate</label>
-        <Calender />
+        <Calender setDateRange={setDateRange} dateRange={dateRange} />
         <br />
         <label htmlFor="venue">Venue</label>
         <br />
