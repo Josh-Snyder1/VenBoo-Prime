@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
 import events from './events.reducer';
 import booths from './booths.reducer';
 import tags from './tags.reducer';
