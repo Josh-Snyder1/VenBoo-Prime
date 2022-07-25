@@ -20,7 +20,7 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import MultiSelect from '../ReuseableComponents/MultiSelect'
+import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
 
 import "./App.css";
 
@@ -33,7 +33,6 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_EVENTS'});
     dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
-    dispatch({ type: 'FETCH_TAGS' });
   }, [dispatch]);
 
   return (
@@ -80,6 +79,14 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/manageTags"
+          >
+            <ManageTagsForm />
+          </ProtectedRoute>
+
           <Route exact path="/login">
             {user.id ? (
               // If the user is already logged in,
@@ -101,6 +108,7 @@ function App() {
               <RegisterPage />
             )}
           </Route>
+          
 
           {/* <Route
             exact
