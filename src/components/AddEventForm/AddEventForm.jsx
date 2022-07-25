@@ -1,28 +1,46 @@
 import React, { useState } from "react";
 import Calender from "./DatePicker";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./AddEventForm.css";
 
 function AddEventForm() {
   const dispatch = useDispatch();
-  const [Eventname, setEventName] = useState("");
-  const [Location, setLocation] = useState("");
-  const [Venue, setVenue] = useState("");
-  const [City, setCity] = useState("");
-  const [State, setState] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Tag, setTag] = useState("");
+  const user = useSelector((store) => store.user);
+  const date = useSelector((store) => store.date);
+
+  const [eventName, setEventName] = useState("");
+  const [location, setLocation] = useState("");
+  const [venue, setVenue] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [description, setDescription] = useState("");
+  const [tag, setTag] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hello");
-    console.log("Eventname", Eventname);
-    console.log("Location", Location);
-    console.log("Venue", Venue);
-    console.log("City", City);
-    console.log("State", State);
-    console.log("Description", Description);
-    console.log("Tag", Tag);
+    console.log("Eventname", eventName);
+    console.log("Location", location);
+    console.log("Venue", venue);
+    console.log("City", city);
+    console.log("State", state);
+    console.log("Description", description);
+    console.log("Tag", tag);
+
+    dispatch({
+      type: "ADD_NEW_EVENT",
+      payload: {
+        user: user.id,
+        name: eventName,
+        location: location,
+        venue: venue,
+        city: city,
+        state: state,
+        description: description,
+        tag: tag,
+        date: date,
+      },
+    });
   };
   return (
     <>
