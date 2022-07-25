@@ -32,6 +32,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_EVENTS'});
     dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
+    dispatch({ type: 'FETCH_DETAILS'});
   }, [dispatch]);
 
   return (

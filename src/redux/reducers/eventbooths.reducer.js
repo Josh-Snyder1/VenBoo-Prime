@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const allEventBooths = (state = [], action) => {
+const eventbooths = (state = [], action) => {
     switch (action.type) {
         case 'SET_EVENT_BOOTHS':
             return action.payload;
@@ -9,4 +9,4 @@ const allEventBooths = (state = [], action) => {
     }
 }
 
-export default allEventBooths;
+export default eventbooths;

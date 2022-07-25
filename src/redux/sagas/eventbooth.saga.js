@@ -14,6 +14,7 @@ function* eventDetails() {
         console.error('error in events saga', err)
     }
 }
+
 function* eventBooths() {
     yield takeLatest('FETCH_DETAILS', eventDetails);
   }
