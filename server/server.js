@@ -8,7 +8,7 @@ const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
 const userRouter = require("./routes/user.router");
-const eventsRouter = require("./routes/events.router");
+const eventsRouter = require("./routes/event.router");
 const boothsRouter = require("./routes/booths.router");
 const tagsRouter = require("./routes/tags.router");
 
