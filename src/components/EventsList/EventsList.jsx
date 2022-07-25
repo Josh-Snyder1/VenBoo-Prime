@@ -16,9 +16,32 @@ function EventsList() {
         return (
             <>
                 <button onClick={() => setViewEvents('')}>Upcoming</button>
+                <button onClick={() => setViewEvents('pending')}>Pending Verification</button>
                 <button onClick={() => setViewEvents('past')}>Past</button>
 
+
                 {allEvents.map((itemEvent) => {
+                    if(
+                        itemEvent.user_id === user.id
+                        &&
+                        viewEvents === 'pending'
+                        &&
+                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) > Number(todayDate)
+                        // &&
+                        // itemEvent.verified === false
+                    ){
+                        return (
+                            <div key={itemEvent.id}>
+                                <br/>
+                                <h4>{itemEvent.name}</h4>
+                                <ul>
+                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
+                                    <li>{itemEvent.description}</li>
+                                    <li>Pending Event</li>
+                                </ul>
+                            </div>
+                        )
+                    }
                     if(
                         itemEvent.user_id === user.id
                         &&
@@ -44,6 +67,8 @@ function EventsList() {
                         viewEvents === ''
                         &&
                         Number(moment(itemEvent.start_date).format('YYYYMMDD')) > Number(todayDate)
+                        // &&
+                        // itemEvent.verified === true
                     ){
                         return (
                             <div key={itemEvent.id}>
