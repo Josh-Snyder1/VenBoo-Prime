@@ -9,7 +9,7 @@ function AddEventForm() {
   const date = useSelector((store) => store.date);
 
   const [eventName, setEventName] = useState("");
-  const [location, setLocation] = useState("");
+  const [address, setLocation] = useState("");
   const [venue, setVenue] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -20,7 +20,7 @@ function AddEventForm() {
     e.preventDefault();
     console.log("hello");
     console.log("Eventname", eventName);
-    console.log("Location", location);
+    console.log("address", address);
     console.log("Venue", venue);
     console.log("City", city);
     console.log("State", state);
@@ -32,7 +32,7 @@ function AddEventForm() {
       payload: {
         user: user.id,
         name: eventName,
-        location: location,
+        address: address,
         venue: venue,
         city: city,
         state: state,
