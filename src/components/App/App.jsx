@@ -13,6 +13,7 @@ import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+
 import AboutPage from "../AboutPage/AboutPage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import UserPage from "../UserPage/UserPage";
@@ -20,7 +21,11 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+
 import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
+import MultiSelect from '../ReuseableComponents/MultiSelect'
+
+
 
 import "./App.css";
 
@@ -33,6 +38,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_EVENTS'});
     dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
+
   }, [dispatch]);
 
   return (
@@ -69,6 +75,14 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/boothdetails"
+          >
+            <EventDetails />
           </ProtectedRoute>
 
           <ProtectedRoute
