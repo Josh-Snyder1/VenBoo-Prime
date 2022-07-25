@@ -1,9 +1,11 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
-import events from './events.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
+import events from './event.reducer';
 import booths from './booths.reducer';
 import eventbooths from './eventbooths.reducer';
+import tags from './tags.reducer';
+
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   events,
   booths,
   eventbooths,
+  tags
+
 });
 
 export default rootReducer;

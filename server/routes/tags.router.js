@@ -10,12 +10,12 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
 
-    const sqlQuery = `SELECT * FROM "events"`
-    console.log('in route.get for events')
+    const sqlQuery = `SELECT * FROM "tags"`
+    console.log('in route.get for tags')
     pool.query( sqlQuery ).then((result) => {
         res.send(result.rows);
     }).catch((error) => {
-        console.log('in get events router', error)
+        console.log('in get tags router', error)
         res.sendStatus(500);
     });
 });
