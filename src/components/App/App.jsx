@@ -14,26 +14,27 @@ import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
+import HostProfilePage from "../HostProfilePage/HostProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import MultiSelect from '../ReuseableComponents/MultiSelect'
+import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_EVENTS'});
-    dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
-    dispatch({ type: 'FETCH_TAGS' });
+    dispatch({ type: "FETCH_USER" });
+    dispatch({ type: "FETCH_EVENTS" });
+    dispatch({ type: "FETCH_VENDOR_BOOTHS" });
+    dispatch({ type: "FETCH_TAGS" });
   }, [dispatch]);
 
   return (
@@ -60,6 +61,15 @@ function App() {
           >
             <AddEventForm />
           </Route>
+
+          <Route
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/hostProfilePage"
+          >
+            <HostProfilePage />
+          </Route>
+
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
