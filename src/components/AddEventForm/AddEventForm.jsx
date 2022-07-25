@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "./AddEventForm.css";
 import Calender from "./DatePicker";
+import { useDispatch } from "react-redux";
+import "./AddEventForm.css";
 
 function AddEventForm() {
+  const dispatch = useDispatch();
   const [Eventname, setEventName] = useState("");
   const [Location, setLocation] = useState("");
   const [Venue, setVenue] = useState("");
