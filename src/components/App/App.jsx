@@ -28,7 +28,6 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
-  const tags = useSelector(store => store.tags);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -71,7 +70,6 @@ function App() {
             path="/user"
           >
             <UserPage />
-            <MultiSelect selectionArray={tags} />
           </ProtectedRoute>
 
           <ProtectedRoute

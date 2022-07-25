@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Calender from "./DatePicker";
 import { useSelector, useDispatch } from "react-redux";
 import "./AddEventForm.css";
+import MultiSelect from '../ReuseableComponents/MultiSelect'
 
 function AddEventForm() {
   const dispatch = useDispatch();
@@ -40,7 +41,10 @@ function AddEventForm() {
         date: dateRange,
       },
     });
+  dispatch({ type: 'FETCH_TAGS'})
   };
+
+  const tags = useSelector(store => store.tags);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -120,22 +124,8 @@ function AddEventForm() {
         <label htmlFor="tags">Tags</label>
         <br />
 
-        <select
-          required
-          name="tags"
-          id="Tags"
-          onChange={(e) => {
-            setTag(e.target.value);
-          }}
-        >
-          <option value="">Select</option>
-          <option>Showcase</option>
-          <option>Antiques</option>
-          <option>Food Vendor</option>
-          <option>Content Creator</option>
-          <option>Craft Maker</option>
-          <option>Marketer</option>
-        </select>
+        <MultiSelect selectionArray={tags} />
+
         <button className="submit">Create</button>
       </form>
     </>
