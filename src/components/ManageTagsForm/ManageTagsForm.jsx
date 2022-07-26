@@ -1,31 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import TagList from './TagList'
 
 function ManageTagsForm() {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
-  const [eventName, setEventName] = useState("");
-  const [address, setLocation] = useState("");
-
+  const [newTag, setNewTag] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  dispatch({ type: 'FETCH_TAGS'})
+  dispatch({ type: 'ADD_TAG', payload: {newTag}})
+  e.target.reset();
   };
 
+  useEffect(() => {
+    dispatch({ type: 'FETCH_TAGS' });
+  }, []);
+
   const tags = useSelector(store => store.tags);
+
+
   return (
+    tags.length > 0 &&
     <>
+      <TagList />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="eventForm">Event Name</label>
+        <label htmlFor="eventForm">New Tag: </label>
         <br />
         <input
           type="text"
           placeholder="Event Name"
           onChange={(e) => {
-            setEventName(e.target.value);
+            setNewTag(e.target.value);
           }}
           required
         />
