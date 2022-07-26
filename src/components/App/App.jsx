@@ -18,13 +18,11 @@ import HostProfilePage from "../HostProfilePage/HostProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
 import Dashboard from "../Dashboard/Dashboard";
-import UserPage from "../UserPage/UserPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
 import MultiSelect from '../ReuseableComponents/MultiSelect'
-import EventDetails from "../EventDetails/EventDetails";
 
 import "./App.css";
 
