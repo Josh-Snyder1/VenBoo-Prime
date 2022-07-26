@@ -13,6 +13,7 @@ import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+
 import AboutPage from "../AboutPage/AboutPage";
 import HostProfilePage from "../HostProfilePage/HostProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
@@ -22,6 +23,12 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
+import EventDetails from "../EventDetails/EventDetails";
+import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
+import MultiSelect from '../ReuseableComponents/MultiSelect'
+
+
+
 
 import "./App.css";
 
@@ -31,6 +38,7 @@ function App() {
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
+
     dispatch({ type: "FETCH_USER" });
     dispatch({ type: "FETCH_EVENTS" });
     dispatch({ type: "FETCH_VENDOR_BOOTHS" });
@@ -83,11 +91,27 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/boothdetails"
+          >
+            <EventDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/manageTags"
+          >
+            <ManageTagsForm />
           </ProtectedRoute>
 
           <Route exact path="/login">
@@ -111,6 +135,7 @@ function App() {
               <RegisterPage />
             )}
           </Route>
+          
 
           {/* <Route
             exact

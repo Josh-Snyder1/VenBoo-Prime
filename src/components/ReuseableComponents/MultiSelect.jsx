@@ -31,7 +31,6 @@ export default function MultipleSelectCheckmarks({selectionArray}) {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-  console.log('in MultiSelect', selectionArray)
 
   return (
     selectionArray.length > 0 &&
