@@ -284,10 +284,14 @@ function EventsList() {
                         )
                     })}
                 </Stack>
-                
             </Grid>
         )
     }
-
+    else {
+        return (
+            <>
+            </>
+        )
+    }
 }
 export default EventsList;
