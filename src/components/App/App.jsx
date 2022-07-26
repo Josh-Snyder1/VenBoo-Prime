@@ -21,6 +21,7 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import EventDetails from "../EventDetails/EventDetails";
 
 import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
 import MultiSelect from '../ReuseableComponents/MultiSelect'
