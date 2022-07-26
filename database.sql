@@ -87,7 +87,8 @@ CREATE TABLE "events" (
 	"venue_id" INTEGER REFERENCES "venues",
 	"description" TEXT,
 	"start_date" DATE NOT NULL,
-	"end_date" DATE NOT NULL
+	"end_date" DATE NOT NULL,
+    "verified" BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 
