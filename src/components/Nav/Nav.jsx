@@ -37,6 +37,10 @@ function Nav() {
               null
             }
 
+            <Link className="navLink" to="/HostProfilePage">
+              Profile
+            </Link>
+
             <LogOutButton className="navLink" />
           </>
         )}
