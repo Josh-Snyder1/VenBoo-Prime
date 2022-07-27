@@ -1,4 +1,5 @@
 import { all } from "redux-saga/effects";
+import boothApplcationsSaga from "./boothApplications.saga";
 import loginSaga from "./login.saga";
 import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
@@ -17,6 +18,7 @@ import tagSaga from './tags.saga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
+    boothApplcationsSaga(), // SAGA to take in the current event's vendor application list
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
