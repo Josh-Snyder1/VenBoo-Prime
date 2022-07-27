@@ -24,6 +24,7 @@ import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
 import MultiSelect from '../ReuseableComponents/MultiSelect'
 
+
 import "./App.css";
 
 function App() {
@@ -33,9 +34,9 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    dispatch({ type: "FETCH_EVENTS" });
-    dispatch({ type: "FETCH_VENDOR_BOOTHS" });
-    dispatch({ type: "FETCH_TAGS" });
+    // dispatch({ type: "FETCH_EVENTS" });
+    // dispatch({ type: "FETCH_VENDOR_BOOTHS" });
+    // dispatch({ type: "FETCH_TAGS" });
   }, [dispatch]);
 
   return (

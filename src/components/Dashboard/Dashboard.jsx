@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 // Import the used components
 import EventsList from "../EventsList/EventsList";
+import EventsListComponent from "../EventsList/EventsListComponent"
 
 // Component that handles the dashboard display
 // based on the user-type that logged in
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
       <br />
       
-      <EventsList />
+      <EventsListComponent />
     </section>
   )
 }

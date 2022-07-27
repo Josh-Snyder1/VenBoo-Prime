@@ -19,6 +19,26 @@ function* fetchUser() {
     // with an id and email set the client-side user object to let
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
+
+    // Set the REDUX store based on the user-type
+    switch (response.data.type) {
+
+      case "host":
+        yield put({ type: "SET_HOST_USER", payload: response.data });
+        break;
+
+      case "vendor":
+        yield put({ type: "SET_VENDOR_USER", payload: response.data});
+        break;
+
+      case "admin":
+        yield put({ type: "SET_ADMIN_USER", payload: response.data})
+        break;
+
+      default:
+        break
+    }
+
   } catch (error) {
     console.log('User get request failed', error);
   }

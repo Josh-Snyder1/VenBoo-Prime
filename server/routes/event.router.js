@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
 
+  console.log(req.user.id, "IS ID >>>>>>>>>>>>>>>>.")
+
   const sqlQuery = `SELECT * FROM "events"`
   console.log('in route.get for events')
   pool.query( sqlQuery ).then((result) => {
@@ -79,4 +81,48 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   res.sendStatus(200);
 });
 
+
+// Router call that returns a list of all the booth requests
+// made by vendors for a specific event. Returns a list of all
+// applications: approved, pending, rejected
+router.get("/:id/booth-applications", (req, res) => {
+
+  // Set the SQL query
+  const sqlQuery = `
+      SELECT
+          "events".id as "event_id",
+          "booths".id as "booth_id",
+          "booths".type,
+          "booths".dimensions,
+          "booths".quantity,
+          "booths".description,
+          "booths".cost,
+          "booth_applications".approved_by_host,
+          "booth_applications".notes,
+          "booth_applications".requested_on,
+          "user".id as "vendor_id",
+          "user".email,
+          "user".business_name,
+          "user".description
+      FROM "events"
+      JOIN "booths"
+          ON "events".id = "booths".event_id
+      JOIN "booth_applications"
+          ON "booths".id = "booth_applications".booth_id
+      JOIN "user"
+          ON "booth_applications".user_id = "user".id
+      WHERE "events".user_id = $1;
+  `
+
+  // Get the event ID from the URL params
+  const sqlParams = [req.params.id]
+
+  // Pool the DB to get the results
+  pool.query(sqlQuery, sqlParams)
+  .then(result => res.send(result.rows))
+  .catch(err => `Error in booth-applications with ${err}`)
+})
+
+
+// Make the router routes accessible
 module.exports = router;
