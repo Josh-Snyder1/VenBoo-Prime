@@ -30,5 +30,4 @@ export default function Dashboard() {
         <br />
         <EventsList />
       </section>
-    )
-  }
+    )}}
