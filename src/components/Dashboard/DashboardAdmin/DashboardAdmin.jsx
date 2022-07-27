@@ -71,7 +71,7 @@ function DashboardAdmin() {
               padding: '1em'
             }}
           >
-            <h3>Income > Week:</h3>
+            <h3>Income this Week:</h3>
             <p>#</p>
           </Card>
           <Card
