@@ -155,11 +155,12 @@ VALUES
 
 INSERT INTO "booths" (event_id, type, dimensions, quantity, description, cost)
 VALUES
-(5, 'small', '5x5', 1, '1 table and 2 chairs', 200), (7, 'premium', '20x25', 2, '1 tent, 4 tables, and 8 chairs', 1200);
+(5, 'small', '5x5', 1, '1 table and 2 chairs', 200), (7, 'premium', '20x25', 2, '1 tent, 4 tables, and 8 chairs', 1200),
+(8, 'large', '18x18', 4, 'mega tables', 2000);
 
 INSERT INTO "booth_applications" (booth_id, user_id)
 VALUES
-(1, 2), (2, 2);
+(3, 2, true), (4, 2), (5, 2, true);
 
 SELECT
 	events.name,
