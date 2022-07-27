@@ -64,6 +64,16 @@ function AddEventForm() {
   // LOCAL STATE
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [title, setTitle] = useState("");
+  const [BuisnessName, setBuisnessName] = useState("");
+  const [description, setdescription] = useState("");
+  // ADDRESS
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [phone, setTelephone] = useState();
+  // SOCIAL MEDIA
 
   // ON SUBMIT
   const handleSubmit = (e) => {
@@ -94,31 +104,80 @@ function AddEventForm() {
             required
           />
           <InputLabel>Title</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            required
+          />
           <MultiSelect selectionArray={tags} />
+
           <InputLabel>Buisness Name </InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setBuisnessName(e.target.value);
+            }}
+            required
+          />
           <InputLabel>Description</InputLabel>
           <TextField
             sx={{ width: "320px" }}
             id="description"
             multiline
             rows={6}
+            onChange={(e) => {
+              setdescription(e.target.value);
+            }}
+            required
           />
         </div>
+
         <div id="address">
           <h2 className="formHeader">Address</h2>
           <InputLabel>Address</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
+            required
+          />
           <InputLabel>City</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            required
+          />
           <InputLabel>State</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setState(e.target.value);
+            }}
+            required
+          />
           <InputLabel>Zip Code</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setZip(e.target.value);
+            }}
+            required
+          />
           <InputLabel>Phone Number</InputLabel>
-          <CustomInput type="tel" />
+          <CustomInput
+            type="tel"
+            onChange={(e) => {
+              setTelephone(e.target.value);
+            }}
+            required
+          />
         </div>
+
         <div id="socialMedia">
           <h2 className="formHeader">Social Media</h2>
           <InputLabel>Website</InputLabel>
