@@ -22,6 +22,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from '../ReuseableComponents/MultiSelect'
+import EventDetails from "../EventDetails/EventDetails";
 
 
 import "./App.css";
@@ -36,6 +37,7 @@ function App() {
     dispatch({ type: 'FETCH_EVENTS'});
     dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
     dispatch({ type: 'FETCH_DETAILS'});
+    dispatch({ type: 'FETCH_TAGS'});
   }, [dispatch]);
 
   return (

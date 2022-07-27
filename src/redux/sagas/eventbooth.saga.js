@@ -15,7 +15,22 @@ function* eventDetails() {
     }
 }
 
+function* deleteBooth(action) {
+    try {
+      const response = yield axios({
+        method: "DELETE",
+        url: `/api/eventbooths/${action.payload}`,
+      });
+      yield put({
+        type: 'FETCH_DETAILS',
+      });
+    } catch {
+      console.log("ERROR/DELETE BOOTH");
+    }
+  }
+
 function* eventBooths() {
     yield takeLatest('FETCH_DETAILS', eventDetails);
+    yield takeLatest('DELETE_BOOTH', deleteBooth);
   }
 export default eventBooths;
