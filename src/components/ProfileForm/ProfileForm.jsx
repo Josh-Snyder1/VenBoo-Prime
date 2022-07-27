@@ -74,6 +74,10 @@ function AddEventForm() {
   const [zip, setZip] = useState("");
   const [phone, setTelephone] = useState();
   // SOCIAL MEDIA
+  const [website, setWebsite] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [etsy, setEtsy] = useState("");
 
   // ON SUBMIT
   const handleSubmit = (e) => {
@@ -181,13 +185,37 @@ function AddEventForm() {
         <div id="socialMedia">
           <h2 className="formHeader">Social Media</h2>
           <InputLabel>Website</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setWebsite(e.target.value);
+            }}
+            required
+          />
           <InputLabel>LinkedIn</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setLinkedIn(e.target.value);
+            }}
+            required
+          />
           <InputLabel>Facebook</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setFacebook(e.target.value);
+            }}
+            required
+          />
           <InputLabel>Etsy</InputLabel>
-          <CustomInput type="text" />
+          <CustomInput
+            type="text"
+            onChange={(e) => {
+              setEtsy(e.target.value);
+            }}
+            required
+          />
         </div>
         <button className="submit">Create</button>
       </form>
