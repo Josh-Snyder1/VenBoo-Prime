@@ -4,9 +4,8 @@ import MultiSelect from "../ReuseableComponents/MultiSelect";
 import InputUnstyled from "@mui/base/InputUnstyled";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-
 import { styled } from "@mui/system";
-
+import "./ProfileForm.css";
 function AddEventForm() {
   const tags = useSelector((store) => store.tags);
   const handleSubmit = (e) => {
@@ -72,7 +71,7 @@ function AddEventForm() {
     <>
       <form onSubmit={handleSubmit}>
         <div id="profileInfo">
-          <h2>Profile Info</h2>
+          <h2 className="formHeader">Profile Info</h2>
 
           <InputLabel>First Name</InputLabel>
           <CustomInput type="text" />
@@ -98,7 +97,7 @@ function AddEventForm() {
         </div>
 
         <div id="address">
-          <h2>Address</h2>
+          <h2 className="formHeader">Address</h2>
 
           <InputLabel>Address</InputLabel>
           <CustomInput type="text" />
@@ -117,7 +116,7 @@ function AddEventForm() {
         </div>
 
         <div id="socialMedia">
-          <h2>Social Media</h2>
+          <h2 className="formHeader">Social Media</h2>
 
           <InputLabel>Website</InputLabel>
           <CustomInput type="text" />

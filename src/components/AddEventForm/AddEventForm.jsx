@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import Calender from "./DatePicker";
 import { useSelector, useDispatch } from "react-redux";
 import "./AddEventForm.css";
-import MultiSelect from '../ReuseableComponents/MultiSelect'
+import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 function AddEventForm() {
   const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user);
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
@@ -42,14 +43,10 @@ function AddEventForm() {
         date: dateRange,
       },
     });
-  dispatch({ type: 'FETCH_TAGS'})
   };
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_TAGS' });
-  }, []);
+  const tags = useSelector((store) => store.tags);
 
-  const tags = useSelector(store => store.tags);
   return (
     <>
       <form onSubmit={handleSubmit}>
