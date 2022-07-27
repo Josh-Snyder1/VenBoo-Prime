@@ -22,9 +22,8 @@ import UserPage from "../UserPage/UserPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import WelcomePage from "../WelcomePage/WelcomePage";
-import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
-import MultiSelect from '../ReuseableComponents/MultiSelect'
-import EventDetails from "../EventDetails/EventDetails";
+import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
+import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 import "./App.css";
 
