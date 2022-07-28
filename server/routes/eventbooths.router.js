@@ -34,14 +34,14 @@ JOIN    "user" ON "user".id = booth_applications.user_id;
 router.delete('/:id', (req, res)=> {
     console.log('booth deleted', req.params.id);
     const sqlQuery = `
-    DELETE FROM "booths"
-    WHERE "id" =$1;
+    DELETE FROM booths
+    WHERE id =$1;
     `;
-    const sqlValues = [req.params.id];
+    const sqlParams = [req.params.id];
     pool
-    .query(sqlQuery, sqlValues)
-      .then( result => {
-        res.send(result.rows);
+    .query(sqlQuery, sqlParams)
+    .then( dbRes => {
+        res.sendStatus(201);
       })
       .catch(err => {
        console.error('error in delete', err)
