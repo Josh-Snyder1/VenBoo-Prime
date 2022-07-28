@@ -225,5 +225,3 @@ LEFT JOIN "tags"
 	ON "tags".id = "event_tags".tag_id
 GROUP BY "events".id
 ORDER BY "events".name ASC;
-
---note

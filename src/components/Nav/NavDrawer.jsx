@@ -109,14 +109,14 @@ export default function NavDrawer() {
     const links = [
         {
             text: 'Dashboard',
-            link: '/dashboard',
+            link: '/',
             userType: ['host', 'vendor'],
             upperLowerNav: 'upper',
             icon: <CalendarMonthIcon />
         },
         {
             text: 'Dashboard',
-            link: '/dashboard',
+            link: '/',
             userType: ['admin'],
             upperLowerNav: 'upper',
             icon: <DashboardIcon />
@@ -179,7 +179,7 @@ export default function NavDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" onClick={history.push('/')}>
             Venboo
           </Typography>
         </Toolbar>
