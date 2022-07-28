@@ -59,8 +59,11 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 
 /////////////////////// VENDOR && HOST PROFILE FORM ////////////////////////////
 function AddEventForm() {
+  const dispatch = useDispatch();
   // REDUX STORE
   const tags = useSelector((store) => store.tags);
+  const user = useSelector((store) => store.user);
+
   // LOCAL STATE
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -72,7 +75,7 @@ function AddEventForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
-  const [phone, setTelephone] = useState();
+  const [phone, setTelephone] = useState("");
   // SOCIAL MEDIA
   const [website, setWebsite] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
@@ -82,8 +85,27 @@ function AddEventForm() {
   // ON SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hello");
-    console.log("First Name", name);
+    dispatch({
+      type: "UPDATE_PROFILE",
+      payload: {
+        id: user.id,
+        name,
+        lastName,
+        title,
+        BuisnessName,
+        description,
+        address,
+        city,
+        state,
+        zip,
+        phone,
+        website,
+        linkedIn,
+        facebook,
+        etsy,
+      },
+    });
+    e.target.reset();
   };
 
   return (
