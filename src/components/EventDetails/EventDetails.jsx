@@ -12,10 +12,13 @@ function EventDetails({EventDetails}) {
     const handleDelete = () => {
         dispatch({
           type: "DELETE_BOOTH",
-          payload: EventDetails.id,
+          payload: Response.data,
         });
-        console.log("-------> delete booths ", EventDetails.id)
+        console.log("-------> delete booths ", Response.data)
       };
+    
+    // edit put booth
+
 
 console.log('event booth', eventBoothDetails);
 // console.log('tags event booth', tagsBooth);
@@ -24,7 +27,7 @@ console.log('event booth', eventBoothDetails);
       <h1>Available Booths</h1>
       <div>
       <button>Add Booth Type</button>
-        <table className='booths'>
+        <table className='booths info'>
             
             <thead>
                 <tr>
