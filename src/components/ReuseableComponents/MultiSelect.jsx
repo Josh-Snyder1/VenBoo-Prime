@@ -19,21 +19,29 @@ const MenuProps = {
 };
 
 
-export default function MultipleSelectCheckmarks({selectionArray}) {
-  const [personName, setPersonName] = React.useState([]);
 
+export default function MultipleSelectCheckmarks({props}) {
+  const [tagName, setTagName] = React.useState([]);
+
+  const tagSelection = props.tagSelection;
+let value;
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setTagName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    tagSelection(value)
   };
 
+  let skills = ['communication', 'teamwork']
+
+  // console.log('in multiselect', tagSelection)
+
   return (
-    selectionArray.length > 0 &&
+    props.tags.length > 0 &&
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
@@ -41,15 +49,15 @@ export default function MultipleSelectCheckmarks({selectionArray}) {
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
-          value={personName}
+          value={tagName}
           onChange={handleChange}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {selectionArray.map((name) => (
+          {props.tags.map((name) => (
             <MenuItem key={name.name} value={name.name}>
-              <Checkbox checked={personName.indexOf(name.name) > -1} />
+              <Checkbox checked={tagName.indexOf(name.name) > -1} />
               <ListItemText primary={name.name} />
             </MenuItem>
           ))}
