@@ -122,7 +122,7 @@ function AddEventForm() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>Last Name </InputLabel>
           <CustomInput
@@ -130,7 +130,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>Title</InputLabel>
           <CustomInput
@@ -138,7 +138,7 @@ function AddEventForm() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            // required
+            required
           />
           <MultiSelect selectionArray={tags} />
 
@@ -148,7 +148,7 @@ function AddEventForm() {
             onChange={(e) => {
               setBuisnessName(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>Description</InputLabel>
           <TextField
@@ -159,7 +159,7 @@ function AddEventForm() {
             onChange={(e) => {
               setdescription(e.target.value);
             }}
-            // required
+            required
           />
         </div>
 
@@ -269,7 +269,7 @@ function AddEventForm() {
             onChange={(e) => {
               setWebsite(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>LinkedIn</InputLabel>
           <CustomInput
@@ -277,7 +277,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLinkedIn(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>Facebook</InputLabel>
           <CustomInput
@@ -285,7 +285,7 @@ function AddEventForm() {
             onChange={(e) => {
               setFacebook(e.target.value);
             }}
-            // required
+            required
           />
           <InputLabel>Etsy</InputLabel>
           <CustomInput
@@ -293,7 +293,7 @@ function AddEventForm() {
             onChange={(e) => {
               setEtsy(e.target.value);
             }}
-            // required
+            required
           />
         </div>
         <button className="submit">Create</button>
