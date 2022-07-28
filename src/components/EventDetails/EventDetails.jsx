@@ -1,13 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 function EventDetails() {
 
     const eventBoothDetails = useSelector((store) => store.eventbooths);
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const { eventId } = useParams();
+    console.log(eventId)
 
-console.log('event booth', eventBoothDetails)
+
+    console.log('event booth', eventBoothDetails)
+
+    dispatch({
+        type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+        payload: {
+            id: eventId,
+        }
+    })
+
+
     return (
         <>
       <h1>Available Booths</h1>
