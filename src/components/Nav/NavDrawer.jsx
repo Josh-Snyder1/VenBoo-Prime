@@ -99,6 +99,7 @@ export default function NavDrawer() {
   //when a link is clicked on the side nav bar use history.push to associated link
   //close the drawer
   const handleClick = (link) => {
+    console.log('in handleClick',link)
       history.push(link);
       setOpen(false);
   }
@@ -179,7 +180,7 @@ export default function NavDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" onClick={history.push('/')}>
+          <Typography variant="h6" noWrap component="div" >
             Venboo
           </Typography>
         </Toolbar>
