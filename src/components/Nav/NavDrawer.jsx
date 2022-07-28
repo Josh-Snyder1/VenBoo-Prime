@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 
 const drawerWidth = 240;
 
@@ -82,8 +84,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function NavDrawer() {
 
+  useEffect(() => {
+  }, []);
+
   const theme = useTheme();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
   const [open, setOpen] = React.useState(false);
@@ -220,12 +226,34 @@ export default function NavDrawer() {
         </List>
         <Divider />
         <List>
-            <ListItem>
-                <ListItemButton>
-                    <LogoutIcon />
-                <LogOutButton className="navLink" />
-                </ListItemButton>
-        </ListItem>
+            {!user.type ?
+            <ListItem key='login' disablePadding onClick={() => {
+              history.push("/login")
+              setOpen(false);
+              }}
+            >
+            <ListItemButton>
+              <ListItemIcon>
+                <LoginIcon />
+              </ListItemIcon >
+              <ListItemText primary='Login' />
+            </ListItemButton>
+            </ListItem>
+            :
+            <ListItem key='logout' disablePadding onClick={() => {
+              dispatch({ type: 'LOGOUT' })
+              history.push("/")
+              setOpen(false);
+              }}
+            >
+            <ListItemButton>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon >
+              <ListItemText primary='Logout' />
+            </ListItemButton>
+            </ListItem>
+            }
         </List>
 
       </Drawer>
