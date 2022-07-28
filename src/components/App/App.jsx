@@ -8,7 +8,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Nav from "../Nav/Nav";
+import NavDrawer from '../Nav/NavDrawer'
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -23,8 +23,9 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
-import MultiSelect from '../ReuseableComponents/MultiSelect'
-import EventDetails from "../EventDetails/EventDetails";
+import MultiSelect from '../ReuseableComponents/MultiSelect';
+
+
 
 import "./App.css";
 
@@ -43,7 +44,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <NavDrawer />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
