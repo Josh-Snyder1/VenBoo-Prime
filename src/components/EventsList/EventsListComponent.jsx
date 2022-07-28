@@ -13,6 +13,10 @@ function EventsList() {
   switch (user.type) {
 
     case "vendor":
+      dispatchEvent({
+        type: "VENDOR_USER",
+        payload: user,
+      })
       // vendorBooths = useSelector((store) => store.booths);
       // allEvents = useSelector((store) => store.events);
       break;

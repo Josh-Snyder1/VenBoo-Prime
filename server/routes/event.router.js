@@ -1,3 +1,4 @@
+// Import the core libraries and functions
 const express = require("express");
 const {
   rejectUnauthenticated,
@@ -5,21 +6,83 @@ const {
 const encryptLib = require("../modules/encryption");
 const pool = require("../modules/pool");
 
+// Set the router and make these local routes available on the server
 const router = express.Router();
 
+
+// Main route to get the event information.
+// Uses logic to determine the information to return based
+// on whether the user is a host, vendor, or an admin
 router.get('/', rejectUnauthenticated, (req, res) => {
 
-  console.log(req.user.id, "IS ID >>>>>>>>>>>>>>>>.")
+  // Build the base SQL query
+  let sqlQuery = `
+    SELECT
+      events.id,
+      events.user_id,
+      events.description,
+      events.name,
+      events.start_date,
+      events.end_date,
+      events.venue_id,
+      events.verified,
+      json_agg(booths) AS booths
+    FROM events
+    LEFT JOIN booths
+      ON booths.event_id = events.id`
 
-  const sqlQuery = `SELECT * FROM "events"`
-  console.log('in route.get for events')
-  pool.query( sqlQuery ).then((result) => {
+  // Will need to check 
+  let sqlParams = []
+
+
+  // -------------------------------------------------
+  // Determine the logic to use based on the user-type
+  switch (req.user.type) {
+    // Host switch case
+    case "host":
+      // Set the host-specific query
+      sqlQuery = sqlQuery + `
+        WHERE events.user_id = $1
+        GROUP BY events.id;
+      `
+      sqlParams = [
+        req.user?.id,
+      ]
+      break
+
+    // Vendor & admin switch case
+    case "vendor":
+    case "admin":
+      // Set the host-specific query
+      sqlQuery = sqlQuery + `
+      GROUP BY events.id;
+      `
+      break
+
+    // Set default case for non-registered users
+    default:
+      // Only allow them to see events in the future
+      `
+      WHERE events.start_date > CURRENT_TIMESTAMP
+      GROUP BY events.id;
+      `
+      break
+  // -------------------------------------------------
+  }
+
+
+  // Create the pool query
+  pool.query( sqlQuery, sqlParams ).then((result) => {
       res.send(result.rows);
   }).catch((error) => {
-      console.log('in get events router', error)
+      console.log(`Error in get events router with ${error}`)
       res.sendStatus(500);
   });
 });
+
+
+
+
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   //   console.log("action.payload is", req.body.date[1]);
