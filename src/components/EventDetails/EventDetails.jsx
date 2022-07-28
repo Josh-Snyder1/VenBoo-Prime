@@ -9,13 +9,21 @@ function EventDetails({EventDetails}) {
     const history = useHistory();
 
     // delete booth handle
-    const handleDelete = () => {
+    // const handleDelete = () => {
+    //     dispatch({
+    //       type: "DELETE_BOOTH",
+    //       payload: Response.data,
+    //     });
+    //     console.log("-------> delete booths ", Response.data)
+    //   };
+    function deleteBooth(id) {
         dispatch({
-          type: "DELETE_BOOTH",
-          payload: Response.data,
-        });
-        console.log("-------> delete booths ", Response.data)
-      };
+            type: 'DELETE_BOOTH',
+            payload: {
+                id
+            }
+        })
+    }
     
     // edit put booth
 
@@ -76,7 +84,7 @@ console.log('event booth', eventBoothDetails);
                                 <td>{booths.tags}</td>
                                 <td>{booths.dimensions}</td>
                                 <button>✅</button>
-                                <button onClick={handleDelete}>❌</button>
+                                <button onClick={deleteBooth(booths.id)} >❌</button>
                             </tr>
                         )
                     })}
