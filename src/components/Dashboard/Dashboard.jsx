@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 // Import the used components
 import EventsList from "../EventsList/EventsList";
-import DashboardAdmin from "./DashboardAdmin/DashboardAdmin";
+import DashboardAdmin from "./DashboardViews/DashboardAdmin";
 
 // Component that handles the dashboard display
 // based on the user-type that logged in

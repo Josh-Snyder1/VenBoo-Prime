@@ -227,21 +227,33 @@ CREATE TABLE "event_tags" (
 INSERT INTO "tags" (name)
 VALUES ('Showcase'),('Antiques'),('Food Vendor'),('Marketer'),('Content Creator'),('Craft Maker');
 
+INSERT INTO "addresses" ("address", "address_2", "city", "state", "zipcode")
+VALUES ('123 Street Ave', '321 Drive Way', 'Saint Paul', 'MN', 55415);
+
+INSERT INTO "user" ("email", "password", "type", "first_name", "last_name", "title", "business_name", "description","address_id", "phone","main_url", "facebook_url", "etsy_url", "linkedin_url")
+VALUES
+('admin1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Colin', 'Lastname', 'CEO', 'Weather', 'Weather is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('vendor1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Neil', 'Lastname', 'CEO', 'Cool Store', 'Cool Store is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('vendor2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nimo', 'Lastname', 'CEO', 'TV Shows Store', 'TV SHOWS is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Lastname', 'CEO', 'Food Event', 'Food Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Lastname', 'CEO', 'River Run Event', 'River Run Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com');
+
+
 INSERT INTO "events" (user_id, name, description, start_date, end_date)
 VALUES
-(1, 'Billys Bee Bonanza', 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17'),
-(1, 'Minnesota State Fair', 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-25', '2022-09-5'),
-(1, 'Farm Fest', 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07'),
-(1, 'Comic Con', 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07');
+(4, 'Billys Bee Bonanza', 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17'),
+(4, 'Minnesota State Fair', 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-25', '2022-09-5'),
+(5, 'Farm Fest', 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07'),
+(5, 'Comic Con', 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07');
 
 INSERT INTO "booths" (event_id, type, dimensions, quantity, description, cost)
 VALUES
-(5, 'small', '5x5', 1, '1 table and 2 chairs', 200), (7, 'premium', '20x25', 2, '1 tent, 4 tables, and 8 chairs', 1200),
-(8, 'large', '18x18', 4, 'mega tables', 2000);
+(1, 'small', '5x5', 1, '1 table and 2 chairs', 200), (2, 'premium', '20x25', 2, '1 tent, 4 tables, and 8 chairs', 1200),
+(3, 'large', '18x18', 4, 'mega tables', 2000), (4, 'meduim', '6x6', 3, 'nothing', 400);
 
-INSERT INTO "booth_applications" (booth_id, user_id)
+INSERT INTO "booth_applications" (booth_id, user_id, approved_by_host)
 VALUES
-(3, 2, true), (4, 2), (5, 2, true);
+(1, 2, false), (2, 3, true), (3, 3, true), (4, 2, false);
 
 SELECT
 	events.name,
@@ -258,6 +270,7 @@ JOIN booth_applications
 JOIN events
 	ON booths.event_id = events.id
 WHERE booth_applications.user_id = 2;
+
 CREATE TABLE "events" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INTEGER REFERENCES "user",
@@ -355,3 +368,41 @@ JOIN booth_applications
 JOIN events
 	ON booths.event_id = events.id
 WHERE booth_applications.user_id = 2;
+
+
+-- Get EVENTS with a list of all their associated booths
+SELECT
+	events.id,
+	events.user_id,
+	events.description,
+	events.name,
+	events.start_date,
+	events.end_date,
+	events.venue_id,
+	events.verified,
+	json_agg(booths) AS booths
+FROM events
+LEFT JOIN booths
+	ON booths.event_id = events.id
+WHERE events.user_id = 1
+GROUP BY events.id;
+
+-- Get EVENTS with a list of all their associated TAGS
+SELECT
+	"events".id,
+	"events".user_id,
+	"events".name,
+	"events".venue_id,
+	"events".description,
+	"events".start_date,
+	"events".end_date,
+	"events".verified,
+	json_agg("tags") as tags
+FROM "events"
+LEFT JOIN "event_tags"
+	ON "events".id = "event_tags".event_id
+LEFT JOIN "tags"
+	ON "tags".id = "event_tags".tag_id
+GROUP BY "events".id
+ORDER BY "events".name ASC;
+
