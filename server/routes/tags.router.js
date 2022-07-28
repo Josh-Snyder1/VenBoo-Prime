@@ -10,7 +10,8 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
 
-    const sqlQuery = `SELECT * FROM "tags"`
+    const sqlQuery = `SELECT * FROM tags
+                        ORDER BY name ASC`
     console.log('in route.get for tags')
     pool.query( sqlQuery ).then((result) => {
         res.send(result.rows);
