@@ -26,8 +26,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       events.end_date,
       events.venue_id,
       events.verified,
-      json_agg(booths) AS booths
+      COALESCE(json_agg(
+        DISTINCT jsonb_build_object(
+          'id', booths.id,
+          'event_id', booths.event_id,
+          'type', booths.type,
+          'dimensions', booths.dimensions,
+          'quantity', booths.quantity,
+          'description', booths.description,
+          'cost', booths.cost
+        )
+      ) FILTER (WHERE booths.id IS NOT NULL), '[null]') AS booths,
+      json_agg(DISTINCT "tags".*) as tags
     FROM events
+    LEFT JOIN "event_tags"
+      ON "events".id = "event_tags".event_id
+    LEFT JOIN "tags"
+      ON "tags".id = "event_tags".tag_id
     LEFT JOIN booths
       ON booths.event_id = events.id`
 
@@ -38,6 +53,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   // -------------------------------------------------
   // Determine the logic to use based on the user-type
   switch (req.user.type) {
+
     // Host switch case
     case "host":
       // Set the host-specific query
@@ -45,9 +61,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         WHERE events.user_id = $1
         GROUP BY events.id;
       `
-      sqlParams = [
-        req.user?.id,
-      ]
+      sqlParams.push(req.user.id)
       break
 
     // Vendor & admin switch case
