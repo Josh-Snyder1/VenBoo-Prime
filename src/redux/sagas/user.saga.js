@@ -29,7 +29,12 @@ function* fetchUser() {
     // now that the session has given us a user object
     // with an id and email set the client-side user object to let
     // the client-side code know the user is logged in
-    yield put({ type: "SET_USER", payload: response.data });
+
+    yield put({ type: 'SET_USER', payload: response.data });
+
+    // Set the REDUX store field `events` based on the user-type
+    yield put({ type: "FETCH_EVENTS", payload: response.data });
+
   } catch (error) {
     console.log("User get request failed", error);
   }

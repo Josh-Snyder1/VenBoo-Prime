@@ -6,6 +6,11 @@ import "./AddEventForm.css";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 function AddEventForm() {
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_TAGS' });
+  }, []);
+
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
@@ -17,6 +22,7 @@ function AddEventForm() {
   const [state, setState] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +51,17 @@ function AddEventForm() {
     });
   };
 
-  const tags = useSelector((store) => store.tags);
+  const tags = useSelector(store => store.tags);
+
+  const tagSelection = (tagSelection) => {
+    console.log('in tagSelection', tagSelection)
+    return setTag(tagSelection);
+  }
+
+  let props = {
+    tags,
+    tagSelection
+  }
 
   return (
     <>
@@ -54,7 +70,8 @@ function AddEventForm() {
         <br />
         <input
           type="text"
-          placeholder="Event Name"
+          placeholder="Event
+           Name"
           onChange={(e) => {
             setEventName(e.target.value);
           }}
@@ -126,7 +143,7 @@ function AddEventForm() {
         <label htmlFor="tags">Tags</label>
         <br />
 
-        <MultiSelect selectionArray={tags} />
+        <MultiSelect props={props} />
 
         <button className="submit">Create</button>
       </form>

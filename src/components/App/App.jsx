@@ -8,7 +8,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Nav from "../Nav/Nav";
+import NavDrawer from '../Nav/NavDrawer'
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -18,7 +18,6 @@ import HostProfilePage from "../HostProfilePage/HostProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
 import Dashboard from "../Dashboard/Dashboard";
-import UserPage from "../UserPage/UserPage";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
@@ -35,15 +34,14 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    dispatch({ type: "FETCH_EVENTS" });
-    dispatch({ type: "FETCH_VENDOR_BOOTHS" });
-    dispatch({ type: "FETCH_TAGS" });
+    // dispatch({ type: "FETCH_VENDOR_BOOTHS" });
+    // dispatch({ type: "FETCH_TAGS" });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
-        <Nav />
+        <NavDrawer />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
@@ -68,7 +66,7 @@ function App() {
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/hostProfilePage"
+            path="/profile"
           >
             <HostProfilePage />
           </Route>
