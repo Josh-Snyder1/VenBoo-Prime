@@ -4,6 +4,9 @@ import MultiSelect from "../ReuseableComponents/MultiSelect";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import InputUnstyled from "@mui/base/InputUnstyled";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
 import { styled } from "@mui/system";
 import "./ProfileForm.css";
 
@@ -88,7 +91,7 @@ function AddEventForm() {
     dispatch({
       type: "UPDATE_PROFILE",
       payload: {
-        id: user.id,
+        user: user.id,
         name,
         lastName,
         title,
@@ -119,7 +122,7 @@ function AddEventForm() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Last Name </InputLabel>
           <CustomInput
@@ -127,7 +130,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Title</InputLabel>
           <CustomInput
@@ -135,7 +138,7 @@ function AddEventForm() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            required
+            // required
           />
           <MultiSelect selectionArray={tags} />
 
@@ -145,7 +148,7 @@ function AddEventForm() {
             onChange={(e) => {
               setBuisnessName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Description</InputLabel>
           <TextField
@@ -156,7 +159,7 @@ function AddEventForm() {
             onChange={(e) => {
               setdescription(e.target.value);
             }}
-            required
+            // required
           />
         </div>
 
@@ -179,13 +182,67 @@ function AddEventForm() {
             required
           />
           <InputLabel>State</InputLabel>
-          <CustomInput
-            type="text"
+          <Select
+            name="state"
+            id="stateselect"
             onChange={(e) => {
               setState(e.target.value);
             }}
             required
-          />
+          >
+            <MenuItem value="AL">Alabama</MenuItem>
+            <MenuItem value="AK">Alaska</MenuItem>
+            <MenuItem value="AZ">Arizona</MenuItem>
+            <MenuItem value="AR">Arkansas</MenuItem>
+            <MenuItem value="CA">California</MenuItem>
+            <MenuItem value="CO">Colorado</MenuItem>
+            <MenuItem value="CT">Connecticut</MenuItem>
+            <MenuItem value="DE">Delaware</MenuItem>
+            <MenuItem value="DC">District Of Columbia</MenuItem>
+            <MenuItem value="FL">Florida</MenuItem>
+            <MenuItem value="GA">Georgia</MenuItem>
+            <MenuItem value="HI">Hawaii</MenuItem>
+            <MenuItem value="ID">Idaho</MenuItem>
+            <MenuItem value="IL">Illinois</MenuItem>
+            <MenuItem value="IN">Indiana</MenuItem>
+            <MenuItem value="IA">Iowa</MenuItem>
+            <MenuItem value="KS">Kansas</MenuItem>
+            <MenuItem value="KY">Kentucky</MenuItem>
+            <MenuItem value="LA">Louisiana</MenuItem>
+            <MenuItem value="ME">Maine</MenuItem>
+            <MenuItem value="MD">Maryland</MenuItem>
+            <MenuItem value="MA">Massachusetts</MenuItem>
+            <MenuItem value="MI">Michigan</MenuItem>
+            <MenuItem value="MN">Minnesota</MenuItem>
+            <MenuItem value="MS">Mississippi</MenuItem>
+            <MenuItem value="MO">Missouri</MenuItem>
+            <MenuItem value="MT">Montana</MenuItem>
+            <MenuItem value="NE">Nebraska</MenuItem>
+            <MenuItem value="NV">Nevada</MenuItem>
+            <MenuItem value="NH">New Hampshire</MenuItem>
+            <MenuItem value="NJ">New Jersey</MenuItem>
+            <MenuItem value="NM">New Mexico</MenuItem>
+            <MenuItem value="NY">New York</MenuItem>
+            <MenuItem value="NC">North Carolina</MenuItem>
+            <MenuItem value="ND">North Dakota</MenuItem>
+            <MenuItem value="OH">Ohio</MenuItem>
+            <MenuItem value="OK">Oklahoma</MenuItem>
+            <MenuItem value="OR">Oregon</MenuItem>
+            <MenuItem value="PA">Pennsylvania</MenuItem>
+            <MenuItem value="RI">Rhode Island</MenuItem>
+            <MenuItem value="SC">South Carolina</MenuItem>
+            <MenuItem value="SD">South Dakota</MenuItem>
+            <MenuItem value="TN">Tennessee</MenuItem>
+            <MenuItem value="TX">Texas</MenuItem>
+            <MenuItem value="UT">Utah</MenuItem>
+            <MenuItem value="VT">Vermont</MenuItem>
+            <MenuItem value="VA">Virginia</MenuItem>
+            <MenuItem value="WA">Washington</MenuItem>
+            <MenuItem value="WV">West Virginia</MenuItem>
+            <MenuItem value="WI">Wisconsin</MenuItem>
+            <MenuItem value="WY">Wyoming</MenuItem>
+          </Select>
+
           <InputLabel>Zip Code</InputLabel>
           <CustomInput
             type="text"
@@ -212,7 +269,7 @@ function AddEventForm() {
             onChange={(e) => {
               setWebsite(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>LinkedIn</InputLabel>
           <CustomInput
@@ -220,7 +277,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLinkedIn(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Facebook</InputLabel>
           <CustomInput
@@ -228,7 +285,7 @@ function AddEventForm() {
             onChange={(e) => {
               setFacebook(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Etsy</InputLabel>
           <CustomInput
@@ -236,7 +293,7 @@ function AddEventForm() {
             onChange={(e) => {
               setEtsy(e.target.value);
             }}
-            required
+            // required
           />
         </div>
         <button className="submit">Create</button>

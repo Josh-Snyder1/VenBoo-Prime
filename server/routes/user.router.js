@@ -9,46 +9,66 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `UPDATE "user"
-  SET first_name= $2, last_name= $3, title= $4, business_name= $5, description= $6, phone= $7, main_url= $8, facebook_url= $9, etsy_url= $10, linkedin_url= $11 
-  WHERE id= $1  
-    `;
+  // const sqlQuery = `UPDATE "user"
+  // SET first_name= $2, last_name= $3, title= $4, business_name= $5, description= $6, phone= $7, main_url= $8, facebook_url= $9, etsy_url= $10, linkedin_url= $11
+  // WHERE id= $1
+  // RETURNING id
+  //   `;
 
-  const sqlParams = [
-    req.body.id,
-    req.body.name,
-    req.body.lastName,
-    req.body.title,
-    req.body.BuisnessName,
-    req.body.description,
-    req.body.phone,
-    req.body.website,
-    req.body.facebook,
-    req.body.etsy,
-    req.body.linkedIn,
+  // const sqlParams = [
+  //   req.body.user.id,
+  //   req.body.name,
+  //   req.body.lastName,
+  //   req.body.title,
+  //   req.body.BuisnessName,
+  //   req.body.description,
+  //   req.body.phone,
+  //   req.body.website,
+  //   req.body.facebook,
+  //   req.body.etsy,
+  //   req.body.linkedIn,
+  // ];
+
+  const sqlQuery1 = `UPDATE "addresses"
+  SET address= $2, city= $3, state= $4, zipcode= $5
+  WHERE id= $1
+  `;
+  const sqlParams1 = [
+    req.body.user,
+    req.body.address,
+    req.body.city,
+    req.body.state,
+    req.body.zip,
   ];
 
+  // if (dbRes.rows[0].id) {
+  //   pool
+  //     .query(sqlQuery1, [...sqlParams1, dbRes.rows[0].id])
+  //     .then((dbRes2) => {
+  //       res.sendStatus(201);
+  //     });
+  // }
+
   pool
-    .query(sqlQuery, sqlParams)
+    .query(sqlQuery1, sqlParams1)
     .then((dbRes) => {
       res.sendStatus(201);
     })
     .catch((error) => {
       console.log("error in user router", error);
     });
+
+  // pool
+  //   .query(sqlQuery, sqlParams)
+  //   .then((dbRes) => {
+  //     console.log("dbRes.rows.id >>>>>>>>>>>>", dbRes.rows[0].id);
+  //     res.sendStatus(201);
+
+  //   })
+  //   .catch((error) => {
+  //     console.log("error in user router", error);
+  //   });
 });
-// const sqlQuery1 = `
-// UPDATE "addresses"
-// SET (address = $2, city = $3, state = $4, zipcode = $5)
-// WHERE id = $1
-// `;
-// const sqlParams1 = [
-//   req.body.address.id,
-//   req.body.address,
-//   req.body.city,
-//   req.body.state,
-//   req.body.zip,
-// ];
 
 // Handles Ajax request for user information if user is authenticated
 router.get("/", rejectUnauthenticated, (req, res) => {
