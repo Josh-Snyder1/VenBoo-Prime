@@ -19,12 +19,11 @@ import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
 import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
+import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import WelcomePage from "../WelcomePage/WelcomePage";
-import ManageTagsForm from '../ManageTagsForm/ManageTagsForm';
-import MultiSelect from '../ReuseableComponents/MultiSelect';
-
-
+import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
+import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 import "./App.css";
 
@@ -56,12 +55,12 @@ function App() {
             <AboutPage />
           </Route>
 
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/addEventForm"
-          >
+          <Route exact path="/addEventForm">
             <AddEventForm />
+          </Route>
+
+          <Route exact path="/profileForm">
+            <ProfileForm />
           </Route>
 
           <Route
