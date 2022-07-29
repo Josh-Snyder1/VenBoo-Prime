@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Card, Grid, Stack, Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function EventListVendor() {
     // Stores
-    const user = useSelector((store) => store.user);
-    // const vendorBooths = useSelector((store) => store.booths);
-    const allEvents = useSelector((store) => store.events);
+    const vendorBooths = useSelector((store) => store.vendorBoothsReducer);
 
     // Today's date.
     const todayDate = moment().format('YYYYMMDD');
 
     // Local state to render items the user wants to view.
-    const [viewList, setViewList] = useState('');
+    const [viewList, setViewList] = useState('approved');
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: "FETCH_VENDOR_BOOTHS" });
+    },[])
+
 
     return (
         <Grid 
@@ -38,8 +46,8 @@ function EventListVendor() {
                         flexWrap: 'wrap',
                     }}
                 >
-                    <Button onClick={() => setViewList('')}>Upcoming</Button>
-                    <Button onClick={() => setViewList('pending')}>Pending Approval</Button>
+                    <Button onClick={() => setViewList('approved')}>Approved</Button>
+                    <Button onClick={() => setViewList('pending')}>Pending</Button>
                     <Button onClick={() => setViewList('past')}>Past</Button>
                     <br/>
                 </Stack>
@@ -54,9 +62,10 @@ function EventListVendor() {
                         marginTop: '1em'
                     }}
                 >
-                    {allEvents.map((booth) => {
+                    {vendorBooths.map((booth) => {
+                        console.log(booth)
                         if (
-                            viewList === ''
+                            viewList === 'approved'
                             &&
                             Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
                             &&
@@ -64,28 +73,27 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
                                     <li>Type: {booth.type}</li>
-                                    <li>Dimensions: {booth.booths[0].dimensions}</li>
+                                    <li>Dimensions: {booth.dimensions}</li>
                                     <li>Quantity: {booth.quantity}</li>
-                                    {/* <li>Description: {booth.description}</li> */}
+                                    <li>Description: {booth.description}</li>
                                     <li>Cost: ${booth.cost}</li>
                                     <li>Requested on: {moment(booth.requested_on).format('MMM DD YYYY')}</li>
-                                    {booth.approved_by_host && 
+                                    {booth.approved_by_host ? 
                                         <li>Application Status: Approved ✅</li>
-                                    }
-                                    {!booth.approved_by_host &&
+                                        :
                                         <li>Application Status: Pending ❌</li>
                                     }
-                                    <li>Upcoming</li>
                                 </ul>
                                 <br/>
                             </Card>
@@ -99,25 +107,25 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
-                                    <li>Type: {booth.booths[0].type}</li>
-                                    <li>Dimensions: {booth.booths[0].dimensions}</li>
-                                    <li>Quantity: {booth.booths[0].quantity}</li>
-                                    {/* <li>Description: {booth.description}</li> */}
-                                    <li>Cost: ${booth.booths[0].cost}</li>
+                                    <li>Type: {booth.type}</li>
+                                    <li>Dimensions: {booth.dimensions}</li>
+                                    <li>Quantity: {booth.quantity}</li>
+                                    <li>Description: {booth.description}</li>
+                                    <li>Cost: ${booth.cost}</li>
                                     <li>Requested on: {moment(booth.requested_on).format('MMM DD YYYY')}</li>
-                                    {booth.approved_by_host && 
+                                    {booth.approved_by_host ? 
                                         <li>Application Status: Approved ✅</li>
-                                    }
-                                    {!booth.approved_by_host &&
+                                        :
                                         <li>Application Status: Pending ❌</li>
                                     }
                                     <li>Pending</li>
@@ -132,28 +140,27 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
                                     <li>Type: {booth.type}</li>
-                                    <li>Dimensions: {booth.booths[0].dimensions}</li>
-                                    <li>Quantity: {booth.booths[0].quantity}</li>
-                                    {/* <li>Description: {booth.booths[0].description}</li> */}
-                                    <li>Cost: ${booth.booths[0].cost}</li>
+                                    <li>Dimensions: {booth.dimensions}</li>
+                                    <li>Quantity: {booth.quantity}</li>
+                                    <li>Description: {booth.description}</li>
+                                    <li>Cost: ${booth.cost}</li>
                                     <li>Requested on: {moment(booth.requested_on).format('MMM DD YYYY')}</li>
-                                    {booth.approved_by_host && 
+                                    {booth.approved_by_host ? 
                                         <li>Application Status: Approved ✅</li>
-                                    }
-                                    {!booth.approved_by_host &&
+                                        :
                                         <li>Application Status: Pending ❌</li>
                                     }
-                                    <li>Past</li>
                                 </ul>
                                 <br/>
                             </Card>
