@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import LogOutButton from '../LogOutButton/LogOutButton'
 import "./Nav.css";
@@ -34,6 +34,8 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
+
 
 const drawerWidth = 240;
 
@@ -173,9 +175,11 @@ export default function NavDrawer() {
     ]
 
   return (
+    
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
+      <ClickAwayListener onClickAway={handleDrawerClose}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -187,9 +191,10 @@ export default function NavDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" >
-            Venboo
+            <Link to='/' >Venboo</Link>
           </Typography>
         </Toolbar>
+        </ClickAwayListener>
       </AppBar>
       <Drawer
         sx={{
@@ -261,5 +266,6 @@ export default function NavDrawer() {
         <DrawerHeader />
       </Main>
     </Box>
+
   );
 }
