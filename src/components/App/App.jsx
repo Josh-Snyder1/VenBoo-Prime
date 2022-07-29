@@ -21,9 +21,10 @@ import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import MultiSelect from '../ReuseableComponents/MultiSelect'
+import EventDetails from "../EventDetails/EventDetails";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
-import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 import "./App.css";
 
@@ -32,7 +33,7 @@ function App() {
 
   const user = useSelector((store) => store.user);
 
-  useEffect(() => {
+  useEffect(() => 
     dispatch({ type: "FETCH_USER" });
     // dispatch({ type: "FETCH_VENDOR_BOOTHS" });
     // dispatch({ type: "FETCH_TAGS" });
