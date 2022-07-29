@@ -8,6 +8,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res)=> {
+    console.log('in router.get eventbooths')
     const sqlQuery = `
     SELECT
 	"user".business_name,
@@ -17,7 +18,6 @@ router.get('/', rejectUnauthenticated, (req, res)=> {
         booths.cost,
 	json_agg(booths.type) AS type,
 	json_agg(tags.name) AS tags
-
 FROM booths
 JOIN booth_applications
 	ON booth_applications.booth_id = booths.id
@@ -35,6 +35,7 @@ GROUP BY "user".business_name, booths.type, booths.description, booths.dimension
     pool.query(sqlQuery)
     .then(result => {
         res.send(result.rows);
+        console.log('test router.get eventbooths')
     })
     .catch(err => {
         console.error('error in event booth DB GET', err);
@@ -45,7 +46,7 @@ GROUP BY "user".business_name, booths.type, booths.description, booths.dimension
 router.delete('/:id', (req, res)=> {
     console.log('booth deleted', req.params.id);
     const sqlQuery = `
-    DELETE FROM booths
+    DELETE FROM booth_application
     WHERE id =$1;
     `;
     const sqlParams = [req.params.id];
