@@ -31,7 +31,7 @@ app.use("/api/user", userRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/booths", boothsRouter);
 app.use("/api/tags", tagsRouter);
-app.use("/api/eventbooths", eventBoothRouter);
+app.use("/api/eventbooths", eventBoothsRouter);
 
 // Serve static files
 app.use(express.static("build"));

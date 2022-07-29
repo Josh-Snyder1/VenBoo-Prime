@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function EventDetails() {
 
 
-    const eventBoothDetails = useSelector((store) => store.eventbooths);
+    const eventBoothDetails = useSelector((store) => store.boothApplications);
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
     const dispatch = useDispatch();
+    
     const history = useHistory();
     const [viewList, setViewList] = useState('');
 
@@ -16,7 +17,7 @@ function EventDetails() {
     //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
     //   }
 
-    const handleDelete = (id) => {
+    function handleDelete(id) {
         dispatch({
           type: "DELETE_BOOTH",
           payload: { id }
@@ -27,29 +28,37 @@ function EventDetails() {
     // edit put booth
 
     const { eventId } = useParams();
-    console.log(eventId)
+    // console.log(eventId)
 
+    //   deleteProps={
+    //       id: booths.id,
+    //       dispatchName: 'DELETE_BOOTH_APPLICATION'
+    //   }
 
-    console.log('event booth', eventBoothDetails)
+    // <DeleteButton props={deleteProps} />
 
-    dispatch({
-        type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
-        payload: {
-            id: eventId,
-        }
-    })
+    // console.log('event booth', eventBoothDetails)
+
+    useEffect(() => {
+        dispatch({
+            type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+            payload: {
+                id: eventId,
+            }
+        })
+      }, [eventId]);
 
 
 
 console.log('event booth', eventBoothDetails);
 // console.log('tags event booth', tagsBooth);
-
+    
     return (
         // adding booths and available booths
         <>
       <h1>Available Booths</h1>
       <div>
-      <button>Add Booth Type</button>
+        <button>Add Booth Type</button>
         <table className='booths info'>
             
             <thead>
@@ -80,7 +89,7 @@ console.log('event booth', eventBoothDetails);
         </table>
       </div>
         
-      <div>
+    <div>
       
       
         <h1>Pending Approval</h1>
@@ -97,18 +106,21 @@ console.log('event booth', eventBoothDetails);
                     {eventBoothDetails.map((booths)=> {
                         
                         return(
+                            
+                        
                             <tr key={booths.id}> 
 
                                 <td>{booths.business_name}</td>
                                 <td>{booths.tags}</td>
                                 <td>{booths.dimensions}</td>
                                 <button>✅</button>
-                                <button onClick={handleDelete(booths.id)} >❌</button>
+                                <button onClick={ () => handleDelete(booths.id)} >❌</button>
                             </tr>
-                        )
-                    })}
-                </tbody>
+                            )
+                        })}
+                        </tbody>
         </table>
+                        
       </div>
 
       <div>
@@ -144,5 +156,6 @@ console.log('event booth', eventBoothDetails);
       </div>
         </>
     )
+                
 }
 export default EventDetails;
