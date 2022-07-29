@@ -8,7 +8,7 @@ function EventDetails() {
     const eventBoothDetails = useSelector((store) => store.boothApplications);
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
     const dispatch = useDispatch();
-    
+    const user = useSelector((store) => store.user);
     const history = useHistory();
     const [viewList, setViewList] = useState('');
 
@@ -139,7 +139,7 @@ console.log('event booth', eventBoothDetails);
                 <tbody>
                     {eventBoothDetails.map((list)=> {
                         if (list.approved_by_host &&
-                            list.user_id === user.id &&
+                            list.id === user.id &&
                             list.verified
                             )
                         return(
