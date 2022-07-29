@@ -22,10 +22,12 @@ const MenuProps = {
 
 export default function MultipleSelectCheckmarks({props}) {
   const [tagName, setTagName] = React.useState([]);
+  const [tagIds, setTagIds] = React.useState([]);
 
   const tagSelection = props.tagSelection;
 let value;
   const handleChange = (event) => {
+    console.log('in multiselect handle change', event)
     const {
       target: { value },
     } = event;
@@ -35,8 +37,6 @@ let value;
     );
     tagSelection(value)
   };
-
-  let skills = ['communication', 'teamwork']
 
   // console.log('in multiselect', tagSelection)
 
@@ -48,6 +48,7 @@ let value;
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
+          name='testingNAME'
           multiple
           value={tagName}
           onChange={handleChange}
@@ -56,8 +57,8 @@ let value;
           MenuProps={MenuProps}
         >
           {props.tags.map((name) => (
-            <MenuItem key={name.name} value={name.name}>
-              <Checkbox checked={tagName.indexOf(name.name) > -1} />
+            <MenuItem key={name.id} value={name.id}>
+              <Checkbox checked={tagName.indexOf(name.id) > -1} />
               <ListItemText primary={name.name} />
             </MenuItem>
           ))}
