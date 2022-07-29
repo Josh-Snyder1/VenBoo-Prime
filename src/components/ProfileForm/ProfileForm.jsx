@@ -111,6 +111,16 @@ function AddEventForm() {
     e.target.reset();
   };
 
+  const tagSelection = (tagSelection) => {
+    console.log('in tagSelection', tagSelection)
+    return setTag(tagSelection);
+  }
+
+  let props = {
+    tags,
+    tagSelection
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -140,7 +150,7 @@ function AddEventForm() {
             }}
             required
           />
-          <MultiSelect selectionArray={tags} />
+          <MultiSelect props={props} />
 
           <InputLabel>Buisness Name </InputLabel>
           <CustomInput
