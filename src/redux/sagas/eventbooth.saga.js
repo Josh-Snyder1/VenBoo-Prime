@@ -15,22 +15,29 @@ function* eventDetails() {
     }
 }
 
-function* deleteBooth(action) {
-    try {
-      const response = yield axios({
-        method: "DELETE",
-        url: `/api/eventbooths/${action.payload}`,
-      });
-      yield put({
-        type: 'FETCH_DETAILS',
-      });
-    } catch {
-      console.log("ERROR/DELETE BOOTH");
-    }
+function* deleteBooth(req) {
+  try{
+      yield axios.delete(`/api/eventbooths/${req.payload.id}`)
+      yield put ({ type: 'FETCH_DETAILS'})
   }
+  catch (err) {
+      console.error('error in delete BOOTHS saga', err)
+  }
+}
+
+function* addBooth(req) {
+  try{
+      yield axios.post(`/api/eventbooths`, req.payload);
+      yield put ({ type: 'FETCH_DETAILS'})
+  }
+  catch (err) {
+      console.error('error in add tag post', err);
+  }
+}
 
 function* eventBooths() {
     yield takeLatest('FETCH_DETAILS', eventDetails);
     yield takeLatest('DELETE_BOOTH', deleteBooth);
+    yield takeLatest('ADD_BOOTH', addBooth);
   }
 export default eventBooths;

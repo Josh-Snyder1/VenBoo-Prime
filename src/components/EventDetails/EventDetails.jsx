@@ -11,23 +11,17 @@ function EventDetails({ id }) {
     const [viewList, setViewList] = useState('');
 
     // delete booth handle
-    const handleDelete = () => {
+    // function deleteBooth(id){
+    //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
+    //   }
+
+    const handleDelete = (id) => {
         dispatch({
-            type: 'DELETE_BOOTH',
-                    payload: {
-                        id
-                    }
+          type: "DELETE_BOOTH",
+          payload: { id }
         });
-        console.log("-------> delete booths ",id)
+        console.log("delete booth>>>>>>>", id);
       };
-    // function deleteBooth(id) {
-    //     dispatch({
-    //         type: 'DELETE_BOOTH',
-    //         payload: {
-    //             id
-    //         }
-    //     })
-    // }
     
     // edit put booth
 
@@ -82,31 +76,24 @@ console.log('event booth', eventBoothDetails);
                         <th>Booth Size</th>
                     </tr>
                 </thead>
-                
-
-
-
 
                 <tbody>
                     {eventBoothDetails.map((booths)=> {
                         
                         return(
                             <tr key={booths.id}> 
+
                                 <td>{booths.business_name}</td>
                                 <td>{booths.tags}</td>
                                 <td>{booths.dimensions}</td>
                                 <button>✅</button>
-                                <button onClick={handleDelete} >❌</button>
+                                <button onClick={handleDelete(booths.id)} >❌</button>
                             </tr>
                         )
                     })}
                 </tbody>
         </table>
       </div>
-
-
-
-
 
       <div>
         <h1>Approved</h1>
