@@ -34,6 +34,8 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import EditIcon from '@mui/icons-material/Edit';
+import Avatar from '@mui/material/Avatar';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 
@@ -174,11 +176,12 @@ export default function NavDrawer() {
         }
     ]
 
+
+    console.log('in nav drawer', user.email && user.email.charAt(0).toUpperCase())
   return (
-    
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between'  }}>
       <ClickAwayListener onClickAway={handleDrawerClose}>
         <Toolbar>
           <IconButton
@@ -192,9 +195,15 @@ export default function NavDrawer() {
           </IconButton>
           <Typography variant="h6" noWrap component="div" >
             <Link to='/' >Venboo</Link>
+            
           </Typography>
+          
         </Toolbar>
+        
         </ClickAwayListener>
+        <Avatar sx={{ margin:'10px' }} >
+        {/* {user?.email.charAt(0).toUpperCase()} */}
+        </Avatar>
       </AppBar>
       <Drawer
         sx={{

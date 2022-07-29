@@ -46,6 +46,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     LEFT JOIN booths
       ON booths.event_id = events.id`
 
+
   // Will need to check 
   let sqlParams = []
 
@@ -189,6 +190,7 @@ router.get("/:id/booth-applications", (req, res) => {
       JOIN "user"
           ON "booth_applications".user_id = "user".id
       WHERE "events".user_id = $1;
+
   `
 
   // Get the event ID from the URL params
