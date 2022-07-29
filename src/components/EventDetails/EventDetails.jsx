@@ -1,29 +1,33 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
-function EventDetails({EventDetails}) {
+function EventDetails({ id }) {
 
     const eventBoothDetails = useSelector((store) => store.eventbooths);
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [viewList, setViewList] = useState('');
 
     // delete booth handle
-    // const handleDelete = () => {
-    //     dispatch({
-    //       type: "DELETE_BOOTH",
-    //       payload: Response.data,
-    //     });
-    //     console.log("-------> delete booths ", Response.data)
-    //   };
-    function deleteBooth(id) {
+    const handleDelete = () => {
         dispatch({
             type: 'DELETE_BOOTH',
-            payload: {
-                id
-            }
-        })
-    }
+                    payload: {
+                        id
+                    }
+        });
+        console.log("-------> delete booths ",id)
+      };
+    // function deleteBooth(id) {
+    //     dispatch({
+    //         type: 'DELETE_BOOTH',
+    //         payload: {
+    //             id
+    //         }
+    //     })
+    // }
     
     // edit put booth
 
@@ -31,6 +35,7 @@ function EventDetails({EventDetails}) {
 console.log('event booth', eventBoothDetails);
 // console.log('tags event booth', tagsBooth);
     return (
+        // adding booths and available booths
         <>
       <h1>Available Booths</h1>
       <div>
@@ -64,8 +69,10 @@ console.log('event booth', eventBoothDetails);
             
         </table>
       </div>
-
+        
       <div>
+      
+      
         <h1>Pending Approval</h1>
         <table className="pending">
                 <thead>
@@ -76,21 +83,30 @@ console.log('event booth', eventBoothDetails);
                     </tr>
                 </thead>
                 
+
+
+
+
                 <tbody>
                     {eventBoothDetails.map((booths)=> {
+                        
                         return(
                             <tr key={booths.id}> 
                                 <td>{booths.business_name}</td>
                                 <td>{booths.tags}</td>
                                 <td>{booths.dimensions}</td>
                                 <button>✅</button>
-                                <button onClick={deleteBooth(booths.id)} >❌</button>
+                                <button onClick={handleDelete} >❌</button>
                             </tr>
                         )
                     })}
                 </tbody>
         </table>
       </div>
+
+
+
+
 
       <div>
         <h1>Approved</h1>
@@ -107,6 +123,10 @@ console.log('event booth', eventBoothDetails);
                 
                 <tbody>
                     {eventBoothDetails.map((list)=> {
+                        if (list.approved_by_host &&
+                            list.user_id === user.id &&
+                            list.verified
+                            )
                         return(
                             <tr key={list.id}>
                                 <td>{list.business_name}</td>
