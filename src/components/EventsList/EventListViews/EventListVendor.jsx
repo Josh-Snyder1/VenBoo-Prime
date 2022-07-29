@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Card, Grid, Stack, Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+
 
 function EventListVendor() {
     // Stores
@@ -14,6 +16,9 @@ function EventListVendor() {
 
     // Local state to render items the user wants to view.
     const [viewList, setViewList] = useState('');
+
+    const history = useHistory();
+
 
     return (
         <Grid 
@@ -38,7 +43,7 @@ function EventListVendor() {
                         flexWrap: 'wrap',
                     }}
                 >
-                    <Button onClick={() => setViewList('')}>Upcoming</Button>
+                    <Button onClick={() => setViewList('upcoming')}>Upcoming</Button>
                     <Button onClick={() => setViewList('pending')}>Pending Approval</Button>
                     <Button onClick={() => setViewList('past')}>Past</Button>
                     <br/>
@@ -56,7 +61,7 @@ function EventListVendor() {
                 >
                     {allEvents.map((booth) => {
                         if (
-                            viewList === ''
+                            viewList === 'upcoming'
                             &&
                             Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
                             &&
@@ -64,13 +69,14 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
                                     <li>Type: {booth.type}</li>
@@ -99,13 +105,14 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
                                     <li>Type: {booth.booths[0].type}</li>
@@ -132,13 +139,14 @@ function EventListVendor() {
                         )
                         return (
                             <Card
+                                onClick={() => history.push(`/event/${booth.id}`)}
                                 key={booth.id}
                                 elevation={4}
                                 sx={{
                                     padding: "1em"
                                 }}
                             >
-                                <h4>{booth.name}</h4>
+                                <h3>{booth.name}</h3>
                                 <h5>{moment(booth.start_date).format('MMM DD YYYY')} - {moment(booth.end_date).format('MMM DD YYYY')}</h5>
                                 <ul>
                                     <li>Type: {booth.type}</li>
