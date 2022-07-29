@@ -23,6 +23,7 @@ function EventsList() {
         default:
             return (
                 <>
+                    <h2>Uh oh!</h2>
                 </>
             )
     }

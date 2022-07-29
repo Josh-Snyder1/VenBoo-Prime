@@ -49,6 +49,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     LEFT JOIN booths
       ON booths.event_id = events.id`
 
+
   // Will need to check 
   let sqlParams = []
 
@@ -169,27 +170,31 @@ router.get("/:id/booth-applications", (req, res) => {
 
   // Set the SQL query
   const sqlQuery = `
-  SELECT
-  booth_applications.id,
-	"user".business_name,
-	    booths.dimensions,
-        booths.quantity,
-        booths.description,
-        booths.cost,
-	json_agg(booths.type) AS type,
-	json_agg(tags.name) AS tags
-FROM booths
-JOIN booth_applications
-	ON booth_applications.booth_id = booths.id
-JOIN "user"
-	ON "user".id = booth_applications.user_id
-JOIN vendor_tags
-	ON vendor_tags.user_id = "user".id
-JOIN tags
-	ON vendor_tags.tag_id = tags.id
-GROUP BY "user".business_name, booths.type, booths.description, booths.dimensions, booths.cost, booths.quantity, booth_applications.id;
-  `
 
+      SELECT
+          "events".id as "event_id",
+          "booths".id as "booth_id",
+          "booths".type,
+          "booths".dimensions,
+          "booths".quantity,
+          "booths".description,
+          "booths".cost,
+          "booth_applications".approved_by_host,
+          "booth_applications".notes,
+          "booth_applications".requested_on,
+          "user".id as "vendor_id",
+          "user".email,
+          "user".business_name,
+          "user".description
+      FROM "events"
+      JOIN "booths"
+          ON "events".id = "booths".event_id
+      JOIN "booth_applications"
+          ON "booths".id = "booth_applications".booth_id
+      JOIN "user"
+          ON "booth_applications".user_id = "user".id
+      WHERE "events".user_id = $1;
+  `
   // Get the event ID from the URL params
   // const sqlParams = [req.params.id]
 
