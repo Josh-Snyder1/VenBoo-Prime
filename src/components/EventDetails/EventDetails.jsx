@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 
-function EventDetails({ id }) {
+function EventDetails() {
+
 
     const eventBoothDetails = useSelector((store) => store.eventbooths);
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
@@ -25,9 +26,24 @@ function EventDetails({ id }) {
     
     // edit put booth
 
+    const { eventId } = useParams();
+    console.log(eventId)
+
+
+    console.log('event booth', eventBoothDetails)
+
+    dispatch({
+        type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+        payload: {
+            id: eventId,
+        }
+    })
+
+
 
 console.log('event booth', eventBoothDetails);
 // console.log('tags event booth', tagsBooth);
+
     return (
         // adding booths and available booths
         <>

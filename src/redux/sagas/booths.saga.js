@@ -1,4 +1,4 @@
-import { takeEvery, put } from "redux-saga/effects";
+import { takeEvery, put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 function* fetchVendorBooths() {

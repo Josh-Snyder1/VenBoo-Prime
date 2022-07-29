@@ -24,16 +24,21 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/">
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
+            {/* Only 'host' users can create an event */}
+            {user.type === 'host' ?
+              <Link className="navLink" to="/AddEventForm">
+                Create Event
+              </Link>
+              :
+              null
+            }
 
-            <Link className="navLink" to="/AddEventForm">
-              Add Event
+            <Link className="navLink" to="/HostProfilePage">
+              Profile
             </Link>
 
             <LogOutButton className="navLink" />

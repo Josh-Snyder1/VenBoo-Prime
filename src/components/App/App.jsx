@@ -8,42 +8,41 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Nav from "../Nav/Nav";
+import NavDrawer from '../Nav/NavDrawer'
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-
 import AboutPage from "../AboutPage/AboutPage";
+import HostProfilePage from "../HostProfilePage/HostProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
-import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
+import EventDetails from "../EventDetails/EventDetails";
+import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
+import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from '../ReuseableComponents/MultiSelect'
 import EventDetails from "../EventDetails/EventDetails";
-
+import WelcomePage from "../WelcomePage/WelcomePage";
+import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
 
 import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_EVENTS'});
-    dispatch({ type: 'FETCH_VENDOR_BOOTHS'});
-    dispatch({ type: 'FETCH_DETAILS'});
-    dispatch({ type: 'FETCH_TAGS'});
+  useEffect(() => 
+    dispatch({ type: "FETCH_USER" });
+    // dispatch({ type: "FETCH_VENDOR_BOOTHS" });
+    // dispatch({ type: "FETCH_TAGS" });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
-        <Nav />
+        <NavDrawer />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
@@ -57,24 +56,33 @@ function App() {
             <AboutPage />
           </Route>
 
+          <Route exact path="/addEventForm">
+            <AddEventForm />
+          </Route>
+
+          <Route exact path="/profileForm">
+            <ProfileForm />
+          </Route>
+
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/addEventForm"
+            path="/profile"
           >
-            <AddEventForm />
+            <HostProfilePage />
           </Route>
+
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/"
           >
             <UserPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
@@ -87,16 +95,14 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/manageTags"
           >
-            <InfoPage />
+            <ManageTagsForm />
           </ProtectedRoute>
 
           <Route exact path="/login">
             {user.id ? (
-              // If the user is already logged in,
-              // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/" />
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -105,31 +111,19 @@ function App() {
 
           <Route exact path="/registration">
             {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/" />
             ) : (
               // Otherwise, show the registration page
               <RegisterPage />
             )}
           </Route>
 
-          {/* <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
-            }
-          </Route> */}
+          <Route path="/event/:eventId">
+            <EventDetails />
+          </Route>
 
           <Route path="/" exact>
-            {user.id ? <LandingPage /> : <Redirect to="/login" />}
+            {user.id ? <Dashboard /> : <WelcomePage />}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
