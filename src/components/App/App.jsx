@@ -34,7 +34,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    // dispatch({ type: "FETCH_VENDOR_BOOTHS" });
     // dispatch({ type: "FETCH_TAGS" });
   }, [dispatch]);
 
