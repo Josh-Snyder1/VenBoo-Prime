@@ -46,7 +46,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       ON "tags".id = "event_tags".tag_id
     LEFT JOIN booths
       ON booths.event_id = events.id`;
-      
+
   // Will need to check
   let sqlParams = [];
 
@@ -177,19 +177,19 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booths".id = "booth_applications".booth_id
       JOIN "user"
           ON "booth_applications".user_id = "user".id
-      WHERE "events".id = $1;
+      WHERE "events".id = $1;`;
 
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];
 
   // Pool the DB to get the results
-  pool.query(sqlQuery, sqlParams)
-  .then(result  =>  {
-    res.send(result.rows)})
-  .catch(err => console.log(`Error in booth-applications with ${err}`))
-})
-
-
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+});
 
 // Make the router routes accessible
 module.exports = router;
