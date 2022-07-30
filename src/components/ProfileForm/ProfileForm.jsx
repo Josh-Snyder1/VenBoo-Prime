@@ -162,7 +162,7 @@ function AddEventForm() {
             required
           />
 
-          {currentUser === true ? <MultiSelect props={props} /> : <h1></h1>}
+          {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
 
           <InputLabel>Buisness Name </InputLabel>
           <CustomInput
