@@ -49,13 +49,19 @@ function EventDetails() {
   console.log("event booth", eventBoothDetails);
   // console.log('tags event booth', tagsBooth);
 
-  //
+  console.log("Tareks Details>>>>>", eventBoothDetails.approved_by_host);
+
   return (
     // adding booths and available booths
     <>
       <h1>Available Booths</h1>
       <div>
-        <button>Add Booth Type</button>
+        {/* <form onSubmit={}>
+
+              </form> */}
+
+        {/* <button>Add Booth Type</button> */}
+
         <table className="booths info">
           <thead>
             <tr>
