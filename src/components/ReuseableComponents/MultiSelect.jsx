@@ -1,11 +1,11 @@
-import * as React from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import * as React from "react";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,14 +18,13 @@ const MenuProps = {
   },
 };
 
-
-
-export default function MultipleSelectCheckmarks({props}) {
+export default function MultipleSelectCheckmarks({ props }) {
+  console.log("Props are >>>>>>>>>", props);
   const [tagName, setTagName] = React.useState([]);
   const [tagIds, setTagIds] = React.useState([]);
 
   const tagSelection = props.tagSelection;
-let value;
+  let value;
   const handleChange = (event) => {
     console.log('in multiselect handle change', event)
     const {
@@ -33,9 +32,9 @@ let value;
     } = event;
     setTagName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
-    tagSelection(value)
+    tagSelection(value);
   };
 
   // console.log('in multiselect', tagSelection)
@@ -65,5 +64,6 @@ let value;
         </Select>
       </FormControl>
     </div>
+
   );
 }

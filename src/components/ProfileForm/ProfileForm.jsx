@@ -67,6 +67,17 @@ function AddEventForm() {
   const tags = useSelector((store) => store.tags);
   const user = useSelector((store) => store.user);
 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_TAGS",
+    });
+  }, []);
+
+  let currentUser = user.type;
+  if (user.type === "vendor") {
+    currentUser = true;
+  }
+
   // LOCAL STATE
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -112,14 +123,14 @@ function AddEventForm() {
   };
 
   const tagSelection = (tagSelection) => {
-    console.log('in tagSelection', tagSelection)
+    console.log("in tagSelection", tagSelection);
     return setTag(tagSelection);
-  }
+  };
 
   let props = {
     tags,
-    tagSelection
-  }
+    tagSelection,
+  };
 
   return (
     <>
@@ -150,7 +161,8 @@ function AddEventForm() {
             }}
             required
           />
-          <MultiSelect props={props} />
+
+          {currentUser === true ? <MultiSelect props={props} /> : <h1></h1>}
 
           <InputLabel>Buisness Name </InputLabel>
           <CustomInput

@@ -9,12 +9,12 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `UPDATE "user"
+  const userQuery = `UPDATE "user"
   SET first_name= $2, last_name= $3, title= $4, business_name= $5, description= $6, phone= $7, main_url= $8, facebook_url= $9, etsy_url= $10, linkedin_url= $11
   WHERE id= $1
     `;
 
-  const sqlParams = [
+  const userParams = [
     req.body.user,
     req.body.name,
     req.body.lastName,
@@ -28,11 +28,11 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     req.body.linkedIn,
   ];
 
-  const sqlQuery1 = `UPDATE "addresses"
+  const addressesQuery = `UPDATE "addresses"
   SET address= $2, city= $3, state= $4, zipcode= $5
   WHERE id= $1
   `;
-  const sqlParams1 = [
+  const addressesParams = [
     req.body.user,
     req.body.address,
     req.body.city,
@@ -41,14 +41,15 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   ];
 
   pool
-    .query(sqlQuery, sqlParams)
+    .query(userQuery, userParams)
     .then((dbRes) => {
-      pool.query(sqlQuery1, sqlParams1).then((dbRes2) => {
+      pool.query(addressesQuery, addressesParams).then((dbRes2) => {
         res.sendStatus(201);
       });
     })
     .catch((error) => {
       console.log("error in user router", error);
+      res.sendStatus(500);
     });
 });
 
