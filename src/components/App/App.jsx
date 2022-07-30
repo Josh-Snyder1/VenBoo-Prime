@@ -8,7 +8,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-import NavDrawer from '../Nav/NavDrawer'
+import NavDrawer from "../Nav/NavDrawer";
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -21,7 +21,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import MultiSelect from '../ReuseableComponents/MultiSelect'
+import MultiSelect from "../ReuseableComponents/MultiSelect";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
 
@@ -81,14 +81,6 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute> */}
-
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/boothdetails"
-          >
-            <EventDetails />
-          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
