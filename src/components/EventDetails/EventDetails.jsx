@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
+  const booths = useSelector((store) => store.eventBooths);
   // const tagsBooth = useSelector((store)=> store.tagsReducer);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -26,7 +27,7 @@ function EventDetails() {
   // edit put booth
 
   const { eventId } = useParams();
-  // console.log(eventId)
+  console.log(eventId);
 
   //   deleteProps={
   //       id: booths.id,
@@ -49,7 +50,7 @@ function EventDetails() {
   console.log("event booth", eventBoothDetails);
   // console.log('tags event booth', tagsBooth);
 
-  console.log("Tareks Details>>>>>", eventBoothDetails.approved_by_host);
+  console.log("Tareks Details>>>>>", booths);
 
   return (
     // adding booths and available booths
