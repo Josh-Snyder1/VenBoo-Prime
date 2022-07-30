@@ -12,13 +12,12 @@ function* fetchEvents() {
 }
 
 function* fetchHostEvents() {
-  console.log('in fetchEvents')
-  try{
-      const res = yield axios.get(`/api/events/host-events`)
-      yield put ({ type: 'SET_EVENTS', payload: res.data})
-  }
-  catch (err) {
-      console.error('error in events saga', err)
+  console.log("in fetchEvents");
+  try {
+    const res = yield axios.get(`/api/events/host-events`);
+    yield put({ type: "SET_EVENTS", payload: res.data });
+  } catch (err) {
+    console.error("error in events saga", err);
   }
 }
 

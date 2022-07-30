@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import moment from "moment";
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const booths = useSelector((store) => store.eventBooths);
+  const allEvents = useSelector((store) => store.events);
+
   // const tagsBooth = useSelector((store)=> store.tagsReducer);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -49,19 +50,39 @@ function EventDetails() {
 
   console.log("event booth", eventBoothDetails);
   // console.log('tags event booth', tagsBooth);
-
-  console.log("Tareks Details>>>>>", booths);
-
+  console.log("all events are", allEvents);
   return (
     // adding booths and available booths
+
     <>
-      <h1>Available Booths</h1>
-      <div>
-        {/* <form onSubmit={}>
+      {allEvents.map((event) => {
+        const startDate = moment(event.start_date).format("MMM Do");
+        const endDate = moment(event.end_date).format("MMM Do YYYY");
+
+        return (
+          <ul>
+            <h1>{event.name} </h1>
+            <h3>
+              {" "}
+              {startDate} - {endDate}{" "}
+            </h3>
+          </ul>
+        );
+      })}
+
+      <h1>
+        date(7 July 2022 - 6 July 2022) <br /> Address(123 First Ave Roseville,
+        MN 55407)
+      </h1>
+      <h2>Total Booths Approved: Value(2)</h2>
+      <h2>Remaining: Value(32)</h2>
+      <h2>Selector (Tags)</h2>
+      {/* <form onSubmit={}>
 
               </form> */}
-
-        {/* <button>Add Booth Type</button> */}
+      <h1>Available Booths</h1>
+      <div>
+        <button>Add Booth Type</button>
 
         <table className="booths info">
           <thead>
