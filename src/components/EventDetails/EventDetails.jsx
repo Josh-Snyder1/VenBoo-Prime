@@ -57,28 +57,10 @@ function EventDetails() {
 
     <>
       <Header />
-      {allEvents.map((event) => {
-        const startDate = moment(event.start_date).format("MMM Do");
-        const endDate = moment(event.end_date).format("MMM Do YYYY");
-
-        return (
-          <></>
-          //   <ul>
-          //     <h1>{event.name} </h1>
-          //     <h3>
-          //       {" "}
-          //       {startDate} - {endDate}{" "}
-          //     </h3>
-          //   </ul>
-        );
-      })}
 
       <h1>
-        date(7 July 2022 - 6 July 2022) <br /> Address(123 First Ave Roseville,
-        MN 55407)
+        <br /> Address(123 First Ave Roseville, MN 55407)
       </h1>
-      <h2>Total Booths Approved: Value(2)</h2>
-      <h2>Remaining: Value(32)</h2>
       <h2>Selector (Tags)</h2>
       {/* <form onSubmit={}>
 
