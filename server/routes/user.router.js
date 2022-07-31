@@ -40,12 +40,26 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     req.body.zip,
   ];
 
+  console.log("req.body.tags is", req.body.tag);
+
+  for (const tg of req.body.tag) {
+    const vendorTagsParams = [req.body.user, tg];
+    const vendorTagsQuery = `
+    INSERT INTO "vendor_tags" (user_id, tag_id)
+    VALUES ($1, $2)
+    `;
+    pool
+      .query(vendorTagsQuery, vendorTagsParams)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   pool
     .query(userQuery, userParams)
-    .then((dbRes) => {
-      pool.query(addressesQuery, addressesParams).then((dbRes2) => {
-        res.sendStatus(201);
-      });
+    .then(() => {
+      return pool.query(addressesQuery, addressesParams).then(() => {});
     })
     .catch((error) => {
       console.log("error in user router", error);

@@ -11,7 +11,8 @@ const userRouter = require("./routes/user.router");
 const eventsRouter = require("./routes/event.router");
 const boothsRouter = require("./routes/booths.router");
 const tagsRouter = require("./routes/tags.router");
-const eventBoothRouter = require("./routes/eventbooths.router");
+const eventBoothsRouter = require("./routes/eventbooths.router")
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,7 +31,7 @@ app.use("/api/user", userRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/booths", boothsRouter);
 app.use("/api/tags", tagsRouter);
-app.use("/api/eventbooths", eventBoothRouter);
+app.use("/api/eventbooths", eventBoothsRouter);
 
 // Serve static files
 app.use(express.static("build"));

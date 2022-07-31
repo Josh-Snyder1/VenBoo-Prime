@@ -21,10 +21,12 @@ const MenuProps = {
 export default function MultipleSelectCheckmarks({ props }) {
   console.log("Props are >>>>>>>>>", props);
   const [tagName, setTagName] = React.useState([]);
+  const [tagIds, setTagIds] = React.useState([]);
 
   const tagSelection = props.tagSelection;
   let value;
   const handleChange = (event) => {
+    console.log('in multiselect handle change', event)
     const {
       target: { value },
     } = event;
@@ -35,34 +37,33 @@ export default function MultipleSelectCheckmarks({ props }) {
     tagSelection(value);
   };
 
-  let skills = ["communication", "teamwork"];
-
   // console.log('in multiselect', tagSelection)
 
   return (
-    props.tags.length > 0 && (
-      <div>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-          <Select
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={tagName}
-            onChange={handleChange}
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => selected.join(", ")}
-            MenuProps={MenuProps}
-          >
-            {props.tags.map((name) => (
-              <MenuItem key={name.name} value={name.name}>
-                <Checkbox checked={tagName.indexOf(name.name) > -1} />
-                <ListItemText primary={name.name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    )
+    props.tags.length > 0 &&
+    <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          name='testingNAME'
+          multiple
+          value={tagName}
+          onChange={handleChange}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {props.tags.map((name) => (
+            <MenuItem key={name.id} value={name.id}>
+              <Checkbox checked={tagName.indexOf(name.id) > -1} />
+              <ListItemText primary={name.name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+
   );
 }
