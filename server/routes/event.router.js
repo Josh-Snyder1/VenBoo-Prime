@@ -114,8 +114,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const venueParmas = [req.body.name];
 
   const eventsQuery = `
-    INSERT INTO events (user_id, name, description, start_date, end_date)
-    VALUES ($1, $2, $3, $4, $5 )
+    INSERT INTO events (user_id, name, description, start_date, end_date, venue_id)
+    VALUES ($1, $2, $3, $4, $5, $6 )
+ 
     `;
 
   const eventsParams = [
@@ -134,8 +135,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       return pool.query(venueQuery, [...venueParmas, addressId]);
     })
     .then((dbRes2) => {
-      // Create the event  TODO: needs venue ID
-      return pool.query(eventsQuery, eventsParams);
+      let venueId = dbRes2.rows[0].id;
+      // Create the event
+      return pool.query(eventsQuery, [...eventsParams, venueId]);
     })
     .then(() => {
       res.sendStatus(200);

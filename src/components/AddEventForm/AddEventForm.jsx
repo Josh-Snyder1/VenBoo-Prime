@@ -6,9 +6,8 @@ import "./AddEventForm.css";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 
 function AddEventForm() {
-
   useEffect(() => {
-    dispatch({ type: 'FETCH_TAGS' });
+    dispatch({ type: "FETCH_TAGS" });
   }, []);
 
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ function AddEventForm() {
   const [state, setState] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,17 +49,17 @@ function AddEventForm() {
     });
   };
 
-  const tags = useSelector(store => store.tags);
+  const tags = useSelector((store) => store.tags);
 
   const tagSelection = (tagSelection) => {
-    console.log('in tagSelection', tagSelection)
+    console.log("in tagSelection", tagSelection);
     return setTag(tagSelection);
-  }
+  };
 
   let props = {
     tags,
-    tagSelection
-  }
+    tagSelection,
+  };
 
   return (
     <>
@@ -75,7 +73,7 @@ function AddEventForm() {
           onChange={(e) => {
             setEventName(e.target.value);
           }}
-          required
+          // required
         />
         <br />
         <label htmlFor="location">Location</label>
@@ -86,7 +84,7 @@ function AddEventForm() {
           onChange={(e) => {
             setLocation(e.target.value);
           }}
-          required
+          // required
         />
         <br />
         <label htmlFor="datepicker">StartDate - EndDate</label>
