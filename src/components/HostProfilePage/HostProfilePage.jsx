@@ -17,7 +17,7 @@ function HostProfilePage() {
         <h1>{user.business_name}</h1>
         <Icons />
         <br />
-        <ContactButton contactProps={{emails: user.email, buttonText: 'Contact'}}/>
+        <ContactButton contactProps={{emails: user.email, buttonText: 'CONTACT US'}}/>
         <br />
         <p>{user.description}</p>
       </div>
