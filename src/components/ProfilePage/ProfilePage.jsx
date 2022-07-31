@@ -1,18 +1,29 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory, useParams, Link } from 'react-router-dom';
 
-import "./HostProfilePage.css";
+import "./ProfilePage.css";
 import EventsList from "../EventsList/EventsList";
 import Icons from "../Icons/Icons";
+import EditIcon from '@mui/icons-material/Edit';
 import Button from "@mui/material/Button";
 import ContactButton from '../ReuseableComponents/ContactButton';
 import "./Etsy.png";
 
-function HostProfilePage() {
+function ProfilePage() {
   const user = useSelector((store) => store.user);
-  console.log("COMPANY NAME IS", user);
+  const history = useHistory();
+
   return (
     <>
+    {user.id &&
+    <div className="pageEdit">
+      <EditIcon 
+        sx={{cursor:'pointer', marginRight:'5px', position:'absolute', display:'flex'}}
+        onClick={() => {history.push('/profileForm')}} 
+      />
+    </div>
+    }
       <div id="header">
         <h1>{user.business_name}</h1>
         <Icons />
@@ -29,4 +40,4 @@ function HostProfilePage() {
   );
 }
 
-export default HostProfilePage;
+export default ProfilePage;
