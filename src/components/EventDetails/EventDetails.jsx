@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Header from "./Header";
 import moment from "moment";
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
@@ -55,18 +56,20 @@ function EventDetails() {
     // adding booths and available booths
 
     <>
+      <Header />
       {allEvents.map((event) => {
         const startDate = moment(event.start_date).format("MMM Do");
         const endDate = moment(event.end_date).format("MMM Do YYYY");
 
         return (
-          <ul>
-            <h1>{event.name} </h1>
-            <h3>
-              {" "}
-              {startDate} - {endDate}{" "}
-            </h3>
-          </ul>
+          <></>
+          //   <ul>
+          //     <h1>{event.name} </h1>
+          //     <h3>
+          //       {" "}
+          //       {startDate} - {endDate}{" "}
+          //     </h3>
+          //   </ul>
         );
       })}
 
