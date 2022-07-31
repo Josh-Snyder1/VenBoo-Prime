@@ -5,6 +5,7 @@ import "./HostProfilePage.css";
 import EventsList from "../EventsList/EventsList";
 import Icons from "../Icons/Icons";
 import Button from "@mui/material/Button";
+import ContactButton from '../ReuseableComponents/ContactButton';
 import "./Etsy.png";
 
 function HostProfilePage() {
@@ -16,7 +17,7 @@ function HostProfilePage() {
         <h1>{user.business_name}</h1>
         <Icons />
         <br />
-        <Button variant="contained">Contact</Button>
+        <ContactButton contactProps={{emails: user.email, buttonText: 'Contact'}}/>
         <br />
         <p>{user.description}</p>
       </div>
