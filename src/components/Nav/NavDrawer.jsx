@@ -204,7 +204,7 @@ export default function NavDrawer() {
         </ClickAwayListener>
         <Avatar 
         sx={{ margin:'10px', cursor:'pointer' }} 
-        onClick={() => {history.push('/profile')}} 
+        onClick={() => {history.push(`/profile/${user.id}`)}} 
         >
           {profileLetter}
         </Avatar>

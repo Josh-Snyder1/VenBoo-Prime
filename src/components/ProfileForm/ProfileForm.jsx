@@ -209,6 +209,7 @@ function AddEventForm() {
           <Select
             name="state"
             id="stateselect"
+            defaultValue=""
             onChange={(e) => {
               setState(e.target.value);
             }}
