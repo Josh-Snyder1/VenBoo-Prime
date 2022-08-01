@@ -20,8 +20,6 @@ function Header() {
   });
   eventDetails = eventDetails.pop();
 
-  console.log(eventDetails);
-
   for (const booth of booths) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
@@ -37,6 +35,13 @@ function Header() {
     total = Pending + Approved;
     Available = total - Approved;
   }
+
+  console.log(
+    "is eventDetails defined >>>>>>>>",
+    eventDetails?.address[0].address
+  );
+  const address = eventDetails?.address[0];
+
   switch (user.type) {
     case "host":
       return (
@@ -45,14 +50,21 @@ function Header() {
             <ul>
               <h2> {eventDetails.name} </h2>
               <br />
-              {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
-              {moment(eventDetails.end_date).format("MMMM Do YYYY")}
+              <div className="eventAddress">
+                {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
+                {moment(eventDetails.end_date).format("MMMM Do YYYY")}
+                <br />
+                {address.address},&nbsp;{address.city},&nbsp;{address.state}
+                &nbsp;
+                {address.zipcode}
+              </div>
               <br />
               Total Approved Booths: {Approved}
               <br />
               Pending Booths: {Pending}
               <br />
-              Avalible {Available}
+              Avalible: {Available}
+              <br />
             </ul>
           )}
         </>

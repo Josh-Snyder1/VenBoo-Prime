@@ -9,73 +9,82 @@ const pool = require("../modules/pool");
 // Set the router and make these local routes available on the server
 const router = express.Router();
 
-
 // Main route to get the event information.
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
-router.get('/', rejectUnauthenticated, (req, res) => {
-
+router.get("/", rejectUnauthenticated, (req, res) => {
   // Build the base SQL query
   let sqlQuery = `
     SELECT
-      events.id,
-      events.user_id,
-      events.description,
-      events.name,
-      events.start_date,
-      events.end_date,
-      events.venue_id,
-      events.verified,
+    events.id,
+    events.user_id,
+    events.description,
+    events.name,
+    events.start_date,
+    events.end_date,
+    events.venue_id,
+    events.verified,
       COALESCE(json_agg(
-        DISTINCT jsonb_build_object(
-          'id', booths.id,
-          'event_id', booths.event_id,
-          'type', booths.type,
-          'dimensions', booths.dimensions,
-          'quantity', booths.quantity,
-          'description', booths.description,
-          'cost', booths.cost
-        )
-      ) FILTER (WHERE booths.id IS NOT NULL), '[]')
-      AS booths,
-      COALESCE(json_agg(DISTINCT "tags".*)
-        FILTER (WHERE tags.id IS NOT NULL), '[]')
-        AS tags
-    FROM events
-    LEFT JOIN "event_tags"
-      ON "events".id = "event_tags".event_id
-    LEFT JOIN "tags"
-      ON "tags".id = "event_tags".tag_id
-    LEFT JOIN booths
-      ON booths.event_id = events.id`
+      DISTINCT jsonb_build_object(
+        'id', booths.id,
+        'event_id', booths.event_id,
+        'type', booths.type,
+        'dimensions', booths.dimensions,
+        'quantity', booths.quantity,
+        'description', booths.description,
+        'cost', booths.cost
+      )
+    ) FILTER (WHERE booths.id IS NOT NULL), '[]') AS booths,
+    COALESCE(json_agg(DISTINCT "tags".*)
+      FILTER (WHERE tags.id IS NOT NULL), '[]')
+      as tags,
+    COALESCE(json_agg(DISTINCT "addresses".*)
+      FILTER (WHERE addresses.id IS NOT NULL), '[]')
+      as address
+  FROM "user"
+  JOIN "booth_applications"
+    ON "user".id = "booth_applications".user_id
+  JOIN "booths"
+    ON "booths".id = "booth_applications".booth_id
+  JOIN "events"
+    ON "events".id = "booths".event_id
+  LEFT JOIN "event_tags"
+    ON "events".id = "event_tags".event_id
+  LEFT JOIN "tags"
+    ON "tags".id = "event_tags".tag_id
+  LEFT JOIN "venues"
+    ON "events".venue_id = "venues".id
+  LEFT JOIN "addresses"
+    ON "addresses".id = "venues".address_id`;
 
-
-  // Will need to check 
-  let sqlParams = []
-
+  // Will need to check
+  let sqlParams = [];
 
   // -------------------------------------------------
   // Determine the logic to use based on the user-type
   switch (req.user.type) {
-
     // Host switch case
     case "host":
       // Set the host-specific query
-      sqlQuery = sqlQuery + `
+      sqlQuery =
+        sqlQuery +
+        `
         WHERE events.user_id = $1
         GROUP BY events.id;
-      `
-      sqlParams.push(req.user.id)
-      break
+      `;
+      sqlParams.push(req.user.id);
+      break;
 
     // Vendor & admin switch case
     case "vendor":
     case "admin":
       // Set the host-specific query
-      sqlQuery = sqlQuery + `
+      sqlQuery =
+        sqlQuery +
+        `
       GROUP BY events.id;
-      `
-      break
+      `;
+      break;
 
     // Set default case for non-registered users
     default:
@@ -83,24 +92,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       `
       WHERE events.start_date > CURRENT_TIMESTAMP
       GROUP BY events.id;
-      `
-      break
-  // -------------------------------------------------
+      `;
+      break;
+    // -------------------------------------------------
   }
 
-
   // Create the pool query
-  pool.query( sqlQuery, sqlParams ).then((result) => {
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((result) => {
       res.send(result.rows);
-  }).catch((error) => {
-      console.log(`Error in get events router with ${error}`)
+    })
+    .catch((error) => {
+      console.log(`Error in get events router with ${error}`);
       res.sendStatus(500);
-  });
+    });
 });
-
-
-
-
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   //   console.log("action.payload is", req.body.date[1]);
@@ -162,7 +169,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   res.sendStatus(200);
 });
 
-
 // Router call that returns a list of all the booth requests
 // made by vendors for a specific event. Returns a list of all
 // applications: approved, pending, rejected
@@ -192,17 +198,18 @@ router.get("/:id/booth-applications", (req, res) => {
       JOIN "user"
           ON "booth_applications".user_id = "user".id
       WHERE "events".id = $1;
-  `
+  `;
   // Get the event ID from the URL params
-  const sqlParams = [req.params.id]
+  const sqlParams = [req.params.id];
 
   // Pool the DB to get the results
-  pool.query(sqlQuery, sqlParams)
-  .then(result  =>  {
-    res.send(result.rows)})
-  .catch(err => console.log(`Error in booth-applications with ${err}`))
-})
-
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+});
 
 // Make the router routes accessible
 module.exports = router;
