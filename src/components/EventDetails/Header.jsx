@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 
 function Header() {
-  let Pending = 0;
-  let Approved = 0;
   const { eventId } = useParams();
   const events = useSelector((store) => store.events);
   const booths = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
+  let Pending = 0;
+  let Approved = 0;
+  let Available = 0;
+  let total = 0;
 
   let eventDetails = events.filter((event) => {
     if (event.id === Number(eventId)) {
@@ -18,17 +20,22 @@ function Header() {
   });
   eventDetails = eventDetails.pop();
 
+  console.log(eventDetails);
+
   for (const booth of booths) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
-    if (user.id === booth.vendor_id) {
-      if (booth.approved_by_host === "PENDING") {
+
+    if (Number(eventId) === booth.event_id) {
+      if (booth.approved_by_host === false) {
         Pending += booth.quantity;
       }
-      if (booth.approved_by_host === "APPROVED") {
+      if (booth.approved_by_host === true) {
         Approved += booth.quantity;
       }
     }
+    total = Pending + Approved;
+    Available = total - Approved;
   }
   switch (user.type) {
     case "host":
@@ -44,6 +51,8 @@ function Header() {
               Total Approved Booths: {Approved}
               <br />
               Pending Booths: {Pending}
+              <br />
+              Avalible {Available}
             </ul>
           )}
         </>
@@ -58,7 +67,7 @@ function Header() {
               {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
               {moment(eventDetails.end_date).format("MMMM Do YYYY")}
               <br />
-              Avalible booths:
+              Avalible booths: {Available}
             </ul>
           )}
         </>
