@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Calender from "./DatePicker";
+import Calender from "../ReuseableComponents/DatePicker";
 import { useSelector, useDispatch } from "react-redux";
 import "./AddEventForm.css";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
