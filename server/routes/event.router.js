@@ -14,6 +14,7 @@ const router = express.Router();
 router.get("/", rejectUnauthenticated, (req, res) => {
 
 
+
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -50,39 +51,87 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // Build the base SQL query
   let sqlQuery = `
     SELECT
-      events.id,
-      events.user_id,
-      events.description,
-      events.name,
-      events.start_date,
-      events.end_date,
-      events.venue_id,
-      events.verified,
+    events.id,
+    events.user_id,
+    events.description,
+    events.name,
+    events.start_date,
+    events.end_date,
+    events.venue_id,
+    events.verified,
       COALESCE(json_agg(
-        DISTINCT jsonb_build_object(
-          'id', booths.id,
-          'event_id', booths.event_id,
-          'type', booths.type,
-          'dimensions', booths.dimensions,
-          'quantity', booths.quantity,
-          'description', booths.description,
-          'cost', booths.cost
-        )
-      ) FILTER (WHERE booths.id IS NOT NULL), '[]')
-      AS booths,
-      COALESCE(json_agg(DISTINCT "tags".*)
-        FILTER (WHERE tags.id IS NOT NULL), '[]')
-        AS tags
-    FROM events
-    LEFT JOIN "event_tags"
-      ON "events".id = "event_tags".event_id
-    LEFT JOIN "tags"
-      ON "tags".id = "event_tags".tag_id
-    LEFT JOIN booths
-      ON "booths".event_id = "events".id
-    ${setWhereClause}
-    GROUP BY events.id;`;
 
+      DISTINCT jsonb_build_object(
+        'id', booths.id,
+        'event_id', booths.event_id,
+        'type', booths.type,
+        'dimensions', booths.dimensions,
+        'quantity', booths.quantity,
+        'description', booths.description,
+        'cost', booths.cost
+      )
+    ) FILTER (WHERE booths.id IS NOT NULL), '[]') AS booths,
+    COALESCE(json_agg(DISTINCT "tags".*)
+      FILTER (WHERE tags.id IS NOT NULL), '[]')
+      as tags,
+    COALESCE(json_agg(DISTINCT "addresses".*)
+      FILTER (WHERE addresses.id IS NOT NULL), '[]')
+      as address
+  FROM "user"
+  JOIN "booth_applications"
+    ON "user".id = "booth_applications".user_id
+  JOIN "booths"
+    ON "booths".id = "booth_applications".booth_id
+  JOIN "events"
+    ON "events".id = "booths".event_id
+  LEFT JOIN "event_tags"
+    ON "events".id = "event_tags".event_id
+  LEFT JOIN "tags"
+    ON "tags".id = "event_tags".tag_id
+  LEFT JOIN "venues"
+    ON "events".venue_id = "venues".id
+  LEFT JOIN "addresses"
+    ON "addresses".id = "venues".address_id`;
+
+  // Will need to check
+  let sqlParams = [];
+
+  // -------------------------------------------------
+  // Determine the logic to use based on the user-type
+  switch (req.user.type) {
+    // Host switch case
+    case "host":
+      // Set the host-specific query
+      sqlQuery =
+        sqlQuery +
+        `
+        WHERE events.user_id = $1
+        GROUP BY events.id;
+      `;
+      sqlParams.push(req.user.id);
+      break;
+
+    // Vendor & admin switch case
+    case "vendor":
+    case "admin":
+      // Set the host-specific query
+      sqlQuery =
+        sqlQuery +
+        `
+      GROUP BY events.id;
+      `;
+      break;
+
+    // Set default case for non-registered users
+    default:
+      // Only allow them to see events in the future
+      `
+      WHERE events.start_date > CURRENT_TIMESTAMP
+      GROUP BY events.id;
+      `;
+      break;
+    // -------------------------------------------------
+  }
 
   // Create the pool query
   pool
@@ -175,7 +224,8 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booths".id = "booth_applications".booth_id
       JOIN "user"
           ON "booth_applications".user_id = "user".id
-      WHERE "events".id = $1;`;
+      WHERE "events".id = $1;
+  `;
 
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];
