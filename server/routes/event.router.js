@@ -1,9 +1,8 @@
 // Import the core libraries and functions
 const express = require("express");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
-const encryptLib = require("../modules/encryption");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
+
+// Get the database connection
 const pool = require("../modules/pool");
 
 // Set the router and make these local routes available on the server
@@ -13,6 +12,41 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
+
+
+  // Initialize the parameters as a blank array
+  let sqlParams = [];
+
+  // Initialize a where clause to the set later
+  let setWhereClause = ""
+
+
+  // -------------------------------------------------
+  // Determine the logic to use based on the user-type
+  switch (req.user.type) {
+
+    // Host switch case
+    case "host":
+      // Set the host-specific query
+      setWhereClause = "WHERE events.user_id = $1"
+      // Add the current user to the params list
+      sqlParams.push(req.user.id);
+      break;
+
+    // Vendor & admin switch case
+    case "vendor":
+    case "admin":
+      // Keep the `setWhereClause` as a blank string
+      break;
+
+    // Set default case for non-registered users
+    default:
+      // Only allow them to see events in the future
+      setWhereClause = "WHERE events.start_date > CURRENT_TIMESTAMP"
+      break;
+    // -------------------------------------------------
+  }
+
   // Build the base SQL query
   let sqlQuery = `
     SELECT
@@ -45,47 +79,10 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     LEFT JOIN "tags"
       ON "tags".id = "event_tags".tag_id
     LEFT JOIN booths
-      ON booths.event_id = events.id`;
+      ON "booths".event_id = "events".id
+    ${setWhereClause}
+    GROUP BY events.id;`;
 
-  // Will need to check
-  let sqlParams = [];
-
-  // -------------------------------------------------
-  // Determine the logic to use based on the user-type
-  switch (req.user.type) {
-    // Host switch case
-    case "host":
-      // Set the host-specific query
-      sqlQuery =
-        sqlQuery +
-        `
-        WHERE events.user_id = $1
-        GROUP BY events.id;
-      `;
-      sqlParams.push(req.user.id);
-      break;
-
-    // Vendor & admin switch case
-    case "vendor":
-    case "admin":
-      // Set the host-specific query
-      sqlQuery =
-        sqlQuery +
-        `
-      GROUP BY events.id;
-      `;
-      break;
-
-    // Set default case for non-registered users
-    default:
-      // Only allow them to see events in the future
-      `
-      WHERE events.start_date > CURRENT_TIMESTAMP
-      GROUP BY events.id;
-      `;
-      break;
-    // -------------------------------------------------
-  }
 
   // Create the pool query
   pool

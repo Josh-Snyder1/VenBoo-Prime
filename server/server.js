@@ -12,6 +12,7 @@ const eventsRouter = require("./routes/event.router");
 const boothsRouter = require("./routes/booths.router");
 const tagsRouter = require("./routes/tags.router");
 const eventBoothsRouter = require("./routes/eventbooths.router")
+const vendorRouter = require("./routes/vendors.router")
 
 
 // Body parser middleware
@@ -26,12 +27,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-
 app.use("/api/user", userRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/booths", boothsRouter);
 app.use("/api/tags", tagsRouter);
 app.use("/api/eventbooths", eventBoothsRouter);
+app.use("/api/vendors", vendorRouter)
 
 // Serve static files
 app.use(express.static("build"));

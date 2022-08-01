@@ -19,13 +19,20 @@ function DashboardAdmin() {
   const dispatch = useDispatch();
 
   // Get the various REDUX store elements
-  const user = useSelector((store) => store.user);
-  const allEvents = useSelector((store) => store.events);
+  const user = useSelector(store => store.user);
+  const allEvents = useSelector(store => store.events);
+  const allVendors = useSelector(store => store.vendors.allVendors)
 
   // Call the `FETCH_EVENTS` dispatch to get the current
   // events to list for an admin user
   useEffect(() => {
     dispatch({ type: "FETCH_EVENTS" });
+  }, [])
+
+  // Call the `FETCH_VENDORS` dispatch to get the current
+  // vendors to list for an admin user
+  useEffect(() => {
+    dispatch({ type: "FETCH_VENDORS" });
   }, [])
 
   
@@ -85,6 +92,12 @@ function DashboardAdmin() {
   // Call the function to get the number of events that occurred during the current week
   // const eventsThisWeek = eventsOverDateRange(allEvents)
 
+  if (!allEvents) {
+    return (
+      <>
+      </>
+    )
+  }
 
   return (
       <>
@@ -137,7 +150,7 @@ function DashboardAdmin() {
             <StatsCard title="Income this Week:" message="$" />
 
             {/* Card for display the total number of vendors */}
-            <StatsCard title="Number of Vendors:" message="#" />
+            <StatsCard title="Number of Vendors:" message={allVendors.length} />
 
           </Stack>
         </Grid>
