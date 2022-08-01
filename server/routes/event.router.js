@@ -69,15 +69,22 @@ router.get("/", rejectUnauthenticated, (req, res) => {
           'cost', booths.cost
         )
       ) FILTER (WHERE booths.id IS NOT NULL), '[]')
-      AS booths,
+        AS booths,
       COALESCE(json_agg(DISTINCT "tags".*)
         FILTER (WHERE tags.id IS NOT NULL), '[]')
-        AS tags
+        AS tags,
+      COALESCE(json_agg(DISTINCT "addresses".*)
+        FILTER (WHERE addresses.id IS NOT NULL), '[]')
+        as address
     FROM events
     LEFT JOIN "event_tags"
       ON "events".id = "event_tags".event_id
     LEFT JOIN "tags"
       ON "tags".id = "event_tags".tag_id
+    LEFT JOIN "venues"
+      ON "events".venue_id = "venues".id
+    LEFT JOIN "addresses"
+      ON "addresses".id = "venues".address_id
     LEFT JOIN booths
       ON "booths".event_id = "events".id
     ${setWhereClause}
