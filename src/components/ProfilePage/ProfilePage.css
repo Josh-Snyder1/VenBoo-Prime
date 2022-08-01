@@ -1,0 +1,9 @@
+#header {
+  text-align: center;
+}
+
+.pageEdit {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 20px;
+}

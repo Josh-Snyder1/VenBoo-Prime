@@ -67,7 +67,19 @@ function AddEventForm() {
   const tags = useSelector((store) => store.tags);
   const user = useSelector((store) => store.user);
 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_TAGS",
+    });
+  }, []);
+
+  let currentUser = user.type;
+  if (user.type === "vendor") {
+    currentUser = true;
+  }
+
   // LOCAL STATE
+  const [tag, setTag] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [title, setTitle] = useState("");
@@ -106,20 +118,21 @@ function AddEventForm() {
         linkedIn,
         facebook,
         etsy,
+        tag,
       },
     });
     e.target.reset();
   };
 
   const tagSelection = (tagSelection) => {
-    console.log('in tagSelection', tagSelection)
+    console.log("in tagSelection", tagSelection);
     return setTag(tagSelection);
-  }
+  };
 
   let props = {
     tags,
-    tagSelection
-  }
+    tagSelection,
+  };
 
   return (
     <>
@@ -132,7 +145,7 @@ function AddEventForm() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Last Name </InputLabel>
           <CustomInput
@@ -140,7 +153,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Title</InputLabel>
           <CustomInput
@@ -148,9 +161,10 @@ function AddEventForm() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            required
+            // required
           />
-          <MultiSelect props={props} />
+
+          {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
 
           <InputLabel>Buisness Name </InputLabel>
           <CustomInput
@@ -158,7 +172,7 @@ function AddEventForm() {
             onChange={(e) => {
               setBuisnessName(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Description</InputLabel>
           <TextField
@@ -169,7 +183,7 @@ function AddEventForm() {
             onChange={(e) => {
               setdescription(e.target.value);
             }}
-            required
+            // required
           />
         </div>
 
@@ -181,7 +195,7 @@ function AddEventForm() {
             onChange={(e) => {
               setAddress(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>City</InputLabel>
           <CustomInput
@@ -189,16 +203,17 @@ function AddEventForm() {
             onChange={(e) => {
               setCity(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>State</InputLabel>
           <Select
             name="state"
             id="stateselect"
+            defaultValue=""
             onChange={(e) => {
               setState(e.target.value);
             }}
-            required
+            // required
           >
             <MenuItem value="AL">Alabama</MenuItem>
             <MenuItem value="AK">Alaska</MenuItem>
@@ -259,7 +274,7 @@ function AddEventForm() {
             onChange={(e) => {
               setZip(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Phone Number</InputLabel>
           <CustomInput
@@ -267,7 +282,7 @@ function AddEventForm() {
             onChange={(e) => {
               setTelephone(e.target.value);
             }}
-            required
+            // required
           />
         </div>
 
@@ -279,7 +294,7 @@ function AddEventForm() {
             onChange={(e) => {
               setWebsite(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>LinkedIn</InputLabel>
           <CustomInput
@@ -287,7 +302,7 @@ function AddEventForm() {
             onChange={(e) => {
               setLinkedIn(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Facebook</InputLabel>
           <CustomInput
@@ -295,7 +310,7 @@ function AddEventForm() {
             onChange={(e) => {
               setFacebook(e.target.value);
             }}
-            required
+            // required
           />
           <InputLabel>Etsy</InputLabel>
           <CustomInput
@@ -303,7 +318,7 @@ function AddEventForm() {
             onChange={(e) => {
               setEtsy(e.target.value);
             }}
-            required
+            // required
           />
         </div>
         <button className="submit">Create</button>

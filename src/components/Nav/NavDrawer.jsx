@@ -169,15 +169,16 @@ export default function NavDrawer() {
         },
         {
             text: 'Profile',
-            link: '/profile',
+            link: `/profile/${user.id}`,
             userType: ['host', 'vendor'],
             upperLowerNav: 'lower',
             icon: <PersonIcon />
         }
     ]
 
+    // sets the profile image variable to display the first letter of their username/email
+    let profileLetter = user.email && user.email.charAt(0).toUpperCase()
 
-    console.log('in nav drawer', user.email && user.email.charAt(0).toUpperCase())
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -201,8 +202,11 @@ export default function NavDrawer() {
         </Toolbar>
         
         </ClickAwayListener>
-        <Avatar sx={{ margin:'10px' }} >
-        {/* {user?.email.charAt(0).toUpperCase()} */}
+        <Avatar 
+        sx={{ margin:'10px', cursor:'pointer' }} 
+        onClick={() => {history.push(`/profile/${user.id}`)}} 
+        >
+          {profileLetter}
         </Avatar>
       </AppBar>
       <Drawer

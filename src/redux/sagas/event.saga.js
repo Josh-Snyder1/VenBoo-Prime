@@ -23,7 +23,7 @@ function* fetchHostEvents() {
 
 function* addNewEvent(action) {
   try {
-    yield axios.post("/api/event", action.payload);
+    yield axios.post("/api/events", action.payload);
   } catch (error) {
     console.log("Error with event:", error);
   }

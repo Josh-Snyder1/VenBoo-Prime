@@ -1,9 +1,8 @@
 // Import the core libraries and functions
 const express = require("express");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
-const encryptLib = require("../modules/encryption");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
+
+// Get the database connection
 const pool = require("../modules/pool");
 
 // Set the router and make these local routes available on the server
@@ -13,6 +12,42 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
+
+
+
+  // Initialize the parameters as a blank array
+  let sqlParams = [];
+
+  // Initialize a where clause to the set later
+  let setWhereClause = ""
+
+
+  // -------------------------------------------------
+  // Determine the logic to use based on the user-type
+  switch (req.user.type) {
+
+    // Host switch case
+    case "host":
+      // Set the host-specific query
+      setWhereClause = "WHERE events.user_id = $1"
+      // Add the current user to the params list
+      sqlParams.push(req.user.id);
+      break;
+
+    // Vendor & admin switch case
+    case "vendor":
+    case "admin":
+      // Keep the `setWhereClause` as a blank string
+      break;
+
+    // Set default case for non-registered users
+    default:
+      // Only allow them to see events in the future
+      setWhereClause = "WHERE events.start_date > CURRENT_TIMESTAMP"
+      break;
+    // -------------------------------------------------
+  }
+
   // Build the base SQL query
   let sqlQuery = `
     SELECT
@@ -25,6 +60,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     events.venue_id,
     events.verified,
       COALESCE(json_agg(
+
       DISTINCT jsonb_build_object(
         'id', booths.id,
         'event_id', booths.event_id,
@@ -110,30 +146,28 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-  //   console.log("action.payload is", req.body.date[1]);
-
-  const sqlQuery = `
+  const addressesQuery = `
       INSERT INTO addresses ( address, city, state )
       VALUES ($1, $2, $3)
       RETURNING id
       `;
 
-  const sqlParams = [req.body.address, req.body.city, req.body.state];
+  const addressesParams = [req.body.address, req.body.city, req.body.state];
 
-  const sqlQuery2 = `
+  const venueQuery = `
     INSERT INTO venues (name, address_id)
     VALUES ($1,$2)
     RETURNING id
     `;
 
-  const sqlParams2 = [req.body.name];
+  const venueParmas = [req.body.name];
 
-  const sqlQuery3 = `
-    INSERT INTO events (user_id, name, description, start_date, end_date)
-    VALUES ($1, $2, $3, $4, $5 )
+  const eventsQuery = `
+    INSERT INTO events (user_id, name, description, start_date, end_date, venue_id)
+    VALUES ($1, $2, $3, $4, $5, $6 )
     `;
 
-  const sqlParams3 = [
+  const eventsParams = [
     req.body.user,
     req.body.name,
     req.body.description,
@@ -142,31 +176,24 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   ];
 
   pool
-    .query(sqlQuery, sqlParams)
+    .query(addressesQuery, addressesParams)
     .then((dbRes) => {
-      console.log(
-        "????",
-        dbRes.rows[0],
-        dbRes.rows[0].id !== undefined,
-        dbRes.rows[0].id === undefined
-      );
-      if (dbRes.rows[0].id) {
-        pool
-          .query(sqlQuery2, [...sqlParams2, dbRes.rows[0].id])
-          .then((dbRes2) => {
-            console.log("2>>>>>>", dbRes2);
-            if (dbRes2.rows[0].id) {
-              console.log(">>>>>>>>>", dbRes2);
-              pool.query(sqlQuery3, sqlParams3);
-            }
-          });
-      }
+      let addressId = dbRes.rows[0].id;
+      // Create Venue
+      return pool.query(venueQuery, [...venueParmas, addressId]);
+    })
+    .then((dbRes2) => {
+      let venueId = dbRes2.rows[0].id;
+      // Create the event
+      return pool.query(eventsQuery, [...eventsParams, venueId]);
+    })
+    .then(() => {
+      res.sendStatus(200);
     })
     .catch((err) => {
       console.log(`error in add new event router, ${err}`);
       res.sendStatus(500);
     });
-  res.sendStatus(200);
 });
 
 // Router call that returns a list of all the booth requests
@@ -199,6 +226,7 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booth_applications".user_id = "user".id
       WHERE "events".id = $1;
   `;
+
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];
 

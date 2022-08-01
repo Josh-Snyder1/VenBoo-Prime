@@ -7,6 +7,7 @@ import eventSaga from "./event.saga";
 import boothsSaga from './booths.saga';
 import eventBooths from './eventbooth.saga';
 import tagSaga from './tags.saga';
+import vendorSaga from "./vendors.saga";
 
 
 // rootSaga is the primary saga.
@@ -26,5 +27,6 @@ export default function* rootSaga() {
     boothsSaga(),
     eventBooths(),
     tagSaga(),
+    vendorSaga(),
   ]);
 }

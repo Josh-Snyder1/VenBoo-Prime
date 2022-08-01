@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Card, Grid, Stack, Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+
 
 function EventListHost() {
     // Stores
@@ -11,20 +13,22 @@ function EventListHost() {
 
     // Today's date.
     const todayDate = moment().format('YYYYMMDD');
+    const history = useHistory();
+
 
     // Local state to render items the user wants to view.
     const [viewList, setViewList] = useState('');
 
     return (
         <Grid 
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                sx={{
-                    marginBottom: '1em',
-                    padding: "1em"
-                }}
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+                marginBottom: '1em',
+                padding: "1em"
+            }}
             >
                 <Stack
                     direction="row"
@@ -63,7 +67,8 @@ function EventListHost() {
                         itemEvent.verified
                     ){
                         return (
-                            <Card 
+                            <Card
+                                onClick={() => history.push(`/event/${itemEvent.id}`)}
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{
@@ -89,7 +94,8 @@ function EventListHost() {
                         !itemEvent.verified
                     ){
                         return (
-                            <Card 
+                            <Card
+                                onClick={() => history.push(`/event/${itemEvent.id}`)}
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{
@@ -113,7 +119,8 @@ function EventListHost() {
                         Number(moment(itemEvent.start_date).format('YYYYMMDD')) < Number(todayDate)
                     ){
                         return (
-                            <Card 
+                            <Card
+                                onClick={() => history.push(`/event/${itemEvent.id}`)}
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{

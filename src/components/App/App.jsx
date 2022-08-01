@@ -14,7 +14,7 @@ import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
-import HostProfilePage from "../HostProfilePage/HostProfilePage";
+import ProfilePage from "../ProfilePage/ProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
 import Dashboard from "../Dashboard/Dashboard";
@@ -65,9 +65,9 @@ function App() {
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/profile"
+            path="/profile/:id"
           >
-            <HostProfilePage />
+            <ProfilePage />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.

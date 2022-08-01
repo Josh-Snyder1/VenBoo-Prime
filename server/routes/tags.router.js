@@ -16,7 +16,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query( sqlQuery ).then((result) => {
         res.send(result.rows);
     }).catch((error) => {
-        console.log('in get tags router', error)
         res.sendStatus(500);
     });
 });

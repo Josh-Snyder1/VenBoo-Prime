@@ -9,12 +9,12 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `UPDATE "user"
+  const userQuery = `UPDATE "user"
   SET first_name= $2, last_name= $3, title= $4, business_name= $5, description= $6, phone= $7, main_url= $8, facebook_url= $9, etsy_url= $10, linkedin_url= $11
   WHERE id= $1
     `;
 
-  const sqlParams = [
+  const userParams = [
     req.body.user,
     req.body.name,
     req.body.lastName,
@@ -28,11 +28,11 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     req.body.linkedIn,
   ];
 
-  const sqlQuery1 = `UPDATE "addresses"
+  const addressesQuery = `UPDATE "addresses"
   SET address= $2, city= $3, state= $4, zipcode= $5
   WHERE id= $1
   `;
-  const sqlParams1 = [
+  const addressesParams = [
     req.body.user,
     req.body.address,
     req.body.city,
@@ -40,15 +40,30 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     req.body.zip,
   ];
 
-  pool
-    .query(sqlQuery, sqlParams)
-    .then((dbRes) => {
-      pool.query(sqlQuery1, sqlParams1).then((dbRes2) => {
-        res.sendStatus(201);
+  // console.log("req.body.tags is", req.body.tag);
+
+  for (const tg of req.body.tag) {
+    const vendorTagsParams = [req.body.user, tg];
+    const vendorTagsQuery = `
+    INSERT INTO "vendor_tags" (user_id, tag_id)
+    VALUES ($1, $2)
+    `;
+    pool
+      .query(vendorTagsQuery, vendorTagsParams)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
       });
+  }
+
+  pool
+    .query(userQuery, userParams)
+    .then(() => {
+      return pool.query(addressesQuery, addressesParams).then(() => {});
     })
     .catch((error) => {
       console.log("error in user router", error);
+      res.sendStatus(500);
     });
 });
 
@@ -97,6 +112,31 @@ router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.get("/profile/:id", (req, res) => {
+
+  sqlQuery = `SELECT 
+            "user".id,
+            "user".email,
+            "user".business_name,
+            "user".description,
+            "user".phone,
+            "user".phone_extension,
+            "user".main_url,
+            "user".facebook_url,
+            "user".etsy_url,
+            "user".linkedin_url
+            FROM "user"
+            WHERE "user".id = $1
+  `
+  sqlParams = [req.params.id]
+
+  pool.query(sqlQuery, sqlParams)
+      .then((result) => {
+        res.send(result.rows)
+      })
+      .catch((err) => console.error('error in getting user profile info', err))
 });
 
 module.exports = router;
