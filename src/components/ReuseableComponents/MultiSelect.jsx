@@ -7,6 +7,30 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 
+
+//*********USED FOR MULTISELECT COMPONENT*******//
+//
+//* this function is passed into the MultiSelect component 
+// and is called when tags are added/removed from the dropdown
+// to update state of tagSelection.
+
+// const tagSelection = (tagSelection) => {
+//   console.log("in tagSelection", tagSelection);
+//   return setTag(tagSelection);
+// };
+
+//* sets props object to be passed into the MultiSelect component
+// tags expects an array formatted as the tags array from the redux store
+
+// let props = {
+//   tags,
+//   tagSelection,
+// };
+
+//* call MultiSelect where desired and pass through props
+
+// <MultiSelect props={props} />
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
