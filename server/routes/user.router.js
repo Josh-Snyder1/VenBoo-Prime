@@ -40,7 +40,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     req.body.zip,
   ];
 
-  console.log("req.body.tags is", req.body.tag);
+  // console.log("req.body.tags is", req.body.tag);
 
   for (const tg of req.body.tag) {
     const vendorTagsParams = [req.body.user, tg];
@@ -112,6 +112,31 @@ router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.get("/profile/:id", (req, res) => {
+
+  sqlQuery = `SELECT 
+            "user".id,
+            "user".email,
+            "user".business_name,
+            "user".description,
+            "user".phone,
+            "user".phone_extension,
+            "user".main_url,
+            "user".facebook_url,
+            "user".etsy_url,
+            "user".linkedin_url
+            FROM "user"
+            WHERE "user".id = $1
+  `
+  sqlParams = [req.params.id]
+
+  pool.query(sqlQuery, sqlParams)
+      .then((result) => {
+        res.send(result.rows)
+      })
+      .catch((err) => console.error('error in getting user profile info', err))
 });
 
 module.exports = router;

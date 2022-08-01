@@ -6,29 +6,29 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
-function Icons() {
+function Icons({profileInfo}) {
   return (
     <>
       <IconButton className="facebook">
-        <a href="https://www.facebook.com/profile.php">
+        <a href={profileInfo.facebook_url}>
           <FacebookIcon sx={{ color: "rgb(66 ,103 ,178)" }} />
         </a>
       </IconButton>
 
       <IconButton className="instagram">
-        <a href="https://www.instagram.com/">
+        <a href={profileInfo.instagram_url}>
           <InstagramIcon color="secondary" />
         </a>
       </IconButton>
 
       <IconButton className="linkedIn">
-        <a href="https://www.linkedin.com">
+        <a href={profileInfo.linkedin_url}>
           <LinkedInIcon sx={{ color: "rgb(10, 102, 194)" }} />
         </a>
       </IconButton>
 
       <IconButton className="pintrest">
-        <a href="https://www.pinterest.com/">
+        <a href={profileInfo.pintrest_url}>
           <PinterestIcon sx={{ color: "rgb(230, 0, 35)" }} />
         </a>
       </IconButton>

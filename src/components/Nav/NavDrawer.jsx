@@ -169,7 +169,7 @@ export default function NavDrawer() {
         },
         {
             text: 'Profile',
-            link: '/profile',
+            link: `/profile/${user.id}`,
             userType: ['host', 'vendor'],
             upperLowerNav: 'lower',
             icon: <PersonIcon />
