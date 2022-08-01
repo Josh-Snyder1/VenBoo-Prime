@@ -14,6 +14,7 @@ const router = express.Router();
 router.get("/", rejectUnauthenticated, (req, res) => {
 
 
+
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -50,14 +51,14 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // Build the base SQL query
   let sqlQuery = `
     SELECT
-      events.id,
-      events.user_id,
-      events.description,
-      events.name,
-      events.start_date,
-      events.end_date,
-      events.venue_id,
-      events.verified,
+    events.id,
+    events.user_id,
+    events.description,
+    events.name,
+    events.start_date,
+    events.end_date,
+    events.venue_id,
+    events.verified,
       COALESCE(json_agg(
         DISTINCT jsonb_build_object(
           'id', booths.id,
@@ -89,7 +90,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       ON "booths".event_id = "events".id
     ${setWhereClause}
     GROUP BY events.id;`;
-
 
   // Create the pool query
   pool
@@ -182,7 +182,8 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booths".id = "booth_applications".booth_id
       JOIN "user"
           ON "booth_applications".user_id = "user".id
-      WHERE "events".id = $1;`;
+      WHERE "events".id = $1;
+  `;
 
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];
