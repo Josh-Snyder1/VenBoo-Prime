@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "./Header";
+import EditHeader from "./EditHeader";
 import moment from "moment";
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
@@ -12,7 +13,11 @@ function EventDetails() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
   const [viewList, setViewList] = useState("");
+  const [editEvent, setEditEvent] = useState();
 
+  function toggleEdit() {
+    setEditEvent(!editEvent);
+  }
   // delete booth handle
   // function deleteBooth(id){
   //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
@@ -56,15 +61,12 @@ function EventDetails() {
     // adding booths and available booths
 
     <>
-      <Header />
+      {editEvent === false ? (
+        <EditHeader toggleEdit={toggleEdit} />
+      ) : (
+        <Header toggleEdit={toggleEdit} />
+      )}
 
-      <h1>
-        <br /> Address(123 First Ave Roseville, MN 55407)
-      </h1>
-      <h2>Selector (Tags)</h2>
-      {/* <form onSubmit={}>
-
-              </form> */}
       <h1>Available Booths</h1>
       <div>
         <button>Add Booth Type</button>

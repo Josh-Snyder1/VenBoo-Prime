@@ -1,23 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 import moment from "moment";
 
-function Header() {
+function Header({ toggleEdit }) {
   const { eventId } = useParams();
   const dispatch = useDispatch();
+
+  // REDUX STORE
   const events = useSelector((store) => store.events);
   const booths = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
   const tags = useSelector((store) => store.tags);
+
+  // LOCALE STATE
   const [tag, setTag] = useState("");
 
   useEffect(() => {
     dispatch({ type: "FETCH_TAGS" });
   }, []);
 
-  console.log(tag);
   let Pending = 0;
   let Approved = 0;
   let Available = 0;
@@ -55,20 +59,28 @@ function Header() {
     Available = total - Approved;
   }
 
-  console.log(eventDetails);
-  console.log(
-    "is eventDetails defined >>>>>>>>",
-    eventDetails?.address[0].address
-  );
   const address = eventDetails?.address[0];
   const selectedTags = eventDetails?.tags;
-
-  console.log(selectedTags);
 
   switch (user.type) {
     case "host":
       return (
         <>
+          {
+            <div className="pageEdit">
+              <EditIcon
+                sx={{
+                  cursor: "pointer",
+                  marginRight: "5px",
+                  position: "absolute",
+                  display: "flex",
+                }}
+                onClick={() => {
+                  toggleEdit();
+                }}
+              />
+            </div>
+          }
           {eventDetails && (
             <ul>
               <h2> {eventDetails.name} </h2>
