@@ -104,7 +104,7 @@ console.log('event booth', eventBoothDetails);
 
                 <tbody>
                     {eventBoothDetails.map((booths)=> {
-                        
+                        console.log('booth id is>>>>>', booths.booth_id);
                         return(
                             
                         
@@ -114,7 +114,7 @@ console.log('event booth', eventBoothDetails);
                                 <td>{booths.tags}</td>
                                 <td>{booths.dimensions}</td>
                                 <button>✅</button>
-                                <button onClick={ () => handleDelete(booths.id)} >❌</button>
+                                <button onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >❌</button>
                             </tr>
                             )
                         })}

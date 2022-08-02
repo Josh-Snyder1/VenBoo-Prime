@@ -178,7 +178,7 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booths".id = "booth_applications".booth_id
       JOIN "user"
           ON "booth_applications".user_id = "user".id
-      WHERE "events".id = $1;`;
+      WHERE "events".id = $1;`
 
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];
@@ -189,7 +189,10 @@ router.get("/:id/booth-applications", (req, res) => {
     .then((result) => {
       res.send(result.rows);
     })
-    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+    .catch((err) => {
+      console.log(`Error in booth-applications with ${err}`);
+      res.sendStatus(500);
+    });
 });
 
 // Make the router routes accessible
