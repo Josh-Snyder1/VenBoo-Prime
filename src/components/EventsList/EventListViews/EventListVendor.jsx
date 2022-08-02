@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { Card, Grid, Stack, Button } from "@mui/material";
+import { Card, Grid, Stack, Tabs, Tab } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -32,6 +32,10 @@ function EventListVendor() {
         return true;
     });
 
+    const handleChange = (event, newValue) => {
+        setViewList(newValue);
+    }
+
         return (
         <Grid 
                 container
@@ -45,22 +49,12 @@ function EventListVendor() {
                 <br/>
                 <h3>Your Booths</h3>
                 <br/>
-                <Stack
-                    direction="row"
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                    spacing={1}
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                    }}
-                >
-                    <Button onClick={() => setViewList('approved')}>Approved</Button>
-                    <Button onClick={() => setViewList('pending')}>Pending</Button>
-                    <Button onClick={() => setViewList('past')}>Past</Button>
-                    <Button onClick={() => setViewList('new_events')}>New Events</Button>
-                    <br/>
-                </Stack>
+                <Tabs value={viewList} onChange={handleChange}>
+                    <Tab value="approved" label="Approved"/>
+                    <Tab value="pending" label="Pending"/>
+                    <Tab value="past" label="Past"/>
+                    <Tab value="new_events" label="New Events"/>
+                </Tabs>
                 <Stack
                     direction="row"
                     justifyContent="space-evenly"
