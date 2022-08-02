@@ -19,7 +19,11 @@ function EventListVendor() {
 
     // Local state to render items the user wants to view.
     const [viewList, setViewList] = useState('approved');
-    
+
+  
+
+    // Initialize the history and dispatch functions
+
     const history = useHistory();
     const dispatch = useDispatch();
 

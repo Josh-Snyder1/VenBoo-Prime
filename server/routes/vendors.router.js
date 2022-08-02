@@ -86,14 +86,11 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       ${setWhereClause}
     GROUP BY "user".id;`
 
-  console.log(sqlQuery)
-
 
   // Create the pool query
   pool
     .query(sqlQuery, sqlParams)
     .then((result) => {
-      console.log(result.rows)
       res.send(result.rows);
     })
     .catch((error) => {
@@ -101,6 +98,63 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+// -----------------------------------------------------
+// Route to get information about a vendor's specific
+// requested or approved booth
+router.get("/approved-vendor-booths", (req, res) => {
+
+  if (req.user.type !== "admin") {
+    res.sendStatus(401)
+    return
+  }
+
+  // Set the sqlQuery
+  const sqlQuery = `
+    SELECT
+      events.id,
+      events.user_id,
+      events.description,
+      events.name,
+      events.start_date,
+      events.end_date,
+      events.venue_id,
+      events.verified,
+      COALESCE(json_agg(
+        DISTINCT jsonb_build_object(
+          'id', "booth_applications".id,
+          'business_name', "user".business_name,
+          'description', "user".description,
+          'booth_cost', "booths".cost,
+          'income', ROUND("booths".cost  * "booths".service_charge, 2),
+          'host_payment', ROUND("booths".cost - ("booths".cost  * "booths".service_charge), 2)
+        )
+      ) FILTER (WHERE "booth_applications".id IS NOT NULL), '[]')
+        AS "approved_booths"
+    FROM "events"
+    JOIN "booths"
+      ON "events".id = "booths".event_id
+    JOIN "booth_applications"
+      ON "booths".id = "booth_applications".booth_id
+    JOIN "user"
+      ON "user".id = "booth_applications".user_id
+    WHERE "booth_applications".approved_by_host = 'APPROVED'
+    GROUP BY "events".id;
+  `
+
+  // Make the request to database
+  pool.query(sqlQuery)
+  .then((result) => {
+    res.send(result.rows);
+  })
+  .catch((error) => {
+    console.log(`Error in get approved-vendor-booth router with ${error}`);
+    res.sendStatus(500);
+  })
+})
+
+
 
 
 module.exports = router

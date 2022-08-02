@@ -14,7 +14,6 @@ const router = express.Router();
 router.get("/", rejectUnauthenticated, (req, res) => {
 
 
-
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -102,6 +101,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const addressesQuery = `
