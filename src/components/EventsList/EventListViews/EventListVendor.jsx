@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 function EventListVendor() {
     // Stores
     const vendorBooths = useSelector((store) => store.vendorBoothsReducer);
+    const events = useSelector((store) => store.events)
 
     // Today's date.
     const todayDate = moment().format('YYYYMMDD');
@@ -22,7 +23,11 @@ function EventListVendor() {
         dispatch({ type: "FETCH_VENDOR_BOOTHS" });
     },[])
 
+    // console.log('Test Events Splunk', events.filter((event) => {if(event.booths.includes((booth) => {return booth.id})){return event} }))
 
+    // console.log('Test Events Splunk', events.filter((event) => {if(event.booths.filter((booth) => {console.log(booth.id)})){return event} }))
+    
+    
     return (
         <Grid 
                 container

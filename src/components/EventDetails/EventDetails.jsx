@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+
 function EventDetails() {
 
 
@@ -9,6 +11,7 @@ function EventDetails() {
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events);
     const history = useHistory();
     const [viewList, setViewList] = useState('');
 
@@ -48,15 +51,13 @@ function EventDetails() {
         })
       }, [eventId]);
 
-
-
-console.log('event booth', eventBoothDetails);
+    //   console.log('testing', events.filter(event => event.id === Number(eventId)).pop())
 // console.log('tags event booth', tagsBooth);
-    
+
     return (
-        // adding booths and available booths
+        
         <>
-      <h1>Available Booths</h1>
+      <AvailableBooths props={ events.filter(event => event.id === Number(eventId)).pop() }/>
       <div>
         <button>Add Booth Type</button>
         <table className='booths info'>
