@@ -1,9 +1,8 @@
 // Import the core libraries and functions
 const express = require("express");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
-const encryptLib = require("../modules/encryption");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
+
+// Get the database connection
 const pool = require("../modules/pool");
 
 // Set the router and make these local routes available on the server
@@ -13,17 +12,53 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
+
+
+
+  // Initialize the parameters as a blank array
+  let sqlParams = [];
+
+  // Initialize a where clause to the set later
+  let setWhereClause = ""
+
+
+  // -------------------------------------------------
+  // Determine the logic to use based on the user-type
+  switch (req.user.type) {
+
+    // Host switch case
+    case "host":
+      // Set the host-specific query
+      setWhereClause = "WHERE events.user_id = $1"
+      // Add the current user to the params list
+      sqlParams.push(req.user.id);
+      break;
+
+    // Vendor & admin switch case
+    case "vendor":
+    case "admin":
+      // Keep the `setWhereClause` as a blank string
+      break;
+
+    // Set default case for non-registered users
+    default:
+      // Only allow them to see events in the future
+      setWhereClause = "WHERE events.start_date > CURRENT_TIMESTAMP"
+      break;
+    // -------------------------------------------------
+  }
+
   // Build the base SQL query
   let sqlQuery = `
     SELECT
-      events.id,
-      events.user_id,
-      events.description,
-      events.name,
-      events.start_date,
-      events.end_date,
-      events.venue_id,
-      events.verified,
+    events.id,
+    events.user_id,
+    events.description,
+    events.name,
+    events.start_date,
+    events.end_date,
+    events.venue_id,
+    events.verified,
       COALESCE(json_agg(
         DISTINCT jsonb_build_object(
           'id', booths.id,
@@ -35,57 +70,26 @@ router.get("/", rejectUnauthenticated, (req, res) => {
           'cost', booths.cost
         )
       ) FILTER (WHERE booths.id IS NOT NULL), '[]')
-      AS booths,
+        AS booths,
       COALESCE(json_agg(DISTINCT "tags".*)
         FILTER (WHERE tags.id IS NOT NULL), '[]')
-        AS tags
+        AS tags,
+      COALESCE(json_agg(DISTINCT "addresses".*)
+        FILTER (WHERE addresses.id IS NOT NULL), '[]')
+        as address
     FROM events
     LEFT JOIN "event_tags"
       ON "events".id = "event_tags".event_id
     LEFT JOIN "tags"
       ON "tags".id = "event_tags".tag_id
+    LEFT JOIN "venues"
+      ON "events".venue_id = "venues".id
+    LEFT JOIN "addresses"
+      ON "addresses".id = "venues".address_id
     LEFT JOIN booths
-      ON booths.event_id = events.id`;
-
-  // Will need to check
-  let sqlParams = [];
-
-  // -------------------------------------------------
-  // Determine the logic to use based on the user-type
-  switch (req.user.type) {
-    // Host switch case
-    case "host":
-      // Set the host-specific query
-      sqlQuery =
-        sqlQuery +
-        `
-        WHERE events.user_id = $1
-        GROUP BY events.id;
-      `;
-      sqlParams.push(req.user.id);
-      break;
-
-    // Vendor & admin switch case
-    case "vendor":
-    case "admin":
-      // Set the host-specific query
-      sqlQuery =
-        sqlQuery +
-        `
-      GROUP BY events.id;
-      `;
-      break;
-
-    // Set default case for non-registered users
-    default:
-      // Only allow them to see events in the future
-      `
-      WHERE events.start_date > CURRENT_TIMESTAMP
-      GROUP BY events.id;
-      `;
-      break;
-    // -------------------------------------------------
-  }
+      ON "booths".event_id = "events".id
+    ${setWhereClause}
+    GROUP BY events.id;`;
 
   // Create the pool query
   pool
@@ -178,7 +182,8 @@ router.get("/:id/booth-applications", (req, res) => {
           ON "booths".id = "booth_applications".booth_id
       JOIN "user"
           ON "booth_applications".user_id = "user".id
-      WHERE "events".id = $1;`;
+      WHERE "events".id = $1;
+  `;
 
   // Get the event ID from the URL params
   const sqlParams = [req.params.id];

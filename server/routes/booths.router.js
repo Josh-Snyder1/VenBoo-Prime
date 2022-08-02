@@ -11,6 +11,7 @@ router.get('/vendor', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
         SELECT
             events.name,
+            events.id AS event_id,
             events.start_date,
             events.end_date,
             booths.type,
