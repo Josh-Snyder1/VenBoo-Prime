@@ -42,8 +42,10 @@ export default function InteractiveList() {
   }
 
   function updateTag(id) {
+    if ( newTag ) {
       dispatch({ type: 'EDIT_TAG', payload: {id,newTag}})
       console.log(id,newTag)
+    }
     setEdit('');
   }
 

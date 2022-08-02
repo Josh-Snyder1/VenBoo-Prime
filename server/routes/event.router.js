@@ -14,6 +14,7 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
+
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -99,6 +100,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const addressesQuery = `
@@ -245,6 +247,7 @@ router.get("/:id/booth-applications", (req, res) => {
           "booths".description,
           "booths".cost,
           "booth_applications".approved_by_host,
+          "booth_applications".id AS "boothApp_id",
           "booth_applications".notes,
           "booth_applications".requested_on,
           "user".id as "vendor_id",
@@ -270,7 +273,10 @@ router.get("/:id/booth-applications", (req, res) => {
     .then((result) => {
       res.send(result.rows);
     })
-    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+    .catch((err) => {
+      console.log(`Error in booth-applications with ${err}`);
+      res.sendStatus(500);
+    });
 });
 
 // Make the router routes accessible

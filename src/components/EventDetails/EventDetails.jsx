@@ -1,22 +1,43 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Header from "./Header";
+
 import EditHeader from "./EditHeader";
 import moment from "moment";
+
+import './EventDetails.css'
+// MUI
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+import Header from './Header'
+
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const allEvents = useSelector((store) => store.events);
-
-  // const tagsBooth = useSelector((store)=> store.tagsReducer);
-  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const events = useSelector((store) => store.events);
+  
+  // const tagsBooth = useSelector((store)=> store.tagsReducer);
+  
+  const dispatch = useDispatch();
   const history = useHistory();
   const [viewList, setViewList] = useState("");
+
   const [editEvent, setEditEvent] = useState();
 
-  const events = useSelector((store) => store.events);
-  const { eventId } = useParams();
+
+
 
   let eventDetails = events
     .filter((event) => event.id === Number(eventId))
@@ -31,6 +52,17 @@ function EventDetails() {
   // function deleteBooth(id){
   //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
   //   }
+
+  const { eventId } = useParams();
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+      payload: {
+        id: eventId,
+      },
+    });
+  }, [eventId]);
 
   function handleDelete(id) {
     dispatch({
@@ -55,21 +87,20 @@ function EventDetails() {
   // console.log('event booth', eventBoothDetails)
 
   useEffect(() => {
+  function handleApprove(boothId) {
     dispatch({
-      type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
-      payload: {
-        id: eventId,
-      },
-    });
-  }, [eventId]);
+        type: 'APPROVE_BOOTH_APP',
+        payload: {
+            boothAppId: boothId,
+            id: eventId
+        }
+  });
+  }
 
-  console.log("event booth", eventBoothDetails);
-  // console.log('tags event booth', tagsBooth);
-  console.log("all events are", allEvents);
   return (
     // adding booths and available booths
-
     <>
+
       {editEvent === false ? (
         <EditHeader
           toggleEdit={toggleEdit}
@@ -81,30 +112,31 @@ function EventDetails() {
       )}
 
       <h1>Available Booths</h1>
+      <AvailableBooths props={ eventDetails }/>
       <div>
         <button>Add Booth Type</button>
-
-        <table className="booths info">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Available</th>
-              <th>Dimensions</th>
-              <th>Info</th>
-              <th>Cost</th>
-              <button>Edit</button>
-            </tr>
-          </thead>
-
-          <tbody>
-            {eventBoothDetails.map((items) => {
-              return (
-                <tr key={items.id}>
-                  <td>{items.type}</td>
-                  <td>{items.quantity}</td>
-                  <td>{items.dimensions}</td>
-                  <td>{items.description}</td>
-                  <td>{items.cost}</td>
+        <table className='booths_info'>
+            
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Available</th>
+                    <th>Dimensions</th>
+                    <th>Info</th>
+                    <th>Cost</th>
+                    <button>Edit</button>
+                </tr>
+            </thead>
+         
+            <tbody>
+                {eventBoothDetails.map((items)=>{
+                   return (
+                    <tr key={items.id}>
+                    <td>{items.type}</td>
+                    <td>{items.quantity}</td>
+                    <td>{items.dimensions}</td>
+                    <td>{items.description}</td>
+                    <td>{items.cost}</td>
                 </tr>
               );
             })}
@@ -112,61 +144,81 @@ function EventDetails() {
         </table>
       </div>
 
-      <div>
-        <h1>Pending Approval</h1>
-        <table className="pending">
-          <thead>
-            <tr>
-              <th>Vendor Name</th>
-              <th>Tags</th>
-              <th>Booth Size</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            {eventBoothDetails.map((booths) => {
-              return (
-                <tr key={booths.id}>
-                  <td>{booths.business_name}</td>
-                  <td>{booths.tags}</td>
-                  <td>{booths.dimensions}</td>
-                  <button>✅</button>
-                  <button onClick={() => handleDelete(booths.id)}>❌</button>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+        
+    <TableContainer component={Paper} >
+        <h2>Pending Approval</h2>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="pending">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Vendor Name</TableCell>
+                        <TableCell>Tags</TableCell>
+                        <TableCell>Booth Size</TableCell>
+                    </TableRow>
+                </TableHead>
 
-      <div>
-        <h1>Approved</h1>
-        <table className="approved">
-          <thead>
-            <tr>
-              <th>Vendor Name</th>
-              <th>Tags</th>
-              <th>Booth Size</th>
-              <th>Description</th>
-            </tr>
-          </thead>
+                <TableBody>
+                    {eventBoothDetails.map((booths)=> {
+                      if(booths.approved_by_host === "PENDING"){
+                        console.log('booth id is>>>>>', booths.booth_id);
+                        return(
+                            
+                        
+                            <TableRow key={booths.id}> 
+                            
+                                <TableCell >{booths.business_name}</TableCell>
+                                <TableCell>{booths.tags}</TableCell>
+                                <TableCell>{booths.dimensions}</TableCell>
+                                <Stack direction="row" spacing={2}></Stack>
+                                <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
+                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >❌</Button>
+                    
+                            </TableRow>
+                            )}
+                        })}
+                        </TableBody>
+        </Table>
+                        
+      </TableContainer>
 
-          <tbody>
-            {eventBoothDetails.map((list) => {
-              if (list.approved_by_host && list.id === user.id && list.verified)
-                return (
-                  <tr key={list.id}>
-                    <td>{list.business_name}</td>
-                    <td>{list.tags}</td>
-                    <td>{list.dimensions}</td>
-                    <td>{list.description}</td>
-                  </tr>
-                );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
+      <TableContainer component={Paper}>
+        <h2>Approved</h2>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="approved">
+                <TableHead>
+                    <TableRow>
+                        <TableCell > Vendor Name</TableCell>
+                        <TableCell> Tags</TableCell>
+                        <TableCell> Booth Size</TableCell>
+                        <TableCell> Description</TableCell>
+                    </TableRow>
+                </TableHead>
+                
+                
+                <TableBody>
+                
+                   {eventBoothDetails.map((list) => {
+                      if (list.approved_by_host === "APPROVED")
+                      
+                    // {eventBoothDetails.map((list)=> {
+                       // if (list.approved_by_host &&
+                         //   list.id === user.id &&
+                           // list.verified
+                            //)
+                            
+                        return(
+                            <TableRow key={list.id}>
+                                <TableCell >{list.business_name}</TableCell >
+                                <TableCell >{list.tags}</TableCell >
+                                <TableCell >{list.dimensions}</TableCell >
+                                <TableCell >{list.description}</TableCell >
+                                <Button variant="outlined" disabled>Approved</Button>
+                            </TableRow>
+                        )
+                    })}
+                </TableBody>
+        </Table>
+      </TableContainer>
+        </>
+    )
 }
 export default EventDetails;

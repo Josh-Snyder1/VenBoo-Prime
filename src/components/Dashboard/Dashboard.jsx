@@ -23,10 +23,7 @@ export default function Dashboard() {
     return (
       <section>
         <h2>DASHBOARD!</h2>
-  
         <p>You are logged in as a <b><u>{user.type}</u></b></p>
-  
-        
         <br />
         <EventsList />
       </section>

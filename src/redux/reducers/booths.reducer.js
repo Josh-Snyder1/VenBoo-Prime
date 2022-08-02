@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 const vendorBoothsReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_VENDOR_BOOTHS':
-            return action.payload;
+            return [...state, action.payload];
         case "UNSET_USER":
             return [];
         default:

@@ -46,6 +46,7 @@ function Header({ toggleEdit }) {
   }
 
   const address = eventDetails?.address[0];
+
   const selectedTags = eventDetails?.tags;
 
   switch (user.type) {
