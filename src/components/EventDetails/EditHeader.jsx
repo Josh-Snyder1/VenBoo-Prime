@@ -11,13 +11,16 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 
 import "./styles/EditHeader.css";
-function editHeader({ toggleEdit, eventId }) {
+function editHeader({ toggleEdit, eventId, eventDetails }) {
   const userId = useSelector((store) => store.user.id);
   const tags = useSelector((store) => store.tags);
+  const venueId = eventDetails.venue_id;
+
   const dispatch = useDispatch();
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
-  const [address, setEventAddress] = useState("");
+  const [venueName, setVenueName] = useState("");
+  const [address, setEventAddress] = useState(eventDetails.address[0].address);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
@@ -53,6 +56,8 @@ function editHeader({ toggleEdit, eventId }) {
       payload: {
         eventId,
         userId,
+        venueId,
+        venueName,
         eventName,
         startDate: dateRange[0],
         endDate: dateRange[1],
@@ -87,13 +92,23 @@ function editHeader({ toggleEdit, eventId }) {
         />
 
         <br />
-
+        <br />
+        <TextField
+          required
+          id="outlined-required"
+          label="Venue Name"
+          defaultValue={venueName}
+          onChange={(e) => {
+            setVenueName(e.target.value);
+          }}
+        />
+        <br />
         <br />
         <TextField
           required
           id="outlined-required"
           label="Event Address"
-          defaultValue=""
+          defaultValue={address}
           onChange={(e) => {
             setEventAddress(e.target.value);
           }}

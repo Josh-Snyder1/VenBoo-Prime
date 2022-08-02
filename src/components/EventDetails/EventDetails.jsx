@@ -15,6 +15,15 @@ function EventDetails() {
   const [viewList, setViewList] = useState("");
   const [editEvent, setEditEvent] = useState();
 
+  const events = useSelector((store) => store.events);
+  const { eventId } = useParams();
+
+  let eventDetails = events
+    .filter((event) => event.id === Number(eventId))
+    .pop();
+
+  console.log("EVENT DETAILS COMPONENT ? >>>>", eventDetails);
+
   function toggleEdit() {
     setEditEvent(!editEvent);
   }
@@ -33,7 +42,7 @@ function EventDetails() {
 
   // edit put booth
 
-  const { eventId } = useParams();
+  // const { eventId } = useParams();
   console.log(eventId);
 
   //   deleteProps={
@@ -62,7 +71,11 @@ function EventDetails() {
 
     <>
       {editEvent === false ? (
-        <EditHeader toggleEdit={toggleEdit} eventId={eventId} />
+        <EditHeader
+          toggleEdit={toggleEdit}
+          eventId={eventId}
+          eventDetails={eventDetails}
+        />
       ) : (
         <Header toggleEdit={toggleEdit} />
       )}
