@@ -20,8 +20,7 @@ function EventListVendor() {
     // Local state to render items the user wants to view.
     const [viewList, setViewList] = useState('approved');
 
-    
-    const todayDate = moment().format('YYYYMMDD');
+    // Initialize the history and dispatch functions
     const history = useHistory();
     const dispatch = useDispatch();
 
