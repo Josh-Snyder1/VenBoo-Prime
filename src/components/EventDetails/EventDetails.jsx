@@ -20,50 +20,46 @@ import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
 
 function EventDetails() {
+  const eventBoothDetails = useSelector((store) => store.boothApplications);
+  const allEvents = useSelector((store) => store.events);
 
-    function createData(vendor, tags, booth, description ) {
-        return { vendor, tags, booth, description };
-      }
+  // const tagsBooth = useSelector((store)=> store.tagsReducer);
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
+  const history = useHistory();
+  const [viewList, setViewList] = useState("");
+  const { eventId } = useParams();
 
-    const eventBoothDetails = useSelector((store) => store.boothApplications);
-    // const tagsBooth = useSelector((store)=> store.tagsReducer);
-    const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
-    const events = useSelector((store) => store.events);
-    const history = useHistory();
-    const [viewList, setViewList] = useState(''); 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+      payload: {
+        id: eventId,
+      },
+    });
+  }, [eventId]);
 
-    // delete booth handle
+  function handleDelete(id) {
+    dispatch({
+      type: "DELETE_BOOTH",
+      payload: { id },
+    });
+    console.log("delete booth>>>>>>>", id);
+  }
 
-    function handleDelete(id) {
-        dispatch({
-          type: "DELETE_BOOTH",
-          payload: {id: booths.booth_id}
-        });
-        console.log("delete booth>>>>>>>", id);
-      };
+  function handleApprove(boothId) {
+    dispatch({
+        type: 'APPROVE_BOOTH_APP',
+        payload: {
+            boothAppId: boothId,
+            id: eventId
+        }
+  });
+  }
 
-    
-    // edit put booth
-
-    const { eventId } = useParams();
-
-
-    useEffect(() => {
-        dispatch({
-            type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
-            payload: {
-                id: eventId,
-            }
-        })
-      }, [eventId]);
-
-     let eventDetails = events.filter(event => event.id === Number(eventId)).pop()
-
-    return (
-        
-        <>
-      
+  return (
+    // adding booths and available booths
+    <>
       {/* <Header /> */}
 
       <h1>
@@ -106,6 +102,7 @@ function EventDetails() {
         </table>
       </div>
 
+
         
     <TableContainer component={Paper} >
         <h2>Pending Approval</h2>
@@ -120,6 +117,7 @@ function EventDetails() {
 
                 <TableBody>
                     {eventBoothDetails.map((booths)=> {
+                      if(booths.approved_by_host === "PENDING"){
                         console.log('booth id is>>>>>', booths.booth_id);
                         return(
                             
@@ -130,11 +128,11 @@ function EventDetails() {
                                 <TableCell>{booths.tags}</TableCell>
                                 <TableCell>{booths.dimensions}</TableCell>
                                 <Stack direction="row" spacing={2}></Stack>
-                                <Button size="small" variant="outlined" >Approve</Button>
-                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >Delete</Button>
+                                <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
+                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >❌</Button>
                     
                             </TableRow>
-                            )
+                            )}
                         })}
                         </TableBody>
         </Table>
@@ -155,11 +153,16 @@ function EventDetails() {
                 
                 
                 <TableBody>
-                    {eventBoothDetails.map((list)=> {
-                        if (list.approved_by_host &&
-                            list.id === user.id &&
-                            list.verified
-                            )
+                
+                   {eventBoothDetails.map((list) => {
+                      if (list.approved_by_host === "APPROVED")
+                      
+                    // {eventBoothDetails.map((list)=> {
+                       // if (list.approved_by_host &&
+                         //   list.id === user.id &&
+                           // list.verified
+                            //)
+                            
                         return(
                             <TableRow key={list.id}>
                                 <TableCell >{list.business_name}</TableCell >
