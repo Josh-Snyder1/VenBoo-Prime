@@ -11,9 +11,8 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 
 import "./styles/EditHeader.css";
-function editHeader({ toggleEdit, eventDetails }) {
-  // Local State
-  console.log("In edit detail form >>>>", eventDetails);
+function editHeader({ toggleEdit, eventId }) {
+  const userId = useSelector((store) => store.user.id);
   const tags = useSelector((store) => store.tags);
   const dispatch = useDispatch();
   const [dateRange, setDateRange] = useState([null, null]);
@@ -26,6 +25,7 @@ function editHeader({ toggleEdit, eventDetails }) {
 
   console.log(
     "results are >>>>> >>>>>> >>>>>>",
+    eventId,
     eventName,
     dateRange,
     address,
@@ -51,8 +51,11 @@ function editHeader({ toggleEdit, eventDetails }) {
     dispatch({
       type: "UPDATE_EVENT_DETAILS",
       payload: {
+        eventId,
+        userId,
         eventName,
-        dateRange,
+        startDate: dateRange[0],
+        endDate: dateRange[1],
         address,
         city,
         state,

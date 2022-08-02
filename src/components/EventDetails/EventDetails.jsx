@@ -62,7 +62,7 @@ function EventDetails() {
 
     <>
       {editEvent === false ? (
-        <EditHeader toggleEdit={toggleEdit} />
+        <EditHeader toggleEdit={toggleEdit} eventId={eventId} />
       ) : (
         <Header toggleEdit={toggleEdit} />
       )}

@@ -153,6 +153,29 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
 router.put("/", rejectUnauthenticated, (req, res) => {
   console.log("PUT EDIT FORM req.body is", req.body);
+
+  const eventsQuery = `UPDATE "events"
+  SET name= $3, start_date= $4, end_date= $5
+  WHERE id= $1 AND user_id= $2;
+  `;
+
+  eventsParams = [
+    req.body.eventId,
+    req.body.userId,
+    req.body.eventName,
+    req.body.startDate,
+    req.body.endDate,
+  ];
+
+  pool
+    .query(eventsQuery, eventsParams)
+    .then((dbRes) => {
+      console.log("DB RES IS >>>>>>>>>>> >>>>>> >>>", dbRes);
+      return dbRes;
+    })
+    .catch((error) => {
+      console.log("error in event router PUT", error);
+    });
 });
 // Router call that returns a list of all the booth requests
 // made by vendors for a specific event. Returns a list of all
