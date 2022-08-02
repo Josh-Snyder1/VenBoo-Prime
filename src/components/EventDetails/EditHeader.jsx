@@ -1,7 +1,12 @@
-import MultiSelect from "../ReuseableComponents/MultiSelect";
-import Calender from "../ReuseableComponents/DatePicker";
+// GENERAL IMPORTS
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+
+// REUSABLE COMPONENTS
+import MultiSelect from "../ReuseableComponents/MultiSelect";
+import Calender from "../ReuseableComponents/DatePicker";
+
+// MUI IMPORTS
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,13 +14,18 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 
+// BASIC CSS STYLES
 import "./styles/EditHeader.css";
+
 function editHeader({ toggleEdit, eventId, eventDetails }) {
+  const dispatch = useDispatch();
+
+  // REDUX STORE
   const userId = useSelector((store) => store.user.id);
   const tags = useSelector((store) => store.tags);
   const venueId = eventDetails.venue_id;
 
-  const dispatch = useDispatch();
+  // LOCAL STATE
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState(eventDetails.name);
   const [venueName, setVenueName] = useState("");
@@ -24,18 +34,6 @@ function editHeader({ toggleEdit, eventId, eventDetails }) {
   const [state, setState] = useState(eventDetails.address[0].state);
   const [zip, setZip] = useState(eventDetails.address[0].zipcode);
   const [tag, setTag] = useState("");
-
-  console.log(
-    "results are >>>>> >>>>>> >>>>>>",
-    eventId,
-    eventName,
-    dateRange,
-    address,
-    city,
-    state,
-    zip,
-    tag
-  );
 
   const tagSelection = (tagSelection) => {
     console.log("in tagSelection", tagSelection);
@@ -47,6 +45,7 @@ function editHeader({ toggleEdit, eventId, eventDetails }) {
     tagSelection,
   };
 
+  // SUBMIT FORM
   function handleSubmit(e) {
     e.preventDefault();
     console.log("hello Submit button clicked here");
