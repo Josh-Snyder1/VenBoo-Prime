@@ -169,6 +169,7 @@ router.get("/:id/booth-applications", (req, res) => {
           "booths".description,
           "booths".cost,
           "booth_applications".approved_by_host,
+          "booth_applications".id AS "boothApp_id",
           "booth_applications".notes,
           "booth_applications".requested_on,
           "user".id as "vendor_id",
@@ -194,7 +195,10 @@ router.get("/:id/booth-applications", (req, res) => {
     .then((result) => {
       res.send(result.rows);
     })
-    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+    .catch(err => {
+      console.log(`Error in booth-applications with ${err}`)
+      res.sendStatus(500);
+    });
 });
 
 // Make the router routes accessible

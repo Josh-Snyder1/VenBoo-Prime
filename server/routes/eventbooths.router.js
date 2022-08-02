@@ -7,6 +7,23 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
+router.put('/', rejectUnauthenticated, (req, res) => {
+    console.log('in eventbooths router PUT', req.body.boothAppId)
+    const sqlQuery = `
+        UPDATE "booth_applications"
+        SET "approved_by_host" = 'APPROVED'
+        WHERE "id" = $1
+    `
+    pool.query(sqlQuery, [req.body.boothAppId])
+        .then(result => {
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        })
+})
+
 router.get('/', rejectUnauthenticated, (req, res)=> {
     console.log('in router.get eventbooths')
     const sqlQuery = `

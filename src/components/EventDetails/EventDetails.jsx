@@ -12,33 +12,7 @@ function EventDetails() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
   const [viewList, setViewList] = useState("");
-
-  // delete booth handle
-  // function deleteBooth(id){
-  //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
-  //   }
-
-  function handleDelete(id) {
-    dispatch({
-      type: "DELETE_BOOTH",
-      payload: { id },
-    });
-    console.log("delete booth>>>>>>>", id);
-  }
-
-  // edit put booth
-
   const { eventId } = useParams();
-  console.log(eventId);
-
-  //   deleteProps={
-  //       id: booths.id,
-  //       dispatchName: 'DELETE_BOOTH_APPLICATION'
-  //   }
-
-  // <DeleteButton props={deleteProps} />
-
-  // console.log('event booth', eventBoothDetails)
 
   useEffect(() => {
     dispatch({
@@ -49,14 +23,28 @@ function EventDetails() {
     });
   }, [eventId]);
 
-  console.log("event booth", eventBoothDetails);
-  // console.log('tags event booth', tagsBooth);
-  console.log("all events are", allEvents);
+  function handleDelete(id) {
+    dispatch({
+      type: "DELETE_BOOTH",
+      payload: { id },
+    });
+    console.log("delete booth>>>>>>>", id);
+  }
+
+  function handleApprove(boothId) {
+    dispatch({
+        type: 'APPROVE_BOOTH_APP',
+        payload: {
+            boothAppId: boothId,
+            id: eventId
+        }
+  });
+  }
+
   return (
     // adding booths and available booths
-
     <>
-      <Header />
+      {/* <Header /> */}
 
       <h1>
         <br /> Address(123 First Ave Roseville, MN 55407)
@@ -110,15 +98,17 @@ function EventDetails() {
 
           <tbody>
             {eventBoothDetails.map((booths) => {
-              return (
-                <tr key={booths.id}>
-                  <td>{booths.business_name}</td>
-                  <td>{booths.tags}</td>
-                  <td>{booths.dimensions}</td>
-                  <button>✅</button>
-                  <button onClick={() => handleDelete(booths.id)}>❌</button>
-                </tr>
-              );
+                if(booths.approved_by_host === "PENDING"){
+                    return (
+                        <tr key={booths.id}>
+                          <td>{booths.business_name}</td>
+                          <td>{booths.tags}</td>
+                          <td>{booths.dimensions}</td>
+                          <button onClick={() => handleApprove(booths.boothApp_id)}>✅</button>
+                          <button onClick={() => handleDelete(booths.id)}>❌</button>
+                        </tr>
+                      );
+                }
             })}
           </tbody>
         </table>
@@ -138,7 +128,7 @@ function EventDetails() {
 
           <tbody>
             {eventBoothDetails.map((list) => {
-              if (list.approved_by_host && list.id === user.id && list.verified)
+              if (list.approved_by_host === "APPROVED")
                 return (
                   <tr key={list.id}>
                     <td>{list.business_name}</td>
