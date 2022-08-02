@@ -11,6 +11,7 @@ router.get('/', rejectUnauthenticated, (req, res)=> {
     console.log('in router.get eventbooths')
     const sqlQuery = `
     SELECT
+    booth_applications.id,  
 	"user".business_name,
 	    booths.dimensions,
         booths.quantity,
@@ -28,7 +29,7 @@ JOIN vendor_tags
 JOIN tags
 	ON vendor_tags.tag_id = tags.id
     
-GROUP BY "user".business_name, booths.type, booths.description, booths.dimensions, booths.cost, booths.quantity;
+GROUP BY "user".business_name, booths.type, booths.description, booths.dimensions, booths.cost, booths.quantity, booth_applications.id;
 
     `;
     console.log('in event booths router');
@@ -46,7 +47,7 @@ GROUP BY "user".business_name, booths.type, booths.description, booths.dimension
 router.delete('/:id', (req, res)=> {
     console.log('booth deleted', req.params.id);
     const sqlQuery = `
-    DELETE FROM booth_application
+    DELETE FROM booth_applications
     WHERE id =$1;
     `;
     const sqlParams = [req.params.id];

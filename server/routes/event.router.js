@@ -194,7 +194,10 @@ router.get("/:id/booth-applications", (req, res) => {
     .then((result) => {
       res.send(result.rows);
     })
-    .catch((err) => console.log(`Error in booth-applications with ${err}`));
+    .catch((err) => {
+      console.log(`Error in booth-applications with ${err}`);
+      res.sendStatus(500);
+    });
 });
 
 // Make the router routes accessible
