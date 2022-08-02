@@ -1,61 +1,65 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Header from "./Header";
-import moment from "moment";
+
+
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+
 function EventDetails() {
-  const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const allEvents = useSelector((store) => store.events);
 
-  // const tagsBooth = useSelector((store)=> store.tagsReducer);
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  const history = useHistory();
-  const [viewList, setViewList] = useState("");
 
-  // delete booth handle
-  // function deleteBooth(id){
-  //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
-  //   }
+    const eventBoothDetails = useSelector((store) => store.boothApplications);
+    // const tagsBooth = useSelector((store)=> store.tagsReducer);
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events);
+    const history = useHistory();
+    const [viewList, setViewList] = useState('');
 
-  function handleDelete(id) {
-    dispatch({
-      type: "DELETE_BOOTH",
-      payload: { id },
-    });
-    console.log("delete booth>>>>>>>", id);
-  }
+    // delete booth handle
+    // function deleteBooth(id){
+    //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
+    //   }
 
-  // edit put booth
+    function handleDelete(id) {
+        dispatch({
+          type: "DELETE_BOOTH",
+          payload: { id }
+        });
+        console.log("delete booth>>>>>>>", id);
+      };
+    
+    // edit put booth
 
-  const { eventId } = useParams();
-  console.log(eventId);
+    const { eventId } = useParams();
+    // console.log(eventId)
 
-  //   deleteProps={
-  //       id: booths.id,
-  //       dispatchName: 'DELETE_BOOTH_APPLICATION'
-  //   }
+    //   deleteProps={
+    //       id: booths.id,
+    //       dispatchName: 'DELETE_BOOTH_APPLICATION'
+    //   }
 
-  // <DeleteButton props={deleteProps} />
+    // <DeleteButton props={deleteProps} />
 
-  // console.log('event booth', eventBoothDetails)
+    // console.log('event booth', eventBoothDetails)
 
-  useEffect(() => {
-    dispatch({
-      type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
-      payload: {
-        id: eventId,
-      },
-    });
-  }, [eventId]);
+    useEffect(() => {
+        dispatch({
+            type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+            payload: {
+                id: eventId,
+            }
+        })
+      }, [eventId]);
 
-  console.log("event booth", eventBoothDetails);
-  // console.log('tags event booth', tagsBooth);
-  console.log("all events are", allEvents);
-  return (
-    // adding booths and available booths
+    //   console.log('testing', events.filter(event => event.id === Number(eventId)).pop())
+// console.log('tags event booth', tagsBooth);
 
-    <>
+    return (
+        
+        <>
+      <AvailableBooths props={ events.filter(event => event.id === Number(eventId)).pop() }/>
+      
       <Header />
 
       <h1>
@@ -66,6 +70,7 @@ function EventDetails() {
 
               </form> */}
       <h1>Available Booths</h1>
+
       <div>
         <button>Add Booth Type</button>
 
