@@ -109,7 +109,7 @@ CREATE TABLE "booth_applications" (
 	"id" SERIAL PRIMARY KEY,
 	"booth_id" INTEGER REFERENCES "booths" ON DELETE CASCADE,
 	"user_id" INTEGER REFERENCES "user" ON DELETE CASCADE,
-	"approved_by_host" BOOLEAN NOT NULL DEFAULT FALSE,
+	"approved_by_host" VARCHAR (15) DEFAULT 'PENDING',
 	"notes" TEXT,
 	"requested_on" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 	UNIQUE ("booth_id", "user_id")
@@ -172,7 +172,7 @@ VALUES
 
 INSERT INTO "booth_applications" (booth_id, user_id, approved_by_host)
 VALUES
-(1, 2, false), (2, 3, true), (3, 3, true), (4, 2, false);
+(1, 2, 'PENDING'), (2, 3, 'APPROVED'), (3, 3, 'APPROVED'), (4, 2, 'REJECTED');
 
 SELECT
 	events.name,

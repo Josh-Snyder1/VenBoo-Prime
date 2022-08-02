@@ -15,6 +15,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+import Header from './Header'
+
 function EventDetails() {
 
     function createData(vendor, tags, booth, description ) {
@@ -25,6 +29,7 @@ function EventDetails() {
     // const tagsBooth = useSelector((store)=> store.tagsReducer);
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events);
     const history = useHistory();
     const [viewList, setViewList] = useState(''); 
 
@@ -53,15 +58,23 @@ function EventDetails() {
         })
       }, [eventId]);
 
- 
+     let eventDetails = events.filter(event => event.id === Number(eventId)).pop()
 
-    console.log('event booth', eventBoothDetails);
-    // console.log('tags event booth', tagsBooth);
-    
     return (
-        // adding booths and available booths
+        
         <>
+      
+      {/* <Header /> */}
+
+      <h1>
+        <br /> Address(123 First Ave Roseville, MN 55407)
+      </h1>
+      <h2>Selector (Tags)</h2>
+      {/* <form onSubmit={}>
+
+              </form> */}
       <h1>Available Booths</h1>
+      <AvailableBooths props={ eventDetails }/>
       <div>
         <button>Add Booth Type</button>
         <table className='booths_info'>
@@ -87,12 +100,12 @@ function EventDetails() {
                     <td>{items.description}</td>
                     <td>{items.cost}</td>
                 </tr>
-                   )
-                })}
-            </tbody>
-            
+              );
+            })}
+          </tbody>
         </table>
       </div>
+
         
     <TableContainer component={Paper} >
         <h2>Pending Approval</h2>
@@ -162,6 +175,5 @@ function EventDetails() {
       </TableContainer>
         </>
     )
-                
 }
 export default EventDetails;
