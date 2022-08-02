@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Button from "@mui/material/Button";
@@ -18,8 +19,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-
 
 
 function Row({row}) {
@@ -59,8 +58,8 @@ function Row({row}) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset'} }}>
-        <TableCell>
+      <TableRow style={{ paddingBottom: 0, paddingTop: 0 }} sx={{ '& > *': { borderBottom: 'unset', paddingBottom: 0, paddingTop: 0}}}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -69,21 +68,19 @@ function Row({row}) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.type}
-        </TableCell>
-        <TableCell align="right">{row.dimensions}</TableCell>
-        <TableCell align="right">{row.quantity}</TableCell>
-        <TableCell align="right">{row.cost}</TableCell>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.type} </TableCell>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.dimensions} </TableCell>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.quantity} </TableCell>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
         {user?.type === 'vendor' ?
-          <TableCell align="right">
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
             <Button>
               Request Booth
             </Button>
           </TableCell>
           :
           <>
-            <TableCell align="right">
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
               {edit === row.id ?
                 <IconButton onClick={() =>  updateRow(row.id)}>
                   <CheckBoxIcon />
@@ -94,7 +91,7 @@ function Row({row}) {
                 </IconButton>
               }
             </TableCell>
-            <TableCell align="right">
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
               <IconButton onClick={() => {deleteRow(row.id)}}>
                 <DeleteIcon />
               </IconButton>
@@ -139,11 +136,13 @@ export default function AvailableBooths({props}) {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
+            <TableCell> <PlaylistAddIcon /> </TableCell>
             <TableCell align="left">Type</TableCell>
             <TableCell align="right">Dimensions</TableCell>
             <TableCell align="right">Quantity</TableCell>
             <TableCell align="right">Cost</TableCell>
+            <TableCell align="right">Edit</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
