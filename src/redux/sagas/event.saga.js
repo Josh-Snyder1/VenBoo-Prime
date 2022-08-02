@@ -18,9 +18,18 @@ function* addNewEvent(action) {
   }
 }
 
+function* updateEvent(action) {
+  try {
+    yield axios.put("/api/events", action.payload);
+  } catch (error) {
+    console.log("Uh oh there is a error", error);
+  }
+}
+
 function* eventSaga() {
   yield takeLatest("ADD_NEW_EVENT", addNewEvent);
   yield takeLatest("FETCH_EVENTS", fetchEvents);
+  yield takeLatest("UPDATE_EVENT_DETAILS", updateEvent);
 }
 
 export default eventSaga;

@@ -15,15 +15,25 @@ function editHeader({ toggleEdit, eventDetails }) {
   // Local State
   console.log("In edit detail form >>>>", eventDetails);
   const tags = useSelector((store) => store.tags);
-
+  const dispatch = useDispatch();
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
-  const [address, setLocation] = useState("");
-  const [venue, setVenue] = useState("");
+  const [address, setEventAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-
+  const [zip, setZip] = useState("");
   const [tag, setTag] = useState("");
+
+  console.log(
+    "results are >>>>> >>>>>> >>>>>>",
+    eventName,
+    dateRange,
+    address,
+    city,
+    state,
+    zip,
+    tag
+  );
 
   const tagSelection = (tagSelection) => {
     console.log("in tagSelection", tagSelection);
@@ -38,6 +48,18 @@ function editHeader({ toggleEdit, eventDetails }) {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("hello Submit button clicked here");
+    dispatch({
+      type: "UPDATE_EVENT_DETAILS",
+      payload: {
+        eventName,
+        dateRange,
+        address,
+        city,
+        state,
+        zip,
+        tag,
+      },
+    });
   }
   return (
     <>
@@ -47,11 +69,15 @@ function editHeader({ toggleEdit, eventDetails }) {
           id="outlined-required"
           label="Event Name"
           defaultValue=""
+          onChange={(e) => {
+            setEventName(e.target.value);
+          }}
         />
         <br />
 
         <br />
         <Calender
+          required
           id="datePicker"
           setDateRange={setDateRange}
           dateRange={dateRange}
@@ -65,6 +91,9 @@ function editHeader({ toggleEdit, eventDetails }) {
           id="outlined-required"
           label="Event Address"
           defaultValue=""
+          onChange={(e) => {
+            setEventAddress(e.target.value);
+          }}
         />
         <br />
 
@@ -74,6 +103,9 @@ function editHeader({ toggleEdit, eventDetails }) {
           id="outlined-required"
           label="City"
           defaultValue=""
+          onChange={(e) => {
+            setCity(e.target.value);
+          }}
         />
         <br />
 
@@ -151,6 +183,9 @@ function editHeader({ toggleEdit, eventDetails }) {
           id="outlined-required"
           label="Zip"
           defaultValue=""
+          onChange={(e) => {
+            setZip(e.target.value);
+          }}
         />
         <br />
         <MultiSelect props={props} />

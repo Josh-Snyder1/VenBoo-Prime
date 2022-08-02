@@ -1,6 +1,8 @@
 // Import the core libraries and functions
 const express = require("express");
-const { rejectUnauthenticated } = require("../modules/authentication-middleware");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // Get the database connection
 const pool = require("../modules/pool");
@@ -12,24 +14,19 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
-
-
-
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
   // Initialize a where clause to the set later
-  let setWhereClause = ""
-
+  let setWhereClause = "";
 
   // -------------------------------------------------
   // Determine the logic to use based on the user-type
   switch (req.user.type) {
-
     // Host switch case
     case "host":
       // Set the host-specific query
-      setWhereClause = "WHERE events.user_id = $1"
+      setWhereClause = "WHERE events.user_id = $1";
       // Add the current user to the params list
       sqlParams.push(req.user.id);
       break;
@@ -43,7 +40,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     // Set default case for non-registered users
     default:
       // Only allow them to see events in the future
-      setWhereClause = "WHERE events.start_date > CURRENT_TIMESTAMP"
+      setWhereClause = "WHERE events.start_date > CURRENT_TIMESTAMP";
       break;
     // -------------------------------------------------
   }
@@ -154,6 +151,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/", rejectUnauthenticated, (req, res) => {
+  console.log("PUT EDIT FORM req.body is", req.body);
+});
 // Router call that returns a list of all the booth requests
 // made by vendors for a specific event. Returns a list of all
 // applications: approved, pending, rejected
