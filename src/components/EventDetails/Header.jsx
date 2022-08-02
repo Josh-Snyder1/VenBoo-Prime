@@ -60,7 +60,8 @@ function Header() {
     "is eventDetails defined >>>>>>>>",
     eventDetails?.address[0].address
   );
-  const address = eventDetails?.address[0];
+  // const address = eventDetails?.address[0];
+  const address =''
   const selectedTags = eventDetails?.tags;
 
   console.log(selectedTags);

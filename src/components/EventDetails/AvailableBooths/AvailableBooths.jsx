@@ -21,37 +21,45 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
 
-// const [edit, setEdit] = React.useState();
-// const [newTag, setNewTag] = React.useState();
-
-// function editLine(id){
-//     setEdit(id);
-//   // console.log('in editTag', edit)
-// }
-
-// function deleteLine(id){
-//   // dispatch({ type: 'DELETE_TAG', payload: {id}})
-// }
-
-// const handleChange = event => {
-//     // setNewTag(event.target.value)
-// }
-
-// function updateLine(id) {
-//   // if ( newTag ) {
-//   //   dispatch({ type: 'EDIT_TAG', payload: {id,newTag}})
-//   //   console.log(id,newTag)
-//   // }
-//   setEdit('');
-// }
 
 function Row({row}) {
 
+  const user = useSelector((store) => store.user);
+
+  const [edit, setEdit] = React.useState();
+  const [newTag, setNewTag] = React.useState();
+
+  function editRow(id){
+    console.log('in edit', id)
+      setEdit(id);
+      setOpen(!open)
+    console.log('in edit', id)
+  }
+
+  function deleteRow(id){
+    console.log('in deleteRow', id)
+    // dispatch({ type: 'DELETE_TAG', payload: {id}})
+  }
+
+  const handleChange = event => {
+      // setNewTag(event.target.value)
+  }
+
+  function updateRow(id) {
+    // if ( newTag ) {
+    //   dispatch({ type: 'EDIT_TAG', payload: {id,newTag}})
+    //   console.log(id,newTag)
+    // }
+    console.log('in updateRow',id)
+    setEdit();
+    setOpen(!open)
+  }
+
   const [open, setOpen] = React.useState(false);
-  console.log('table', row)
+
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset'} }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -67,15 +75,36 @@ function Row({row}) {
         <TableCell align="right">{row.dimensions}</TableCell>
         <TableCell align="right">{row.quantity}</TableCell>
         <TableCell align="right">{row.cost}</TableCell>
-        <TableCell align="right">
-          <Button>
-            Request Booth
-          </Button>
-        </TableCell>
+        {user?.type === 'vendor' ?
+          <TableCell align="right">
+            <Button>
+              Request Booth
+            </Button>
+          </TableCell>
+          :
+          <>
+            <TableCell align="right">
+              {edit === row.id ?
+                <IconButton onClick={() =>  updateRow(row.id)}>
+                  <CheckBoxIcon />
+                </IconButton>
+                :
+                <IconButton onClick={() =>  editRow(row.id)}>
+                  <EditIcon />
+                </IconButton>
+              }
+            </TableCell>
+            <TableCell align="right">
+              <IconButton onClick={() => {deleteRow(row.id)}}>
+                <DeleteIcon />
+              </IconButton>
+            </TableCell>
+          </>
+        }
         {/* <TableCell align="right">{row.protein}</TableCell> */}
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="purchases">
@@ -101,6 +130,10 @@ function Row({row}) {
 }
 
 export default function AvailableBooths({props}) {
+
+  useEffect(() => {
+  }, []);
+  
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
