@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import MultiSelect from "../ReuseableComponents/MultiSelect";
 import moment from "moment";
 
 function Header({ toggleEdit }) {
@@ -13,10 +12,6 @@ function Header({ toggleEdit }) {
   const events = useSelector((store) => store.events);
   const booths = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
-  const tags = useSelector((store) => store.tags);
-
-  // LOCALE STATE
-  const [tag, setTag] = useState("");
 
   useEffect(() => {
     dispatch({ type: "FETCH_TAGS" });
@@ -27,15 +22,6 @@ function Header({ toggleEdit }) {
   let Available = 0;
   let total = 0;
 
-  const tagSelection = (tagSelection) => {
-    console.log("in tagSelection", tagSelection);
-    return setTag(tagSelection);
-  };
-
-  let props = {
-    tags,
-    tagSelection,
-  };
   let eventDetails = events.filter((event) => {
     if (event.id === Number(eventId)) {
       return event;
@@ -103,8 +89,6 @@ function Header({ toggleEdit }) {
                     </>
                   );
                 })}
-
-                {/* <MultiSelect props={props} /> */}
               </div>
 
               <div className="eventBoothStats">
