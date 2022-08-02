@@ -154,49 +154,42 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 router.put("/", rejectUnauthenticated, (req, res) => {
   console.log("PUT EDIT FORM req.body is", req.body.venueName);
 
-  // const eventsQuery = `UPDATE "events"
-  // SET name= $3, start_date= $4, end_date= $5
-  // WHERE id= $1 AND user_id= $2
-  // RETURNING venue_id;
-  // `;
+  const eventsQuery = `UPDATE "events"
+  SET name= $3, start_date= $4, end_date= $5
+  WHERE id= $1 AND user_id= $2
+  RETURNING venue_id;
+  `;
 
-  // if (condition) {
-  //   return
-  // }else if(conditon){
-  //   return
-  // }catch(error){
-  //     console.log(error);
-  // }
+  const eventsParams = [
+    req.body.eventId,
+    req.body.userId,
+    req.body.eventName,
+    req.body.startDate,
+    req.body.endDate,
+  ];
 
-  // eventsParams = [
-  //   req.body.eventId,
-  //   req.body.userId,
-  //   req.body.eventName,
-  //   req.body.startDate,
-  //   req.body.endDate,
-  // ];
+  const venueQuery = `UPDATE "venues"
+  SET  name= $1
+  WHERE id= $2
+  RETURNING address_id
+  `;
+  const venueParmas = [req.body.venueName];
 
-  // venueQuery = `UPDATE "venues"
-  // SET  name= $2
-  // WHERE id= $1
-  // RETURNING address_id
-  // `;
-  // venueParmas = [req.body.venueId, req.body.venueName];
+  const addressesQuery = `UPDATE "addresses"
+  SET address= $1, city= $2, state= $3, zipcode= $4
+  WHERE id= $5
+  `;
 
-  // addressesQuery = `UPDATE "addresses"
-  // SET address= $1, city= $2, state= $3, zipcode= $4
-  // WHERE id= $5
-  // `;
-
-  // addressesParams = [
-  //   req.body.address,
-  //   req.body.city,
-  //   req.body.state,
-  //   req.body.zip,
-  // ];
+  const addressesParams = [
+    req.body.address,
+    req.body.city,
+    req.body.state,
+    req.body.zip,
+  ];
   const eventId = Number(req.body.eventId);
 
-  console.log(eventId);
+  // UPDATE TAGS
+
   const emptyEventTagsParams = [eventId];
   const emptyEventTagsQuery = `
   DELETE FROM "event_tags" 
@@ -208,33 +201,35 @@ router.put("/", rejectUnauthenticated, (req, res) => {
     INSERT INTO "event_tags" (event_id, tag_id)
     VALUES ($1, $2)
     `;
-    pool
-      .query(emptyEventTagsQuery, emptyEventTagsParams)
-      .then((dbRes) => {
-        return pool.query(eventTagsQuery, eventTagsParams).then((dbRes2) => {
-          console.log("DB res 2 is", dbRes2);
-          return dbRes2;
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    pool.query(emptyEventTagsQuery, emptyEventTagsParams).then((dbRes) => {
+      return pool.query(eventTagsQuery, eventTagsParams).then((dbRes2) => {
+        return dbRes2;
       });
+    });
   }
-  // pool
-  //   .query(venueQuery, venueParmas)
-  //   .then((dbRes) => {
-  //     let addressId = dbRes.rows[0].address_id;
-  //     console.log("DB RES IS >>>>>>>>>>> >>>>>> >>>", addressId);
-  //     return pool
-  //       .query(addressesQuery, [...addressesParams, addressId])
-  //       .then((dbRes2) => {
 
-  //       });
-  //   })
-  //   .catch((error) => {
-  //     console.log("error in event router PUT", error);
-  //   });
+  // UPDATE EVENT, VENUE AND ADDRESS
+  pool
+    .query(eventsQuery, eventsParams)
+    .then((dbRes) => {
+      let venueId = dbRes.rows[0].venue_id;
+      return pool
+        .query(venueQuery, [...venueParmas, venueId])
+        .then((dbRes2) => {
+          let addressId = dbRes2.rows[0].address_id;
+          return pool
+            .query(addressesQuery, [...addressesParams, addressId])
+            .then((dbRes3) => {
+              console.log("DB RES 3 is >>>>>>", dbRes3.rows);
+              return dbRes3;
+            });
+        });
+    })
+    .catch((error) => {
+      console.log("error in event router PUT", error);
+    });
 });
+
 // Router call that returns a list of all the booth requests
 // made by vendors for a specific event. Returns a list of all
 // applications: approved, pending, rejected
