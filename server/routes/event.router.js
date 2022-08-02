@@ -14,7 +14,6 @@ const router = express.Router();
 router.get("/", rejectUnauthenticated, (req, res) => {
 
 
-
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -102,6 +101,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const addressesQuery = `
@@ -195,8 +195,8 @@ router.get("/:id/booth-applications", (req, res) => {
     .then((result) => {
       res.send(result.rows);
     })
-    .catch(err => {
-      console.log(`Error in booth-applications with ${err}`)
+    .catch((err) => {
+      console.log(`Error in booth-applications with ${err}`);
       res.sendStatus(500);
     });
 });

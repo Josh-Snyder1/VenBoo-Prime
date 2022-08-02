@@ -8,13 +8,22 @@ import { useDispatch } from "react-redux";
 function EventListVendor() {
     // Stores
     const vendorBooths = useSelector((store) => store.vendorBoothsReducer);
+
+    const events = useSelector((store) => store.events)
+
+    // Today's date.
+    const todayDate = moment().format('YYYYMMDD');
+
     const allEvents = useSelector((store) => store.events);
+
 
     // Local state to render items the user wants to view.
     const [viewList, setViewList] = useState('approved');
 
-    
-    const todayDate = moment().format('YYYYMMDD');
+  
+
+    // Initialize the history and dispatch functions
+
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -22,6 +31,7 @@ function EventListVendor() {
         dispatch({ type: "FETCH_VENDOR_BOOTHS" });
     },[])
 
+    // console.log('Test Events Splunk', events.filter((event) => {if(event.booths.includes((booth) => {return booth.id})){return event} }))
 
     const newEvents= allEvents.filter(event => {
         for (let vBooth of vendorBooths) {
@@ -37,6 +47,7 @@ function EventListVendor() {
     }
 
         return (
+
         <Grid 
                 container
                 direction="column"

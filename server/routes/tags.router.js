@@ -58,7 +58,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
 
-    console.log('in tags.router.put', req.body)
+    console.log('in tags.router.put', req.params)
     const sqlQuery = `UPDATE tags
                         SET name = $2
                         WHERE id = $1`

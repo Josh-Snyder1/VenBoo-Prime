@@ -15,9 +15,9 @@ function* eventDetails() {
     }
 }
 
-function* deleteBooth(req) {
+function* deleteBooth(action) {
   try{
-      yield axios.delete(`/api/eventbooths/${req.payload.id}`)
+      yield axios.delete(`/api/eventbooths/${action.payload.id}`)
       yield put ({ type: 'FETCH_DETAILS'})
   }
   catch (err) {
