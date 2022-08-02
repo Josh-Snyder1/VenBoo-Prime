@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 
 import AvailableBooths from './AvailableBooths/AvailableBooths'
+import Header from './Header'
 
 function EventDetails() {
 
@@ -55,12 +56,13 @@ function EventDetails() {
     //   console.log('testing', events.filter(event => event.id === Number(eventId)).pop())
 // console.log('tags event booth', tagsBooth);
 
+     let eventDetails = events.filter(event => event.id === Number(eventId)).pop()
+
     return (
         
         <>
-      <AvailableBooths props={ events.filter(event => event.id === Number(eventId)).pop() }/>
       
-      <Header />
+      {/* <Header /> */}
 
       <h1>
         <br /> Address(123 First Ave Roseville, MN 55407)
@@ -70,7 +72,7 @@ function EventDetails() {
 
               </form> */}
       <h1>Available Booths</h1>
-
+      <AvailableBooths props={ eventDetails }/>
       <div>
         <button>Add Booth Type</button>
 
