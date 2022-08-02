@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+
+import EditHeader from "./EditHeader";
+import moment from "moment";
+
 import './EventDetails.css'
 // MUI
 import Button from '@mui/material/Button';
@@ -21,13 +25,34 @@ import Header from './Header'
 
 function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const allEvents = useSelector((store) => store.events);
-
-  // const tagsBooth = useSelector((store)=> store.tagsReducer);
-  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const events = useSelector((store) => store.events);
+  
+  // const tagsBooth = useSelector((store)=> store.tagsReducer);
+  
+  const dispatch = useDispatch();
   const history = useHistory();
   const [viewList, setViewList] = useState("");
+
+  const [editEvent, setEditEvent] = useState();
+
+
+
+
+  let eventDetails = events
+    .filter((event) => event.id === Number(eventId))
+    .pop();
+
+  console.log("EVENT DETAILS COMPONENT ? >>>>", eventDetails);
+
+  function toggleEdit() {
+    setEditEvent(!editEvent);
+  }
+  // delete booth handle
+  // function deleteBooth(id){
+  //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
+  //   }
+
   const { eventId } = useParams();
 
   useEffect(() => {
@@ -47,6 +72,21 @@ function EventDetails() {
     console.log("delete booth>>>>>>>", id);
   }
 
+  // edit put booth
+
+  // const { eventId } = useParams();
+  console.log(eventId);
+
+  //   deleteProps={
+  //       id: booths.id,
+  //       dispatchName: 'DELETE_BOOTH_APPLICATION'
+  //   }
+
+  // <DeleteButton props={deleteProps} />
+
+  // console.log('event booth', eventBoothDetails)
+
+  useEffect(() => {
   function handleApprove(boothId) {
     dispatch({
         type: 'APPROVE_BOOTH_APP',
@@ -60,15 +100,17 @@ function EventDetails() {
   return (
     // adding booths and available booths
     <>
-      {/* <Header /> */}
 
-      <h1>
-        <br /> Address(123 First Ave Roseville, MN 55407)
-      </h1>
-      <h2>Selector (Tags)</h2>
-      {/* <form onSubmit={}>
+      {editEvent === false ? (
+        <EditHeader
+          toggleEdit={toggleEdit}
+          eventId={eventId}
+          eventDetails={eventDetails}
+        />
+      ) : (
+        <Header toggleEdit={toggleEdit} />
+      )}
 
-              </form> */}
       <h1>Available Booths</h1>
       <AvailableBooths props={ eventDetails }/>
       <div>
