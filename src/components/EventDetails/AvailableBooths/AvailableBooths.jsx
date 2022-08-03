@@ -65,6 +65,10 @@ function Row({row}) {
     dispatch({ type: 'DELETE_EVENT_BOOTH', payload: {id}})
   }
 
+  function requestBooth(id){
+    dispatch({ type: 'ADD_BOOTH_APPLICATION', payload: {id}})
+  }
+
   const [open, setOpen] = React.useState(false);
 
   const [newType, setNewType] = React.useState(row.type);
@@ -114,7 +118,7 @@ function Row({row}) {
         }
         {user?.type === 'vendor' ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
-            <Button>
+            <Button onClick={() =>  requestBooth(row.id)}>
               Request Booth
             </Button>
           </TableCell>
