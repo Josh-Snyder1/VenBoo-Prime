@@ -23,37 +23,23 @@ import Paper from '@mui/material/Paper';
 import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
 
+
 function EventDetails() {
-  const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const user = useSelector((store) => store.user);
-  const events = useSelector((store) => store.events);
-  
-  // const tagsBooth = useSelector((store)=> store.tagsReducer);
-  
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [viewList, setViewList] = useState("");
+    // Stores
+    const eventBoothDetails = useSelector((store) => store.boothApplications);
+    const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events);
 
-  const [editEvent, setEditEvent] = useState();
+    // Local State
+    const [viewList, setViewList] = useState("");
+    const [editEvent, setEditEvent] = useState();
 
+    // Vars
+    const { eventId } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
 
-
-
-  let eventDetails = events
-    .filter((event) => event.id === Number(eventId))
-    .pop();
-
-  console.log("EVENT DETAILS COMPONENT ? >>>>", eventDetails);
-
-  function toggleEdit() {
-    setEditEvent(!editEvent);
-  }
-  // delete booth handle
-  // function deleteBooth(id){
-  //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
-  //   }
-
-  const { eventId } = useParams();
 
   useEffect(() => {
     dispatch({
@@ -63,28 +49,6 @@ function EventDetails() {
       },
     });
   }, [eventId]);
-
-  function handleDelete(id) {
-    dispatch({
-      type: "DELETE_BOOTH",
-      payload: { id },
-    });
-    console.log("delete booth>>>>>>>", id);
-  }
-
-  // edit put booth
-
-  // const { eventId } = useParams();
-  console.log(eventId);
-
-  //   deleteProps={
-  //       id: booths.id,
-  //       dispatchName: 'DELETE_BOOTH_APPLICATION'
-  //   }
-
-  // <DeleteButton props={deleteProps} />
-
-  // console.log('event booth', eventBoothDetails)
 
   function handleApprove(boothId) {
     dispatch({
@@ -96,10 +60,13 @@ function EventDetails() {
     });
   }
 
+  function toggleEdit() {
+    setEditEvent(!editEvent);
+  }
+
   return (
     // adding booths and available booths
     <>
-
       {editEvent === false ? (
         <EditHeader
           toggleEdit={toggleEdit}
@@ -191,19 +158,9 @@ function EventDetails() {
                         <TableCell> Description</TableCell>
                     </TableRow>
                 </TableHead>
-                
-                
                 <TableBody>
-                
                    {eventBoothDetails.map((list) => {
                       if (list.approved_by_host === "APPROVED")
-                      
-                    // {eventBoothDetails.map((list)=> {
-                       // if (list.approved_by_host &&
-                         //   list.id === user.id &&
-                           // list.verified
-                            //)
-                            
                         return(
                             <TableRow key={list.id}>
                                 <TableCell >{list.business_name}</TableCell >
