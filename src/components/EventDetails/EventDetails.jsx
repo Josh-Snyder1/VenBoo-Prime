@@ -19,10 +19,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-
 import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
-
 
 function EventDetails() {
     // Stores
@@ -39,8 +37,6 @@ function EventDetails() {
     const dispatch = useDispatch();
     const history = useHistory();
     let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
-
-
   useEffect(() => {
     dispatch({
       type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
@@ -64,6 +60,7 @@ function EventDetails() {
     setEditEvent(!editEvent);
   }
 
+  console.log('in eventDetails', eventDetails)
   return (
     // adding booths and available booths
     <>
@@ -78,9 +75,8 @@ function EventDetails() {
       )}
 
       <h1>Available Booths</h1>
-      <AvailableBooths props={ eventDetails }/>
+      {eventDetails && <AvailableBooths props={ eventDetails }/>}
       <div>
-        
         <table className='booths_info'>
             
         </table>
