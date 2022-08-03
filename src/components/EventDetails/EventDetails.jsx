@@ -19,7 +19,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-
 import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
 
@@ -36,14 +35,9 @@ function EventDetails() {
 
   const [editEvent, setEditEvent] = useState();
 
+  const { eventId } = useParams();
 
-
-
-  let eventDetails = events
-    .filter((event) => event.id === Number(eventId))
-    .pop();
-
-  console.log("EVENT DETAILS COMPONENT ? >>>>", eventDetails);
+  let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
 
   function toggleEdit() {
     setEditEvent(!editEvent);
@@ -52,8 +46,6 @@ function EventDetails() {
   // function deleteBooth(id){
   //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
   //   }
-
-  const { eventId } = useParams();
 
   useEffect(() => {
     dispatch({
@@ -75,7 +67,6 @@ function EventDetails() {
   // edit put booth
 
   // const { eventId } = useParams();
-  console.log(eventId);
 
   //   deleteProps={
   //       id: booths.id,
@@ -86,7 +77,6 @@ function EventDetails() {
 
   // console.log('event booth', eventBoothDetails)
 
-  useEffect(() => {
   function handleApprove(boothId) {
     dispatch({
         type: 'APPROVE_BOOTH_APP',
@@ -94,9 +84,10 @@ function EventDetails() {
             boothAppId: boothId,
             id: eventId
         }
-  });
-  }
+    })
+  };
 
+  console.log('in eventDetails', eventDetails)
   return (
     // adding booths and available booths
     <>
@@ -112,9 +103,8 @@ function EventDetails() {
       )}
 
       <h1>Available Booths</h1>
-      <AvailableBooths props={ eventDetails }/>
+      {eventDetails && <AvailableBooths props={ eventDetails }/>}
       <div>
-        <button>Add Booth Type</button>
         <table className='booths_info'>
             
             <thead>
