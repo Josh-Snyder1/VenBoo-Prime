@@ -33,8 +33,8 @@ function editHeader({ toggleEdit, eventId, eventDetails }) {
   const [city, setCity] = useState(eventDetails.address[0].city);
   const [state, setState] = useState(eventDetails.address[0].state);
   const [zip, setZip] = useState(eventDetails.address[0].zipcode);
-  const [tag, setTag] = useState("");
-
+  const [tag, setTag] = useState([]);
+  console.log("tags list is >>>", tag);
   const tagSelection = (tagSelection) => {
     console.log("in tagSelection", tagSelection);
     return setTag(tagSelection);

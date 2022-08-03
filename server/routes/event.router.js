@@ -14,7 +14,6 @@ const router = express.Router();
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
 router.get("/", rejectUnauthenticated, (req, res) => {
-
   // Initialize the parameters as a blank array
   let sqlParams = [];
 
@@ -100,7 +99,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const addressesQuery = `
@@ -192,23 +190,63 @@ router.put("/", rejectUnauthenticated, (req, res) => {
 
   // UPDATE TAGS
 
-  const emptyEventTagsParams = [eventId];
+  const currentTagsParams = [eventId];
+  console.log("tag IS >>> ", req.body.tag);
+
+  const currentTagsQuery = ` 
+  SELECT "tag_id", "id" FROM "event_tags" 
+  WHERE "event_id"= $1
+  `;
+
   const emptyEventTagsQuery = `
-  DELETE FROM "event_tags" 
-  WHERE event_id= $1 ;
+  DELETE FROM "event_tags"
+  WHERE id = $1 ;
     `;
-  for (const tg of req.body.tag) {
-    const eventTagsParams = [eventId, tg];
-    const eventTagsQuery = `
+
+  const eventTagsQuery = `
     INSERT INTO "event_tags" (event_id, tag_id)
     VALUES ($1, $2)
     `;
-    pool.query(emptyEventTagsQuery, emptyEventTagsParams).then((dbRes) => {
-      return pool.query(eventTagsQuery, eventTagsParams).then((dbRes2) => {
-        return dbRes2;
+
+  let newTags = [];
+  let deleteTags = [];
+
+  pool.query(currentTagsQuery, currentTagsParams).then((dbRes) => {
+    // Makes a new array of Old Tags from object with tag_id and id
+    const oldTags = Array.from(dbRes.rows, (x) => x.tag_id);
+    console.log("Old Tags are", oldTags);
+    // Loops over new tags to find new tags to add to DB
+    // pushes to new Tag array
+    for (const t of req.body.tag) {
+      if (!oldTags.includes(t)) {
+        newTags.push(t);
+      }
+    }
+    // Loops over old tags amd checks to see if new tags array contains a old tag
+    // If it does contain the old tag it pushes the duplicate tag id to delete Tags array
+    for (const t of dbRes.rows) {
+      if (!req.body.tag.includes(t.tag_id)) {
+        deleteTags.push(t.id);
+      }
+    }
+    console.log("delete tags >>>>", deleteTags);
+    console.log("NEW TAGS ARE >>>>", newTags);
+    console.log(" TAGS DBRES ROWS", dbRes.rows);
+
+    // loops through deleteTags array and deletes the tag
+    for (const tag of deleteTags) {
+      console.log("TAG >>>>>>", tag);
+      pool.query(emptyEventTagsQuery, [tag]).then(() => {
+        console.log("sucessfully deleted Id", tag);
       });
-    });
-  }
+    }
+    // ADD NEW TAGS
+    for (const addTag of newTags) {
+      pool.query(eventTagsQuery, [eventId, addTag]).then(() => {
+        console.log("sucessfully added tag", addTag);
+      });
+    }
+  });
 
   // UPDATE EVENT, VENUE AND ADDRESS
   pool
@@ -228,7 +266,7 @@ router.put("/", rejectUnauthenticated, (req, res) => {
         });
     })
     .catch((error) => {
-      console.log("error in event router PUT", error);
+      console.log(`error in event router PUT ${error}`);
     });
 });
 
