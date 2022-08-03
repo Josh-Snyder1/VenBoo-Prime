@@ -86,15 +86,14 @@ function EventDetails() {
 
   // console.log('event booth', eventBoothDetails)
 
-  useEffect(() => {
   function handleApprove(boothId) {
     dispatch({
-        type: 'APPROVE_BOOTH_APP',
-        payload: {
-            boothAppId: boothId,
-            id: eventId
-        }
-  });
+      type: 'APPROVE_BOOTH_APP',
+      payload: {
+          boothAppId: boothId,
+          id: eventId
+      }
+    });
   }
 
   return (
