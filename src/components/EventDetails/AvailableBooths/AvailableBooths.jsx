@@ -28,7 +28,6 @@ function Row({row}) {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
 
   const [edit, setEdit] = React.useState();
 
