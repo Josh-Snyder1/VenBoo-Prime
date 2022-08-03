@@ -23,8 +23,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 // the Row() function is a MUI component called further down 
 // within the main AvailableBooths component
+
 function Row({row}) {
 
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
@@ -131,7 +133,7 @@ function Row({row}) {
               }
             </TableCell>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
-              <IconButton onClick={() => {deleteRow(row.id)}}>
+              <IconButton onClick={() => deleteRow(row.id)}>
                 <DeleteIcon />
               </IconButton>
             </TableCell>

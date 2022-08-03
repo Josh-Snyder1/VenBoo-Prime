@@ -45,6 +45,7 @@ function* editBooth(req) {
     }
     catch (err) {
         console.error('error in booths edit saga', err)
+
     }
 }
 
@@ -53,6 +54,7 @@ function* boothsSaga() {
     yield takeEvery('ADD_BOOTH', addBooth);
     yield takeEvery('DELETE_EVENT_BOOTH', deleteBooth);
     yield takeEvery('EDIT_BOOTH', editBooth)
+
 }
 
 export default boothsSaga;

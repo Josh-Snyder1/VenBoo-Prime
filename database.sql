@@ -157,13 +157,16 @@ VALUES
 ('host1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Lastname', 'CEO', 'Food Event', 'Food Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
 ('host2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Lastname', 'CEO', 'River Run Event', 'River Run Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com');
 
-
-INSERT INTO "events" (user_id, name, description, start_date, end_date)
+INSERT INTO "venues" ("name", "address_id", "contact_name", "contact_phone", "contact_email", "contact_url")
 VALUES
-(4, 'Billys Bee Bonanza', 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17'),
-(4, 'Minnesota State Fair', 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-25', '2022-09-5'),
-(5, 'Farm Fest', 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07'),
-(5, 'Comic Con', 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07');
+('Xcel Energy Center', 1, 'Bill Billson', '123-123-1234', 'test@gmail.com', 'https://www.xcelenergycenter.com/');
+
+INSERT INTO "events" (user_id, name, venue_id, description, start_date, end_date)
+VALUES
+(4, 'Billys Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17'),
+(4, 'Minnesota State Fair', 1, 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-25', '2022-09-5'),
+(5, 'Farm Fest', 1, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07'),
+(5, 'Comic Con', 1, 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07');
 
 INSERT INTO "booths" (event_id, type, dimensions, quantity, description, cost)
 VALUES
@@ -173,6 +176,10 @@ VALUES
 INSERT INTO "booth_applications" (booth_id, user_id, approved_by_host)
 VALUES
 (1, 2, 'PENDING'), (2, 3, 'APPROVED'), (3, 3, 'APPROVED'), (4, 2, 'REJECTED');
+
+INSERT INTO "vendor_tags" ("user_id", "tag_id")
+VALUES
+(1,1), (2,2), (3,3), (4,4);
 
 SELECT
 	events.name,

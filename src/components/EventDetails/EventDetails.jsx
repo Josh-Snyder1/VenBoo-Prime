@@ -23,30 +23,20 @@ import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
 
 function EventDetails() {
-  const eventBoothDetails = useSelector((store) => store.boothApplications);
-  const user = useSelector((store) => store.user);
-  const events = useSelector((store) => store.events);
-  
-  // const tagsBooth = useSelector((store)=> store.tagsReducer);
-  
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [viewList, setViewList] = useState("");
+    // Stores
+    const eventBoothDetails = useSelector((store) => store.boothApplications);
+    const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events);
 
-  const [editEvent, setEditEvent] = useState();
+    // Local State
+    const [viewList, setViewList] = useState("");
+    const [editEvent, setEditEvent] = useState();
 
-  const { eventId } = useParams();
-
-  let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
-
-  function toggleEdit() {
-    setEditEvent(!editEvent);
-  }
-  // delete booth handle
-  // function deleteBooth(id){
-  //     dispatch({ type: 'DELETE_BOOTH', payload: {id}})
-  //   }
-
+    // Vars
+    const { eventId } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
   useEffect(() => {
     dispatch({
       type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
@@ -56,42 +46,24 @@ function EventDetails() {
     });
   }, [eventId]);
 
-  function handleDelete(id) {
-    dispatch({
-      type: "DELETE_BOOTH",
-      payload: { id },
-    });
-    console.log("delete booth>>>>>>>", id);
-  }
-
-  // edit put booth
-
-  // const { eventId } = useParams();
-
-  //   deleteProps={
-  //       id: booths.id,
-  //       dispatchName: 'DELETE_BOOTH_APPLICATION'
-  //   }
-
-  // <DeleteButton props={deleteProps} />
-
-  // console.log('event booth', eventBoothDetails)
-
   function handleApprove(boothId) {
     dispatch({
-        type: 'APPROVE_BOOTH_APP',
-        payload: {
-            boothAppId: boothId,
-            id: eventId
-        }
-    })
-  };
+      type: 'APPROVE_BOOTH_APP',
+      payload: {
+          boothAppId: boothId,
+          id: eventId
+      }
+    });
+  }
+
+  function toggleEdit() {
+    setEditEvent(!editEvent);
+  }
 
   console.log('in eventDetails', eventDetails)
   return (
     // adding booths and available booths
     <>
-
       {editEvent === false ? (
         <EditHeader
           toggleEdit={toggleEdit}
@@ -107,30 +79,6 @@ function EventDetails() {
       <div>
         <table className='booths_info'>
             
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Available</th>
-                    <th>Dimensions</th>
-                    <th>Info</th>
-                    <th>Cost</th>
-                    <button>Edit</button>
-                </tr>
-            </thead>
-         
-            <tbody>
-                {eventBoothDetails.map((items)=>{
-                   return (
-                    <tr key={items.id}>
-                    <td>{items.type}</td>
-                    <td>{items.quantity}</td>
-                    <td>{items.dimensions}</td>
-                    <td>{items.description}</td>
-                    <td>{items.cost}</td>
-                </tr>
-              );
-            })}
-          </tbody>
         </table>
       </div>
 
@@ -161,7 +109,7 @@ function EventDetails() {
                                 <TableCell>{booths.dimensions}</TableCell>
                                 <Stack direction="row" spacing={2}></Stack>
                                 <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
-                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >❌</Button>
+                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
                     
                             </TableRow>
                             )}
@@ -182,19 +130,9 @@ function EventDetails() {
                         <TableCell> Description</TableCell>
                     </TableRow>
                 </TableHead>
-                
-                
                 <TableBody>
-                
                    {eventBoothDetails.map((list) => {
                       if (list.approved_by_host === "APPROVED")
-                      
-                    // {eventBoothDetails.map((list)=> {
-                       // if (list.approved_by_host &&
-                         //   list.id === user.id &&
-                           // list.verified
-                            //)
-                            
                         return(
                             <TableRow key={list.id}>
                                 <TableCell >{list.business_name}</TableCell >
