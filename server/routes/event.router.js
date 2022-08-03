@@ -190,19 +190,19 @@ router.put("/", rejectUnauthenticated, (req, res) => {
 
   // UPDATE TAGS
 
+  // old tags
   const currentTagsParams = [eventId];
-  console.log("tag IS >>> ", req.body.tag);
 
   const currentTagsQuery = ` 
   SELECT "tag_id", "id" FROM "event_tags" 
   WHERE "event_id"= $1
   `;
-
+  // Deletes Tag
   const emptyEventTagsQuery = `
   DELETE FROM "event_tags"
   WHERE id = $1 ;
     `;
-
+  // Update DB with new selected Tags
   const eventTagsQuery = `
     INSERT INTO "event_tags" (event_id, tag_id)
     VALUES ($1, $2)
@@ -214,7 +214,6 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   pool.query(currentTagsQuery, currentTagsParams).then((dbRes) => {
     // Makes a new array of Old Tags from object with tag_id and id
     const oldTags = Array.from(dbRes.rows, (x) => x.tag_id);
-    console.log("Old Tags are", oldTags);
     // Loops over new tags to find new tags to add to DB
     // pushes to new Tag array
     for (const t of req.body.tag) {
@@ -229,18 +228,15 @@ router.put("/", rejectUnauthenticated, (req, res) => {
         deleteTags.push(t.id);
       }
     }
-    console.log("delete tags >>>>", deleteTags);
-    console.log("NEW TAGS ARE >>>>", newTags);
-    console.log(" TAGS DBRES ROWS", dbRes.rows);
 
     // loops through deleteTags array and deletes the tag
     for (const tag of deleteTags) {
-      console.log("TAG >>>>>>", tag);
       pool.query(emptyEventTagsQuery, [tag]).then(() => {
         console.log("sucessfully deleted Id", tag);
       });
     }
     // ADD NEW TAGS
+    // loopes through newTags array and adds New Tags to DB
     for (const addTag of newTags) {
       pool.query(eventTagsQuery, [eventId, addTag]).then(() => {
         console.log("sucessfully added tag", addTag);
@@ -260,7 +256,6 @@ router.put("/", rejectUnauthenticated, (req, res) => {
           return pool
             .query(addressesQuery, [...addressesParams, addressId])
             .then((dbRes3) => {
-              console.log("DB RES 3 is >>>>>>", dbRes3.rows);
               return dbRes3;
             });
         });
