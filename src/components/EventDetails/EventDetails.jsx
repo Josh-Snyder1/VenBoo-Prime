@@ -80,33 +80,9 @@ function EventDetails() {
       <h1>Available Booths</h1>
       <AvailableBooths props={ eventDetails }/>
       <div>
-        <button>Add Booth Type</button>
+        
         <table className='booths_info'>
             
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Available</th>
-                    <th>Dimensions</th>
-                    <th>Info</th>
-                    <th>Cost</th>
-                    <button>Edit</button>
-                </tr>
-            </thead>
-         
-            <tbody>
-                {eventBoothDetails.map((items)=>{
-                   return (
-                    <tr key={items.id}>
-                    <td>{items.type}</td>
-                    <td>{items.quantity}</td>
-                    <td>{items.dimensions}</td>
-                    <td>{items.description}</td>
-                    <td>{items.cost}</td>
-                </tr>
-              );
-            })}
-          </tbody>
         </table>
       </div>
 
@@ -137,7 +113,7 @@ function EventDetails() {
                                 <TableCell>{booths.dimensions}</TableCell>
                                 <Stack direction="row" spacing={2}></Stack>
                                 <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
-                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} >❌</Button>
+                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
                     
                             </TableRow>
                             )}

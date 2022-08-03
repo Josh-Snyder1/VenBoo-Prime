@@ -15,8 +15,23 @@ function* fetchVendorBooths() {
     }
 }
 
+function* deleteBooth(action) {
+    console.log('deleting booth', action.payload)
+    try {
+        yield axios.delete(`/api/events/${action.payload.rowid}`);
+        yield put ({
+            type: 'FETCH_VENDOR_BOOTHS'
+            
+        })
+    }
+    catch(err) {
+        console.log('error in delete booth', err)
+    }
+}
+
 function* boothsSaga() {
     yield takeEvery('FETCH_VENDOR_BOOTHS', fetchVendorBooths);
+    yield takeEvery('DELETE_BOOTHS', deleteBooth);
 }
 
 export default boothsSaga;

@@ -21,8 +21,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
+
 function Row({row}) {
 
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
   const [edit, setEdit] = React.useState();
@@ -37,7 +39,9 @@ function Row({row}) {
 
   function deleteRow(id){
     console.log('in deleteRow', id)
-    // dispatch({ type: 'DELETE_TAG', payload: {id}})
+    dispatch({ type: 'DELETE_BOOTHS', 
+    payload: { rowid: id 
+    }})
   }
 
   const handleChange = event => {
@@ -92,7 +96,7 @@ function Row({row}) {
               }
             </TableCell>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
-              <IconButton onClick={() => {deleteRow(row.id)}}>
+              <IconButton onClick={() => deleteRow(row.id)}>
                 <DeleteIcon />
               </IconButton>
             </TableCell>
