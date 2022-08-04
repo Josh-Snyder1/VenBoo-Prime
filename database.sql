@@ -141,8 +141,8 @@ CREATE TABLE "event_tags" (
 	UNIQUE ("event_id", "tag_id")
 );
 
--- Below is to insert dummy/starting data into tables
 
+-- Below is to insert dummy/starting data into tables
 INSERT INTO "tags" (name)
 VALUES ('Showcase'),('Antiques'),('Food Vendor'),('Marketer'),('Content Creator'),('Craft Maker');
 
@@ -152,10 +152,15 @@ VALUES ('123 Street Ave', '321 Drive Way', 'Saint Paul', 'MN', 55415);
 INSERT INTO "user" ("email", "password", "type", "first_name", "last_name", "title", "business_name", "description","address_id", "phone","main_url", "facebook_url", "etsy_url", "linkedin_url")
 VALUES
 ('admin1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Colin', 'Lastname', 'CEO', 'Weather', 'Weather is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
-('vendor1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Neil', 'Lastname', 'CEO', 'Cool Store', 'Cool Store is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
-('vendor2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nimo', 'Lastname', 'CEO', 'TV Shows Store', 'TV SHOWS is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
-('host1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Lastname', 'CEO', 'Food Event', 'Food Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
-('host2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Lastname', 'CEO', 'River Run Event', 'River Run Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com');
+('vendor1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Neil', 'Lastname', 'CEO', 'Banana Store', 'We only sell the finest bananas', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('vendor2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nimo', 'Lastname', 'CEO', 'TV Shows Store', 'We sell tv shows', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('vendor3@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'John', 'Lastname', 'CEO', 'Dog Store', 'We make good daog treats', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('vendor4@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Edan', 'Lastname', 'CEO', 'Mushroom Store', 'We sell great shrooms', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host1@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Lastname', 'CEO', 'Food Host Company', 'Food Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host2@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Lastname', 'CEO', 'River Run Hosting Company', 'River Run Event is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host3@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Jean', 'Lastname', 'CEO', 'Wine Tasting Events INC', 'WE host the biggest wine tasting events in MN!', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com'),
+('host4@gmail.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Alex', 'Lastname', 'CEO', 'Hotdog Eating Events INC', 'We only host the greatest hotdog events', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com');
+
 
 INSERT INTO "venues" ("name", "address_id", "contact_name", "contact_phone", "contact_email", "contact_url")
 VALUES
@@ -179,56 +184,5 @@ VALUES
 
 INSERT INTO "vendor_tags" ("user_id", "tag_id")
 VALUES
-(1,1), (2,2), (3,3), (4,4);
+(1,1), (2,2), (2,3), (3,3), (4,4), (5,3), (6,2);
 
-SELECT
-	events.name,
-	booths.type,
-	booths.dimensions,
-	booths.quantity,
-	booths.description,
-	booths.cost,
-	booth_applications.approved_by_host,
-	booth_applications.requested_on
-FROM booths
-JOIN booth_applications
-	ON booth_applications.booth_id = booths.id
-JOIN events
-	ON booths.event_id = events.id
-WHERE booth_applications.user_id = 2;
-
--- Get EVENTS with a list of all their associated booths
-SELECT
-	events.id,
-	events.user_id,
-	events.description,
-	events.name,
-	events.start_date,
-	events.end_date,
-	events.venue_id,
-	events.verified,
-	json_agg(booths) AS booths
-FROM events
-LEFT JOIN booths
-	ON booths.event_id = events.id
-WHERE events.user_id = 1
-GROUP BY events.id;
-
--- Get EVENTS with a list of all their associated TAGS
-SELECT
-	"events".id,
-	"events".user_id,
-	"events".name,
-	"events".venue_id,
-	"events".description,
-	"events".start_date,
-	"events".end_date,
-	"events".verified,
-	json_agg("tags") as tags
-FROM "events"
-LEFT JOIN "event_tags"
-	ON "events".id = "event_tags".event_id
-LEFT JOIN "tags"
-	ON "tags".id = "event_tags".tag_id
-GROUP BY "events".id
-ORDER BY "events".name ASC;

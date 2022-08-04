@@ -12,6 +12,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+// Styles
+import './VendorListAdmin.css'
+
 function VendorListAdmin() {
     // Stores
     const vendors = useSelector((store) => store.vendors);
@@ -23,7 +26,7 @@ function VendorListAdmin() {
     // Functions
     useEffect(() => {
         dispatch({
-            type: "FETCH_VENDORS"
+            type: "FETCH_ALL_VENDORS"
         })
     }, [])
 
@@ -31,7 +34,11 @@ function VendorListAdmin() {
     return (
         <TableContainer component={Paper}>
             <Table>
-                <TableHead>
+                <TableHead
+                    sx={{
+                        backgroundColor:'#CEC4F2'
+                    }}
+                >
                     <TableRow>
                         <TableCell>Business Name</TableCell>
                         <TableCell>Contact Name</TableCell>
