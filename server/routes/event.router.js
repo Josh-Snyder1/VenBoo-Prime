@@ -102,12 +102,17 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const addressesQuery = `
-      INSERT INTO addresses ( address, city, state )
-      VALUES ($1, $2, $3)
+      INSERT INTO addresses ( address, address_2, city, state )
+      VALUES ($1, $2, $3, $4)
       RETURNING id
       `;
-
-  const addressesParams = [req.body.address, req.body.city, req.body.state];
+  console.log("Address 2 is >>>>", req.body);
+  const addressesParams = [
+    req.body.address,
+    req.body.address2,
+    req.body.city,
+    req.body.state,
+  ];
 
   const venueQuery = `
     INSERT INTO venues (name, address_id)
@@ -120,6 +125,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const eventsQuery = `
     INSERT INTO events (user_id, name, description, start_date, end_date, venue_id)
     VALUES ($1, $2, $3, $4, $5, $6 )
+    RETURNING id
     `;
 
   const eventsParams = [

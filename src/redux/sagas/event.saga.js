@@ -13,6 +13,9 @@ function* fetchEvents() {
 function* addNewEvent(action) {
   try {
     yield axios.post("/api/events", action.payload);
+    yield put({
+      type: "FETCH_EVENTS",
+    });
   } catch (error) {
     console.log("Error with event:", error);
   }

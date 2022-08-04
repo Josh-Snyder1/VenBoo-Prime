@@ -16,13 +16,15 @@ const Calender = ({ setDateRange, dateRange }) => {
   // });
   return (
     <DatePicker
+      required
+      placeholderText="Select Dates*"
       selectsRange={true}
       startDate={startDate}
       endDate={endDate}
       onChange={(update) => {
         setDateRange(update);
       }}
-      isClearable={true}
+      isClearable
     />
   );
 };

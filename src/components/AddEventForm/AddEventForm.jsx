@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Calender from "../ReuseableComponents/DatePicker";
 import Button from "@mui/material/Button";
@@ -20,10 +19,11 @@ function AddEventForm() {
   const history = useHistory();
 
   const user = useSelector((store) => store.user);
+
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
   const [address, setaddress] = useState("");
-  const [addres2, setAddress2] = useState("");
+  const [address2, setAddress2] = useState("");
   const [venue, setVenue] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -32,15 +32,28 @@ function AddEventForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Swal.fire({
-      position: "top-end",
+
+    // SWEET ALERT 2
+    var toastMixin = Swal.mixin({
+      toast: true,
       icon: "success",
-      title: "New Event Created",
+      title: "General Title",
+      animation: false,
+      position: "middle",
       showConfirmButton: false,
-      timer: 1500,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
     });
 
-    // history.push(`/event/${id}`);
+    toastMixin.fire({
+      position: "bottom-right",
+      animation: true,
+      title: "Event Created",
+    });
 
     dispatch({
       type: "ADD_NEW_EVENT",
@@ -48,6 +61,7 @@ function AddEventForm() {
         user: user.id,
         name: eventName,
         address: address,
+        address2: address2,
         venue: venue,
         city: city,
         state: state,
@@ -56,6 +70,9 @@ function AddEventForm() {
         date: dateRange,
       },
     });
+    setTimeout(function () {
+      history.push("/");
+    }, 2500);
   };
 
   const tags = useSelector((store) => store.tags);
@@ -81,7 +98,7 @@ function AddEventForm() {
           onChange={(e) => {
             setEventName(e.target.value);
           }}
-          // required
+          required
         />
 
         <br />
@@ -93,7 +110,7 @@ function AddEventForm() {
           onChange={(e) => {
             setaddress(e.target.value);
           }}
-          // required
+          required
         />
         <br />
         <br />
@@ -104,11 +121,19 @@ function AddEventForm() {
           onChange={(e) => {
             setAddress2(e.target.value);
           }}
-          // required
+          required
         />
         <br />
-        <label htmlFor="datepicker">Date</label>
-        <Calender setDateRange={setDateRange} dateRange={dateRange} />
+        <br />
+        <FormControl>
+          <Calender
+            id="datepicker-select"
+            label="datepicker"
+            setDateRange={setDateRange}
+            dateRange={dateRange}
+          />
+        </FormControl>
+
         <br />
         <br />
         <TextField
@@ -118,7 +143,7 @@ function AddEventForm() {
           onChange={(e) => {
             setVenue(e.target.value);
           }}
-          // required
+          required
         />
         <br />
         <br />
@@ -129,7 +154,7 @@ function AddEventForm() {
           onChange={(e) => {
             setCity(e.target.value);
           }}
-          // required
+          required
         />
         <br />
         <br />
@@ -140,29 +165,29 @@ function AddEventForm() {
           onChange={(e) => {
             setState(e.target.value);
           }}
-          // required
+          required
         />
 
         <br />
         <br />
-        <FormControl>
-          <InputLabel id="description-select-label">Description</InputLabel>
-          <TextareaAutosize
-            id="description-select"
-            label="description"
-            style={{ width: 350, height: 200, resize: "none" }}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            required
-          ></TextareaAutosize>
-        </FormControl>
+
+        <TextareaAutosize
+          placeholder="Description"
+          style={{ width: 350, height: 200, resize: "none" }}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          required
+        ></TextareaAutosize>
+
         <br />
         <br />
 
-        <MultiSelect props={props} />
+        <MultiSelect props={props} required />
 
-        <Button className="submit">Create</Button>
+        <Button type="submit" variant="contained" color="primary">
+          Create
+        </Button>
       </form>
     </>
   );

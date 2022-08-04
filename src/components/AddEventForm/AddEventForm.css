@@ -1,1 +1,10 @@
+form {
+  text-align: center;
+}
 
+.react-datepicker-popper {
+  z-index: 3;
+}
+input {
+  width: 200px;
+}
