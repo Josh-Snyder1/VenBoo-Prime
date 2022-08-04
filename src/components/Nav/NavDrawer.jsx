@@ -180,7 +180,7 @@ export default function NavDrawer() {
     let profileLetter = user.email && user.email.charAt(0).toUpperCase()
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', padding:0 }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between'  }}>
       <ClickAwayListener onClickAway={handleDrawerClose}>

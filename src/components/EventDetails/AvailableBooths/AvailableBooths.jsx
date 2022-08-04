@@ -116,7 +116,7 @@ function Row({row}) {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
         </>
         }
-        {user?.type === 'vendor' ?
+        {user?.id === row.user_id ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
             <Button onClick={() =>  requestBooth(row.id)}>
               Request Booth
@@ -129,7 +129,7 @@ function Row({row}) {
                 <IconButton onClick={() =>  updateRow(row.id)}>
                   <CheckBoxIcon />
                 </IconButton>
-                :
+                : 
                 <IconButton onClick={() =>  editRow(row.id)}>
                   <EditIcon />
                 </IconButton>
