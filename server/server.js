@@ -13,6 +13,7 @@ const boothsRouter = require("./routes/booths.router");
 const tagsRouter = require("./routes/tags.router");
 const eventBoothsRouter = require("./routes/eventbooths.router")
 const vendorRouter = require("./routes/vendors.router")
+const adminRouter = require("./routes/admin.router")
 
 
 // Body parser middleware
@@ -33,6 +34,8 @@ app.use("/api/booths", boothsRouter);
 app.use("/api/tags", tagsRouter);
 app.use("/api/eventbooths", eventBoothsRouter);
 app.use("/api/vendors", vendorRouter)
+app.use("/api/admin", adminRouter)
+
 
 // Serve static files
 app.use(express.static("build"));

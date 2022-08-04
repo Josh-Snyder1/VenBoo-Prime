@@ -17,6 +17,7 @@ import AboutPage from "../AboutPage/AboutPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
+import EventListAdmin from "../EventsList/EventListViews/EventListAdmin";
 import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
@@ -119,6 +120,14 @@ function App() {
           <Route path="/event/:eventId">
             <EventDetails />
           </Route>
+
+          <ProtectedRoute path="/admin/events" exact>
+            {user.type === 'admin' ?
+              <EventListAdmin />
+              :
+              <Redirect to="/" />
+            }
+          </ProtectedRoute>
 
           <Route path="/" exact>
             {user.id ? <Dashboard /> : <WelcomePage />}
