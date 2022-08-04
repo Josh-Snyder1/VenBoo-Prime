@@ -108,4 +108,22 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.post('/apply', rejectUnauthenticated, (req, res) => {
+
+    const sqlQuery = `INSERT INTO booth_applications (booth_id, user_id)
+                        VALUES ($1, $2)`
+
+    const sqlParams = [req.body.id, req.user.id]
+    console.log('in booths.router post application', sqlParams)
+
+    pool.query( sqlQuery, sqlParams )
+        .then(dbRes => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+})
+
 module.exports = router;

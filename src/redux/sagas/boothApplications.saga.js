@@ -32,12 +32,25 @@ function* approveBoothApp(action) {
     }
 }
 
+function* requestBoothApp(action) {
+    try {
+        yield axios.post(`/api/booths/apply`, action.payload)
+        yield put({
+            type: 'FETCH_EVENTS'
+        })
+    }
+    catch (err) {
+        console.log('error in booths saga post', err)
+    }
+}
+
 
 
 // Main listener function for SAGA calls
 function* boothApplcationsSaga() {
     yield takeEvery('FETCH_VENDOR_BOOTH_APPLICATIONS', fetchBoothApplicaitons);
     yield takeEvery('APPROVE_BOOTH_APP', approveBoothApp)
+    yield takeEvery('ADD_BOOTH_APPLICATION', requestBoothApp)
 }
 
 
