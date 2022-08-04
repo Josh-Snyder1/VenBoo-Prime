@@ -141,7 +141,7 @@ export default function NavDrawer() {
         },
         {
             text: 'All Events',
-            link: '/allEvents',
+            link: '/admin/events',
             userType: ['admin'],
             upperLowerNav: 'upper',
             icon: <CalendarMonthIcon />
@@ -195,8 +195,8 @@ export default function NavDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" >
-            <Link to='/' >Venboo</Link>
-            
+            <Link to='/' >Venboo</Link> <br/>
+            <p>Connecting Passionate vendors to the best opportunities</p>
           </Typography>
           
         </Toolbar>

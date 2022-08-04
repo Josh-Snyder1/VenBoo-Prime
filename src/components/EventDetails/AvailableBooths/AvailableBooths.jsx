@@ -116,7 +116,7 @@ function Row({row}) {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
         </>
         }
-        {user?.id === row.user_id ?
+        {user?.type ==='vendor' ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
             <Button onClick={() =>  requestBooth(row.id)}>
               Request Booth
