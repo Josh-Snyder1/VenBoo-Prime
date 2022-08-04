@@ -318,5 +318,25 @@ router.get("/:id/booth-applications", (req, res) => {
     });
 });
 
+//duplicate code that is done in the booths.router.js file
+
+// router.delete('/:id', (req, res)=> {
+//   console.log('booth deleted from available', req.params.id);
+//   const sqlQuery = `
+//   DELETE FROM booths
+//   WHERE id =$1;
+//   `;
+//   const sqlParams = [req.params.id];
+//   pool
+//   .query(sqlQuery, sqlParams)
+//   .then(dbRes => {
+//       res.sendStatus(201);
+//     })
+//     .catch(err => {
+//      console.error('error in delete', err)
+//       res.sendStatus(500)
+//     })
+// });
+
 // Make the router routes accessible
 module.exports = router;

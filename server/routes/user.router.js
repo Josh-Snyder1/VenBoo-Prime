@@ -59,7 +59,10 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(userQuery, userParams)
     .then(() => {
-      return pool.query(addressesQuery, addressesParams).then(() => {});
+      return pool.query(addressesQuery, addressesParams)
+    .then(() => {
+      res.sendStatus(201)
+    });
     })
     .catch((error) => {
       console.log("error in user router", error);
