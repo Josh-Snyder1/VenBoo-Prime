@@ -1,15 +1,17 @@
 // Import the core libraries and functions
 import { Grid, Stack, Card, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // Import the used components
+import EventsToday from "./DashboardComponents/EventsToday";
+import IncomeComponents from "./DashboardComponents/IncomeComponents"
 import StatsCard from "../../ReuseableComponents/StatsCard";
 import StatsByDateCard from "../../ReuseableComponents/StatsByDateCard";
 
 // Import used functions
 import EventsInDateRange from "../../Utilities/EventsInDateRange";
-import { GetCostTotalFromEventsList } from "../../Utilities/MoneyFromEvents";
 import { AllFutureDates, CurrentWeek, NextSevenDays } from "../../Utilities/SetDateRangeFromDate";
 
 
@@ -23,6 +25,7 @@ function DashboardAdmin() {
   const user = useSelector(store => store.user)
   const allEvents = useSelector(store => store.events)
   const vendors = useSelector(store => store.vendors)
+  
 
   // Call the `FETCH_EVENTS` dispatch to get the current
   // events to list for an admin user
@@ -92,21 +95,17 @@ function DashboardAdmin() {
             {/* Card for display the number of events for today */}
             <StatsByDateCard allEvents={allEvents} dateRange={"OneDay"}/>
 
-            {/* Card for display the number of events for this week */}
-            <StatsByDateCard allEvents={allEvents} dateRange={"CurrentWeek"}/>
-
-            {/* Card for display the expected income this week */}
-            <StatsCard title="Income this Week:" message={`
-              ${GetCostTotalFromEventsList(
-                EventsInDateRange(vendors.allApprovedVendorsByEvent, CurrentWeek()), "income"
-              )}`
-            } />
+            {/* Recap the main highlights of the events over a time range */}
+            <IncomeComponents />
 
             {/* Card for display the total number of vendors */}
             <StatsCard title="Number of Vendors:" message={vendors.allVendors.length} />
 
           </Stack>
         </Grid>
+
+        <Link to="/admin/events">See Events</Link>
+        <Link to="/">See Vendors</Link>
       </>
     )
 }
