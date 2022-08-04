@@ -24,7 +24,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
-
+import VendorListAdmin from "../VendorListAdmin/VendorListAdmin";
 import "./App.css";
 
 function App() {
@@ -81,6 +81,14 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute> */}
+
+          <ProtectedRoute path="/allvendors" exact>
+            {user.type === 'admin' ?
+              <VendorListAdmin />
+              :
+              <Redirect to="/" />
+            }
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

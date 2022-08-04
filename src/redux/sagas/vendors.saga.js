@@ -31,12 +31,26 @@ function* fetchApprovedVendorBoothsForEvents() {
   }
 }
 
+function* fetchAllVendors() {
+  try {
+    const res = yield axios.get(`/api/vendors/all`)
+    yield put({
+      type: "SET_VENDORS",
+      payload: res.data
+    })
+  }
+  catch (err) {
+    console.log('error in fetchAllVendors', err)
+  }
+}
+
 
 
 // Main listener for dispatch events
 function* vendorSaga() {
   yield takeLatest("FETCH_VENDORS", fetchVendors),
-  yield takeLatest("FETCH_ALL_APPROVED_VENDOR_BOOTHS", fetchApprovedVendorBoothsForEvents)
+  yield takeLatest("FETCH_ALL_APPROVED_VENDOR_BOOTHS", fetchApprovedVendorBoothsForEvents),
+  yield takeLatest("FETCH_ALL_VENDORS", fetchAllVendors)
 }
 
 

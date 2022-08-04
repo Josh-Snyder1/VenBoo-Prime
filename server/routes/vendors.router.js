@@ -56,6 +56,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       "user".title,
       "user".business_name,
       "user".description,
+      "user".phone,
+      "addresses".city,
+      "addresses".state,
       COALESCE(json_agg(
         DISTINCT jsonb_build_object(
           'id', "events".id,
@@ -71,6 +74,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         FILTER (WHERE tags.id IS NOT NULL), '[]')
         as tags
     FROM "user"
+    JOIN "addresses"
+      ON "user".address_id = "addresses".id
     JOIN "booth_applications"
       ON "user".id = "booth_applications".user_id
     JOIN "booths"
@@ -84,7 +89,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     WHERE "user".type = 'vendor'
       AND "booth_applications".approved_by_host != 'REJECTED'
       ${setWhereClause}
-    GROUP BY "user".id;`
+    GROUP BY "user".id, "addresses".city, "addresses".state;`
 
 
   // Create the pool query
@@ -154,7 +159,40 @@ router.get("/approved-vendor-booths", (req, res) => {
   })
 })
 
-
+router.get("/all", (req,res) => {
+  const sqlQuery = `
+    SELECT
+      "user".id,
+      "user".first_name,
+      "user".last_name,
+      "user".title,
+      "user".business_name,
+      "user".description,
+      "user".phone,
+      "addresses".city,
+      "addresses".state,
+      COALESCE(json_agg(DISTINCT "tags".*)
+        FILTER (WHERE tags.id IS NOT NULL), '[]')
+        as tags
+      FROM "user"
+      JOIN "addresses"
+        ON "user".address_id = "addresses".id
+      LEFT JOIN "vendor_tags"
+        ON "user".id = "vendor_tags".user_id
+      LEFT JOIN "tags"
+        ON "tags".id = "vendor_tags".tag_id
+      WHERE "user".type = 'vendor'
+      GROUP BY "user".id, "addresses".city, "addresses".state;
+  `
+  pool.query(sqlQuery)
+   .then((result) => {
+    res.send(result.rows);
+  })
+  .catch((error) => {
+    console.log(`Error in get vendor router with ${error}`);
+    res.sendStatus(500);
+  });
+});
 
 
 module.exports = router
