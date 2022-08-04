@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import EditHeader from "./EditHeader";
 import moment from "moment";
 
-import './EventDetails.css'
+import "./EventDetails.css";
 // MUI
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -37,6 +37,7 @@ function EventDetails() {
     const dispatch = useDispatch();
     const history = useHistory();
     let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
+
   useEffect(() => {
     dispatch({
       type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
@@ -55,6 +56,7 @@ function EventDetails() {
       }
     });
   }
+
 
   function toggleEdit() {
     setEditEvent(!editEvent);
@@ -78,13 +80,10 @@ function EventDetails() {
       {eventDetails && <AvailableBooths props={ eventDetails }/>}
       <div>
         <table className='booths_info'>
-            
         </table>
       </div>
 
-
-        
-    <TableContainer component={Paper} >
+      <TableContainer component={Paper}>
         <h2>Pending Approval</h2>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" className="pending">
                 <TableHead>
@@ -116,7 +115,6 @@ function EventDetails() {
                         })}
                         </TableBody>
         </Table>
-                        
       </TableContainer>
 
       <TableContainer component={Paper}>
@@ -146,7 +144,7 @@ function EventDetails() {
                 </TableBody>
         </Table>
       </TableContainer>
-        </>
-    )
+    </>
+  );
 }
 export default EventDetails;

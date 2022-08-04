@@ -7,10 +7,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 
-
 //*********USED FOR MULTISELECT COMPONENT*******//
 //
-//* this function is passed into the MultiSelect component 
+//* this function is passed into the MultiSelect component
 // and is called when tags are added/removed from the dropdown
 // to update state of tagSelection.
 
@@ -50,7 +49,7 @@ export default function MultipleSelectCheckmarks({ props }) {
   const tagSelection = props.tagSelection;
   let value;
   const handleChange = (event) => {
-    console.log('in multiselect handle change', event)
+    console.log("in multiselect handle change", event);
     const {
       target: { value },
     } = event;
@@ -64,30 +63,31 @@ export default function MultipleSelectCheckmarks({ props }) {
   // console.log('in multiselect', tagSelection)
 
   return (
-    props.tags.length > 0 &&
-    <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          name='testingNAME'
-          multiple
-          value={tagName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => selected.join(', ')}
-          MenuProps={MenuProps}
-        >
-          {props.tags.map((name) => (
-            <MenuItem key={name.id} value={name.id}>
-              <Checkbox checked={tagName.indexOf(name.id) > -1} />
-              <ListItemText primary={name.name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
-
+    props.tags.length > 0 && (
+      <div>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+          <Select
+            required
+            labelId="demo-multiple-checkbox-label"
+            id="demo-multiple-checkbox"
+            name="testingNAME"
+            multiple
+            value={tagName}
+            onChange={handleChange}
+            input={<OutlinedInput label="Tag" />}
+            renderValue={(selected) => selected.join(", ")}
+            MenuProps={MenuProps}
+          >
+            {props.tags.map((name) => (
+              <MenuItem key={name.id} value={name.id}>
+                <Checkbox checked={tagName.indexOf(name.id) > -1} />
+                <ListItemText primary={name.name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    )
   );
 }

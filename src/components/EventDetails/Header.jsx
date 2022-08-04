@@ -76,6 +76,7 @@ function Header({ toggleEdit }) {
                 {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
                 {moment(eventDetails.end_date).format("MMMM Do YYYY")}
                 <br />
+                {eventDetails.venue}
                 {address.address},&nbsp;{address.city},&nbsp;{address.state}
                 &nbsp;
                 {address.zipcode}

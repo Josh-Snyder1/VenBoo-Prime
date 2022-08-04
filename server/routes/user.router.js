@@ -33,7 +33,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   WHERE id= $1
   `;
   const addressesParams = [
-    req.body.user,
+    req.body.addressId,
     req.body.address,
     req.body.city,
     req.body.state,
@@ -118,7 +118,6 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/profile/:id", (req, res) => {
-
   sqlQuery = `SELECT 
             "user".id,
             "user".email,
@@ -132,14 +131,15 @@ router.get("/profile/:id", (req, res) => {
             "user".linkedin_url
             FROM "user"
             WHERE "user".id = $1
-  `
-  sqlParams = [req.params.id]
+  `;
+  sqlParams = [req.params.id];
 
-  pool.query(sqlQuery, sqlParams)
-      .then((result) => {
-        res.send(result.rows)
-      })
-      .catch((err) => console.error('error in getting user profile info', err))
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => console.error("error in getting user profile info", err));
 });
 
 module.exports = router;

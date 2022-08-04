@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import TextField from "@mui/material/TextField";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import FormControl from "@mui/material/FormControl";
 import Calender from "../ReuseableComponents/DatePicker";
+import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./AddEventForm.css";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 
@@ -10,12 +14,16 @@ function AddEventForm() {
     dispatch({ type: "FETCH_TAGS" });
   }, []);
 
+  const Swal = require("sweetalert2");
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector((store) => store.user);
+
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
-  const [address, setLocation] = useState("");
+  const [address, setaddress] = useState("");
+  const [address2, setAddress2] = useState("");
   const [venue, setVenue] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -24,14 +32,28 @@ function AddEventForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hello");
-    console.log("Eventname", eventName);
-    console.log("address", address);
-    console.log("Venue", venue);
-    console.log("City", city);
-    console.log("State", state);
-    console.log("Description", description);
-    console.log("Tag", tag);
+
+    // SWEET ALERT 2
+    var toastMixin = Swal.mixin({
+      toast: true,
+      icon: "success",
+      title: "General Title",
+      animation: false,
+      position: "middle",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    toastMixin.fire({
+      position: "bottom-right",
+      animation: true,
+      title: "Event Created",
+    });
 
     dispatch({
       type: "ADD_NEW_EVENT",
@@ -39,6 +61,7 @@ function AddEventForm() {
         user: user.id,
         name: eventName,
         address: address,
+        address2: address2,
         venue: venue,
         city: city,
         state: state,
@@ -47,6 +70,9 @@ function AddEventForm() {
         date: dateRange,
       },
     });
+    setTimeout(function () {
+      history.push("/");
+    }, 2500);
   };
 
   const tags = useSelector((store) => store.tags);
@@ -64,59 +90,78 @@ function AddEventForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="eventForm">Event Name</label>
         <br />
-        <input
+        <TextField
+          id="outlined-required"
+          label="Event Name"
           type="text"
-          placeholder="Event
-           Name"
           onChange={(e) => {
             setEventName(e.target.value);
           }}
-          // required
+          required
         />
+
         <br />
-        <label htmlFor="location">Location</label>
         <br />
-        <input
+        <TextField
+          id="outlined-required"
+          label="Address"
           type="text"
-          placeholder="Location"
           onChange={(e) => {
-            setLocation(e.target.value);
+            setaddress(e.target.value);
           }}
-          // required
+          required
         />
         <br />
-        <label htmlFor="datepicker">StartDate - EndDate</label>
-        <Calender setDateRange={setDateRange} dateRange={dateRange} />
         <br />
-        <label htmlFor="venue">Venue</label>
-        <br />
-        <input
+        <TextField
+          id="outlined-required"
+          label="Addres_2"
           type="text"
-          placeholder="Venue"
+          onChange={(e) => {
+            setAddress2(e.target.value);
+          }}
+          required
+        />
+        <br />
+        <br />
+        <FormControl>
+          <Calender
+            id="datepicker-select"
+            label="datepicker"
+            setDateRange={setDateRange}
+            dateRange={dateRange}
+          />
+        </FormControl>
+
+        <br />
+        <br />
+        <TextField
+          id="outlined-required"
+          label="Venue"
+          type="text"
           onChange={(e) => {
             setVenue(e.target.value);
           }}
           required
         />
         <br />
-        <label htmlFor="city">City</label>
         <br />
-        <input
+        <TextField
+          id="outlined-required"
+          label="City"
           type="text"
-          placeholder="City"
           onChange={(e) => {
             setCity(e.target.value);
           }}
           required
         />
         <br />
-        <label htmlFor="state">State</label>
         <br />
-        <input
+        <TextField
+          id="outlined-required"
+          label="State"
           type="text"
-          placeholder="State"
           onChange={(e) => {
             setState(e.target.value);
           }}
@@ -124,29 +169,27 @@ function AddEventForm() {
         />
 
         <br />
-        <label htmlFor="description">Description</label>
         <br />
-        <textarea
+
+        <TextareaAutosize
+          placeholder="Description"
+          style={{ width: 350, height: 200, resize: "none" }}
           onChange={(e) => {
             setDescription(e.target.value);
           }}
           required
-          name="description"
-          id="eventDescription"
-          placeholder="Event Description"
-          cols="30"
-          rows="10"
-        ></textarea>
+        ></TextareaAutosize>
+
         <br />
-        <label htmlFor="tags">Tags</label>
         <br />
 
-        <MultiSelect props={props} />
+        <MultiSelect props={props} required />
 
-        <button className="submit">Create</button>
+        <Button type="submit" variant="contained" color="primary">
+          Create
+        </Button>
       </form>
     </>
   );
 }
-
 export default AddEventForm;
