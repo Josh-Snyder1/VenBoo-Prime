@@ -53,8 +53,9 @@ function VendorListAdmin() {
                                 <TableCell>{vendor.city}, {vendor.state}</TableCell>
                                 <TableCell>{vendor.phone}</TableCell>
                                 <TableCell>
-                                    {/* This one is weird, but it loops through the vendor's tags
-                                        and returns a string of all the tags */}
+                                    {/* This one is weird, but it loops through the vendor's tag
+                                        array, takes info from the tag object and returns a string
+                                        of all the tag names */}
                                     {vendor.tags.reduce((acc, tag) => `${acc}${tag.name}, `,'')}
                                 </TableCell>
                             </TableRow>
