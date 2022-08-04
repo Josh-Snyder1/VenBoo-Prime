@@ -177,7 +177,7 @@ function AddEventForm() {
             }}
             required
           />
-
+          <br />
           {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
           <br />
           <TextField
@@ -204,6 +204,7 @@ function AddEventForm() {
             required
           />
         </div>
+        <br />
 
         <div id="address">
           <h2 className="formHeader">Address</h2>
@@ -376,6 +377,7 @@ function AddEventForm() {
             required
           />
         </div>
+        <br />
         <Button type="submit" variant="contained" color="primary">
           Create
         </Button>
