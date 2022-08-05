@@ -1,0 +1,63 @@
+.dashboard_landing {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+    /* color: #6B5EBF; */
+}
+.p_tag{
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+.landing_page{
+    background-color: #f2f2f2;
+}
+main.css-yfo96e {
+    padding: 0px;
+}
+.booth_img{
+    max-width: 45%;
+    padding-top: 20px;
+    
+    shape-outside: margin-box;
+    shape-margin: 1rem;
+    
+}
+.venboo_img{
+    max-width: 10%;
+    padding: 0;
+}
+.venboo_description {
+  text-align: center;
+  color: #6B5EBF;
+  font-size: 100px;
+}
+.summary_ven{
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-decoration: none;
+    text-align:center;
+    padding-bottom: 30px;
+    border-bottom: 3px #6B5EBF;
+}
+.curved {
+    background-color: #CEC4F2;
+}
+.curved h2 {
+    font-size: 5rem;
+    margin-top:0;
+}
+.curved p {
+    font-size: 1rem;
+    margin: 0 5rem 0 5rem;
+}
+.curved svg {
+    display: block;
+}
+.curved_upper {
+    background-color: #f2f2f2;
+    margin-bottom: 0;
+}
+div {
+    padding: 0;
+}
