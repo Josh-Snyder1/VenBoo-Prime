@@ -34,10 +34,10 @@ function Header({ toggleEdit }) {
     // Renders total Approved and total Pending booths quantity
 
     if (Number(eventId) === booth.event_id) {
-      if (booth.approved_by_host === false) {
+      if (booth.approved_by_host === "PENDING") {
         Pending += booth.quantity;
       }
-      if (booth.approved_by_host === true) {
+      if (booth.approved_by_host === "APPROVED") {
         Approved += booth.quantity;
       }
     }

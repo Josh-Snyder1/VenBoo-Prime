@@ -101,31 +101,37 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
+  // On event creation TODO
+  // set tags
+  // set address zipcode input apon event creation
+  // Add venue contact inputs to form contact_phone and contact_email
+
   const addressesQuery = `
-      INSERT INTO addresses ( address, address_2, city, state )
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO addresses ( address, address_2, city, state, zipcode )
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING id
       `;
-  console.log("Address 2 is >>>>", req.body);
+  console.log("Address table is >>>>", req.body);
   const addressesParams = [
     req.body.address,
     req.body.address2,
     req.body.city,
     req.body.state,
+    req.body.zip,
   ];
 
   const venueQuery = `
-    INSERT INTO venues (name, address_id)
-    VALUES ($1,$2)
+    INSERT INTO venues (name, contact_phone, contact_email, address_id)
+    VALUES ($1,$2,$3,$4)
     RETURNING id
     `;
 
-  const venueParmas = [req.body.name];
+  const venueParmas = [req.body.venue, req.body.phone, req.body.email];
 
   const eventsQuery = `
     INSERT INTO events (user_id, name, description, start_date, end_date, venue_id)
     VALUES ($1, $2, $3, $4, $5, $6 )
-    RETURNING id
+   
     `;
 
   const eventsParams = [
@@ -140,11 +146,13 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     .query(addressesQuery, addressesParams)
     .then((dbRes) => {
       let addressId = dbRes.rows[0].id;
+      console.log("ADDRESS ID IS >>>>>>", addressId);
       // Create Venue
       return pool.query(venueQuery, [...venueParmas, addressId]);
     })
     .then((dbRes2) => {
       let venueId = dbRes2.rows[0].id;
+      console.log("Venue ID IS >>>>>>", venueId);
       // Create the event
       return pool.query(eventsQuery, [...eventsParams, venueId]);
     })

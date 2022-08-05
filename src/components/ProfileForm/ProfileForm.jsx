@@ -151,7 +151,6 @@ function AddEventForm() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -163,7 +162,6 @@ function AddEventForm() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            requiredx
           />
           <br />
           <br />
@@ -175,7 +173,6 @@ function AddEventForm() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            required
           />
           <br />
           {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
@@ -188,7 +185,6 @@ function AddEventForm() {
             onChange={(e) => {
               setBuisnessName(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -201,7 +197,6 @@ function AddEventForm() {
             onChange={(e) => {
               setdescription(e.target.value);
             }}
-            required
           />
         </div>
         <br />
@@ -217,7 +212,6 @@ function AddEventForm() {
             onChange={(e) => {
               setAddress(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -229,12 +223,11 @@ function AddEventForm() {
             onChange={(e) => {
               setCity(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <FormControl>
-            <InputLabel id="state-select-label">State*</InputLabel>
+            <InputLabel id="state-select-label">State</InputLabel>
             <Select
               sx={{ width: 320 }}
               labelId="state-select-label"
@@ -243,7 +236,6 @@ function AddEventForm() {
               onChange={(e) => {
                 setState(e.target.value);
               }}
-              required
             >
               <MenuItem value="AL">Alabama</MenuItem>
               <MenuItem value="AK">Alaska</MenuItem>
@@ -308,7 +300,6 @@ function AddEventForm() {
             onChange={(e) => {
               setZip(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -320,7 +311,6 @@ function AddEventForm() {
             onChange={(e) => {
               setTelephone(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -337,7 +327,6 @@ function AddEventForm() {
             onChange={(e) => {
               setWebsite(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -349,7 +338,6 @@ function AddEventForm() {
             onChange={(e) => {
               setLinkedIn(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -361,7 +349,6 @@ function AddEventForm() {
             onChange={(e) => {
               setFacebook(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -374,7 +361,6 @@ function AddEventForm() {
             onChange={(e) => {
               setEtsy(e.target.value);
             }}
-            required
           />
         </div>
         <br />
