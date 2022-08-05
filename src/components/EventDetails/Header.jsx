@@ -33,6 +33,10 @@ function Header({ toggleEdit }) {
   // for (const booth of eventDetails.booths) {
   //   total = total + booth.quantity;
   // }
+  console.log("BOOTHS ARE BOOOO>>", eventDetails);
+  for (const booth of eventDetails.booths) {
+    total = total + booth.quantity;
+  }
   for (const booth of boothApplications) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
@@ -48,7 +52,7 @@ function Header({ toggleEdit }) {
     // total = Pending + Approved;
     // Available = total - Approved;
   }
-
+  Available = total - Approved;
   console.log(total);
   // total = totalbooth.quantity;
   // const booths = eventDetails.booths;

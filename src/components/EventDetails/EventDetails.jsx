@@ -74,7 +74,7 @@ function EventDetails() {
           eventDetails={eventDetails}
         />
       ) : (
-        <Header toggleEdit={toggleEdit} />
+        eventDetails && <Header toggleEdit={toggleEdit} />
       )}
 
       <h1>Available Booths</h1>
