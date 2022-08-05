@@ -198,7 +198,6 @@ export default function NavDrawer() {
             <Link to='/' >Venboo</Link> <br/>
             <p>Connecting Passionate vendors to the best opportunities</p>
           </Typography>
-          
         </Toolbar>
         
         </ClickAwayListener>

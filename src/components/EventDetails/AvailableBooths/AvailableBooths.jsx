@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -21,16 +22,22 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+
+
+
 // the Row() function is a MUI component called further down 
 // within the main AvailableBooths component
 
 function Row({row}) {
 
   const dispatch = useDispatch();
+  const {eventId} = useParams();
+  const Swal = require("sweetalert2");
   const user = useSelector((store) => store.user);
 
   const [edit, setEdit] = React.useState();
 
+  console.log('in row', row)
 
   //edit row with updated information.
   //this function only sets the input fields to editable
@@ -66,8 +73,23 @@ function Row({row}) {
   }
 
   function requestBooth(id){
+    Swal.fire({
+  title: 'Request This Booth?',
+  icon: 'question',
+  cancelButtonText: 'NO',
+  confirmButtonText: 'YES',
+  showCloseButton: true,
+  showCancelButton: true
+}).then((result) => {
+  if (result.isConfirmed) {
     dispatch({ type: 'ADD_BOOTH_APPLICATION', payload: {id}})
+    Swal.fire('Request Submitted!', '', 'success')
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
   }
+})
+  }
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -116,20 +138,22 @@ function Row({row}) {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
         </>
         }
-        {user?.type ==='vendor' ?
+        {/* checks to see if user is vendor and if true renders a request booth button */}
+        {user?.type === 'vendor' ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
             <Button onClick={() =>  requestBooth(row.id)}>
-              Request Booth
+              Request
             </Button>
           </TableCell>
           :
+          user?.id === row?.eventOwnerId &&
           <>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
               {edit === row.id ?
                 <IconButton onClick={() =>  updateRow(row.id)}>
                   <CheckBoxIcon />
                 </IconButton>
-                : 
+                :
                 <IconButton onClick={() =>  editRow(row.id)}>
                   <EditIcon />
                 </IconButton>
@@ -141,6 +165,8 @@ function Row({row}) {
               </IconButton>
             </TableCell>
           </>
+          // If user is not vendor or event owner
+          //render no buttons, just booth details
         }
         {/* <TableCell align="right">{row.protein}</TableCell> */}
       </TableRow>
@@ -193,7 +219,12 @@ export default function AvailableBooths({props}) {
   }
 
   useEffect(() => {
-  }, []);
+    dispatch({
+      type: "FETCH_VENDOR_BOOTH_APPLICATIONS",
+      payload: {
+        id: props.id,
+      }})
+  }, [props]);
   
   return (
     <TableContainer component={Paper}>
@@ -217,9 +248,11 @@ export default function AvailableBooths({props}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props?.booths.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
+          {props?.booths.map(row => {
+            console.log('in props.map')
+            row.eventOwnerId = props.user_id;
+          return <Row key={row.id} row={row} />
+          })}
         </TableBody>
       </Table>
     </TableContainer>
