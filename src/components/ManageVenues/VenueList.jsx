@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -132,7 +133,7 @@ function Row({row}) {
         </>
         :
         <>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.type} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.name} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.dimensions} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.quantity} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
@@ -212,6 +213,7 @@ export default function VenueList({props}) {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const [address, setAddress] = React.useState('');
 
   function addRow(id) {
     console.log('in addRow')
@@ -219,6 +221,7 @@ export default function VenueList({props}) {
   }
 
   useEffect(() => {
+    axios.get(`/api/address/${props.id}`).then((res) => {setProfileInfo(res.data.shift())});
   }, [props]);
   
   return (
@@ -235,15 +238,16 @@ export default function VenueList({props}) {
                 </IconButton> 
               }
               </TableCell>
-            <TableCell align="left" style = {{width: '150%'}}>Type</TableCell>
-            <TableCell align="right">Dimensions</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right" >Cost</TableCell>
+            <TableCell align="left" style = {{width: '150%'}}>Venue Name</TableCell>
+            <TableCell align="right">Address</TableCell>
+            <TableCell align="right">Contact Info</TableCell>
+            <TableCell align="right" >Venue Website</TableCell>
+            <TableCell align="right" >Notes</TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
-          {props?.booths.map(row => {
+          {props?.map(row => {
             console.log('in props.map')
             row.eventOwnerId = props.user_id;
           return <Row key={row.id} row={row} />
