@@ -21,6 +21,7 @@ function Header({ toggleEdit }) {
   let Pending = 0;
   let Approved = 0;
   let Available = 0;
+  let total = 0;
 
   let eventDetails = events.filter((event) => {
     if (event.id === Number(eventId)) {
@@ -29,9 +30,9 @@ function Header({ toggleEdit }) {
   });
   eventDetails = eventDetails.pop();
 
-  for (const booth of eventDetails.booths) {
-    total = total + booth.quantity;
-  }
+  // for (const booth of eventDetails.booths) {
+  //   total = total + booth.quantity;
+  // }
   for (const booth of boothApplications) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
@@ -48,6 +49,7 @@ function Header({ toggleEdit }) {
     // Available = total - Approved;
   }
 
+  console.log(total);
   // total = totalbooth.quantity;
   // const booths = eventDetails.booths;
 
