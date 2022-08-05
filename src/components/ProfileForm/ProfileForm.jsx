@@ -82,11 +82,11 @@ function AddEventForm() {
 
   // LOCAL STATE
   const [tag, setTag] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [title, setTitle] = useState("");
-  const [BuisnessName, setBuisnessName] = useState("");
-  const [description, setdescription] = useState("");
+  const [name, setName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [title, setTitle] = useState(user.title);
+  const [BuisnessName, setBuisnessName] = useState(user.business_name);
+  const [description, setdescription] = useState(user.description);
   // ADDRESS
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -94,10 +94,10 @@ function AddEventForm() {
   const [zip, setZip] = useState("");
   const [phone, setTelephone] = useState("");
   // SOCIAL MEDIA
-  const [website, setWebsite] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [etsy, setEtsy] = useState("");
+  const [website, setWebsite] = useState(user.main_url);
+  const [linkedIn, setLinkedIn] = useState(user.linkedin_url);
+  const [facebook, setFacebook] = useState(user.facebook_url);
+  const [etsy, setEtsy] = useState(user.etsy_url);
 
   // ON SUBMIT
   const handleSubmit = (e) => {
@@ -144,6 +144,7 @@ function AddEventForm() {
           <h2 className="formHeader">Profile Info</h2>
           <br />
           <TextField
+            defaultValue={name}
             sx={{ width: 320 }}
             id="outlined-required"
             label="First Name"
@@ -155,6 +156,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={lastName}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -166,6 +168,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={title}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -178,6 +181,7 @@ function AddEventForm() {
           {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
           <br />
           <TextField
+            defaultValue={BuisnessName}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -189,6 +193,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={description}
             sx={{ width: 320 }}
             id="outlined-required"
             label="Description"
@@ -320,6 +325,7 @@ function AddEventForm() {
           <h2 className="formHeader">Social Media</h2>
           <br />
           <TextField
+            defaultValue={website}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -331,6 +337,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={linkedIn}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -342,6 +349,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={facebook}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -354,6 +362,7 @@ function AddEventForm() {
           <br />
 
           <TextField
+            defaultValue={etsy}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
