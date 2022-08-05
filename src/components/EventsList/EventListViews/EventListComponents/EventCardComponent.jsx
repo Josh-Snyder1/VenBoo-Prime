@@ -25,6 +25,7 @@ export default function EventCardComponent({ event }) {
       }}
     >
       <h2>{event.name}</h2>
+      <p><i>{event.verified ? 'Verified' : ''}</i></p>
       <h4>{moment(event.start_date).format('MMM DD YYYY')} - {moment(event.end_date).format('MMM DD YYYY')}</h4>
       <h5>{event.description}</h5>
     </Card>
