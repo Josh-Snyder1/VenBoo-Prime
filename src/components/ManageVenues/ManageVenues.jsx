@@ -25,14 +25,14 @@ function ManageVenues() {
   };
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_TAGS' });
+    dispatch({ type: 'FETCH_VENUES' });
   }, []);
 
-  const tags = useSelector(store => store.tags);
+  const venues = useSelector(store => store.venues);
 
 
   return (
-    tags.length > 0 &&
+    venues.length > 0 &&
     <>
       <form onSubmit={handleSubmit}>
         <br />
@@ -142,7 +142,7 @@ function ManageVenues() {
           Add
         </Button>
         <br />
-        <VenueList />
+        <VenueList props={venues} />
         
       </form>
     </>
