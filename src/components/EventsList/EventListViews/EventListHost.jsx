@@ -18,6 +18,7 @@ function EventListHost() {
     const todayDate = moment().format('YYYYMMDD');
     const history = useHistory();
 
+    console.log(allEvents)
     // Render
     return (
         <Grid 
@@ -30,6 +31,18 @@ function EventListHost() {
                 padding: "1em"
             }}
             >
+                {allEvents.length === 0 &&
+                    <>
+                        <h3>Welcome!</h3>
+                        <h3>Looks like you don't have any events, let's create one!</h3>
+                        <Button
+                            variant="contained"
+                            onClick={() => history.push('/addEventForm')}
+                        >
+                            New Event
+                        </Button>
+                    </>
+                }
                 <Stack
                     direction="row"
                     justifyContent="space-evenly"
