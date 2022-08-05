@@ -26,6 +26,7 @@ import MultiSelect from "../ReuseableComponents/MultiSelect";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
 import VendorListAdmin from "../VendorListAdmin/VendorListAdmin";
+import ManageVenues from "../ManageVenues/ManageVenues";
 import "./App.css";
 
 function App() {
@@ -97,6 +98,14 @@ function App() {
             path="/manageTags"
           >
             <ManageTagsForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/manageVenues"
+          >
+            <ManageVenues />
           </ProtectedRoute>
 
           <Route exact path="/login">

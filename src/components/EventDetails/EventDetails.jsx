@@ -21,6 +21,7 @@ import Paper from '@mui/material/Paper';
 
 import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
+import ContactButton from '../ReuseableComponents/ContactButton'
 
 function EventDetails() {
     // Stores
@@ -117,6 +118,8 @@ function EventDetails() {
         </Table>
       </TableContainer>
 
+            <ContactButton contactProps={{emails: ['one', 'two'], buttonText: 'Email Vendors'}} />
+            
       <TableContainer component={Paper}>
         <h2>Approved</h2>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" className="approved">

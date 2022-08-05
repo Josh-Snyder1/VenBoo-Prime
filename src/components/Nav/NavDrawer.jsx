@@ -34,6 +34,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import BusinessIcon from '@mui/icons-material/Business';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
@@ -166,6 +167,13 @@ export default function NavDrawer() {
             userType: ['admin'],
             upperLowerNav: 'upper',
             icon: <StyleIcon />
+        },
+        {
+          text: 'Manage Venues',
+          link: '/manageVenues',
+          userType: ['admin'],
+          upperLowerNav: 'upper',
+          icon: <BusinessIcon />
         },
         {
             text: 'Profile',
