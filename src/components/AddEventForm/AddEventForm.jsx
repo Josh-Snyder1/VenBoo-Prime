@@ -25,8 +25,11 @@ function AddEventForm() {
   const [address, setaddress] = useState("");
   const [address2, setAddress2] = useState("");
   const [venue, setVenue] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
 
@@ -63,11 +66,14 @@ function AddEventForm() {
         address: address,
         address2: address2,
         venue: venue,
+        phone: phone,
+        email: email,
         city: city,
         state: state,
         description: description,
         tag: tag,
         date: dateRange,
+        zip: zip,
       },
     });
     setTimeout(function () {
@@ -121,7 +127,6 @@ function AddEventForm() {
           onChange={(e) => {
             setAddress2(e.target.value);
           }}
-          required
         />
         <br />
         <br />
@@ -149,6 +154,29 @@ function AddEventForm() {
         <br />
         <TextField
           id="outlined-required"
+          label="phone"
+          type="tel"
+          onChange={(e) => {
+            setPhone(e.target.value);
+          }}
+          required
+        />
+        <br />
+        <br />
+
+        <TextField
+          id="outlined-required"
+          label="email"
+          type="text"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          required
+        />
+        <br />
+        <br />
+        <TextField
+          id="outlined-required"
           label="City"
           type="text"
           onChange={(e) => {
@@ -168,6 +196,17 @@ function AddEventForm() {
           required
         />
 
+        <br />
+        <br />
+        <TextField
+          id="outlined-required"
+          label="Zip"
+          type="text"
+          onChange={(e) => {
+            setZip(e.target.value);
+          }}
+          required
+        />
         <br />
         <br />
 

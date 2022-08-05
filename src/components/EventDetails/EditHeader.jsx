@@ -28,7 +28,7 @@ function editHeader({ toggleEdit, eventId, eventDetails }) {
   // LOCAL STATE
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState(eventDetails.name);
-  const [venueName, setVenueName] = useState("");
+  const [venueName, setVenueName] = useState("Gym");
   const [address, setEventAddress] = useState(eventDetails.address[0].address);
   const [city, setCity] = useState(eventDetails.address[0].city);
   const [state, setState] = useState(eventDetails.address[0].state);
@@ -130,7 +130,7 @@ function editHeader({ toggleEdit, eventId, eventDetails }) {
         <FormControl>
           <InputLabel id="state-select-label">State *</InputLabel>
           <Select
-            sx={{ width: 100 }}
+            sx={{ width: 195 }}
             labelId="state-select-label"
             id="state-select"
             label="State"

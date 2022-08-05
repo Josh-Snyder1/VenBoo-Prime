@@ -82,11 +82,11 @@ function AddEventForm() {
 
   // LOCAL STATE
   const [tag, setTag] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [title, setTitle] = useState("");
-  const [BuisnessName, setBuisnessName] = useState("");
-  const [description, setdescription] = useState("");
+  const [name, setName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [title, setTitle] = useState(user.title);
+  const [BuisnessName, setBuisnessName] = useState(user.business_name);
+  const [description, setdescription] = useState(user.description);
   // ADDRESS
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -94,10 +94,10 @@ function AddEventForm() {
   const [zip, setZip] = useState("");
   const [phone, setTelephone] = useState("");
   // SOCIAL MEDIA
-  const [website, setWebsite] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [etsy, setEtsy] = useState("");
+  const [website, setWebsite] = useState(user.main_url);
+  const [linkedIn, setLinkedIn] = useState(user.linkedin_url);
+  const [facebook, setFacebook] = useState(user.facebook_url);
+  const [etsy, setEtsy] = useState(user.etsy_url);
 
   // ON SUBMIT
   const handleSubmit = (e) => {
@@ -144,6 +144,7 @@ function AddEventForm() {
           <h2 className="formHeader">Profile Info</h2>
           <br />
           <TextField
+            defaultValue={name}
             sx={{ width: 320 }}
             id="outlined-required"
             label="First Name"
@@ -151,11 +152,11 @@ function AddEventForm() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <TextField
+            defaultValue={lastName}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -163,11 +164,11 @@ function AddEventForm() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            requiredx
           />
           <br />
           <br />
           <TextField
+            defaultValue={title}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -175,12 +176,12 @@ function AddEventForm() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            required
           />
           <br />
           {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
           <br />
           <TextField
+            defaultValue={BuisnessName}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -188,11 +189,11 @@ function AddEventForm() {
             onChange={(e) => {
               setBuisnessName(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <TextField
+            defaultValue={description}
             sx={{ width: 320 }}
             id="outlined-required"
             label="Description"
@@ -201,7 +202,6 @@ function AddEventForm() {
             onChange={(e) => {
               setdescription(e.target.value);
             }}
-            required
           />
         </div>
         <br />
@@ -217,7 +217,6 @@ function AddEventForm() {
             onChange={(e) => {
               setAddress(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -229,12 +228,11 @@ function AddEventForm() {
             onChange={(e) => {
               setCity(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <FormControl>
-            <InputLabel id="state-select-label">State*</InputLabel>
+            <InputLabel id="state-select-label">State</InputLabel>
             <Select
               sx={{ width: 320 }}
               labelId="state-select-label"
@@ -243,7 +241,6 @@ function AddEventForm() {
               onChange={(e) => {
                 setState(e.target.value);
               }}
-              required
             >
               <MenuItem value="AL">Alabama</MenuItem>
               <MenuItem value="AK">Alaska</MenuItem>
@@ -308,7 +305,6 @@ function AddEventForm() {
             onChange={(e) => {
               setZip(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -320,7 +316,6 @@ function AddEventForm() {
             onChange={(e) => {
               setTelephone(e.target.value);
             }}
-            required
           />
           <br />
           <br />
@@ -330,6 +325,7 @@ function AddEventForm() {
           <h2 className="formHeader">Social Media</h2>
           <br />
           <TextField
+            defaultValue={website}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -337,11 +333,11 @@ function AddEventForm() {
             onChange={(e) => {
               setWebsite(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <TextField
+            defaultValue={linkedIn}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -349,11 +345,11 @@ function AddEventForm() {
             onChange={(e) => {
               setLinkedIn(e.target.value);
             }}
-            required
           />
           <br />
           <br />
           <TextField
+            defaultValue={facebook}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -361,12 +357,12 @@ function AddEventForm() {
             onChange={(e) => {
               setFacebook(e.target.value);
             }}
-            required
           />
           <br />
           <br />
 
           <TextField
+            defaultValue={etsy}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -374,7 +370,6 @@ function AddEventForm() {
             onChange={(e) => {
               setEtsy(e.target.value);
             }}
-            required
           />
         </div>
         <br />

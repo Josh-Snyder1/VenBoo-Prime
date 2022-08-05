@@ -10,7 +10,8 @@ function Header({ toggleEdit }) {
 
   // REDUX STORE
   const events = useSelector((store) => store.events);
-  const booths = useSelector((store) => store.boothApplications);
+  const boothApplications = useSelector((store) => store.boothApplications);
+  const totalbooth = useSelector((store) => store.booths);
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
@@ -29,15 +30,15 @@ function Header({ toggleEdit }) {
   });
   eventDetails = eventDetails.pop();
 
-  for (const booth of booths) {
+  for (const booth of boothApplications) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
 
     if (Number(eventId) === booth.event_id) {
-      if (booth.approved_by_host === false) {
+      if (booth.approved_by_host === "PENDING") {
         Pending += booth.quantity;
       }
-      if (booth.approved_by_host === true) {
+      if (booth.approved_by_host === "APPROVED") {
         Approved += booth.quantity;
       }
     }
@@ -45,85 +46,67 @@ function Header({ toggleEdit }) {
     Available = total - Approved;
   }
 
+  console.log("total booths are >>>", totalbooth);
+  total = totalbooth.quantity;
   const address = eventDetails?.address[0];
 
   const selectedTags = eventDetails?.tags;
 
-  switch (user.type) {
-    case "host":
-      return (
-        <>
-          {
-            <div className="pageEdit">
-              <EditIcon
-                sx={{
-                  cursor: "pointer",
-                  marginRight: "5px",
-                  position: "absolute",
-                  display: "flex",
-                }}
-                onClick={() => {
-                  toggleEdit();
-                }}
-              />
-            </div>
-          }
-          {eventDetails && (
-            <ul>
-              <h2> {eventDetails.name} </h2>
-              <br />
-              <div className="eventAddress">
-                {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
-                {moment(eventDetails.end_date).format("MMMM Do YYYY")}
-                <br />
-                {eventDetails.venue}
-                {address.address},&nbsp;{address.city},&nbsp;{address.state}
-                &nbsp;
-                {address.zipcode}
-              </div>
+  return (
+    <>
+      {
+        <div className="pageEdit">
+          <EditIcon
+            sx={{
+              cursor: "pointer",
+              marginRight: "5px",
+              position: "absolute",
+              display: "flex",
+            }}
+            onClick={() => {
+              toggleEdit();
+            }}
+          />
+        </div>
+      }
+      {eventDetails && (
+        <ul>
+          <h2> {eventDetails.name} </h2>
+          <br />
+          <div className="eventAddress">
+            {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
+            {moment(eventDetails.end_date).format("MMMM Do YYYY")}
+            <br />
+            {eventDetails.venue}
+            {address.address},&nbsp;{address.city},&nbsp;{address.state}
+            &nbsp;
+            {address.zipcode}
+          </div>
 
-              <div className="eventTags">
-                {selectedTags.map((tagName) => {
-                  return (
-                    <>
-                      {" "}
-                      <p>{tagName.name}</p>{" "}
-                    </>
-                  );
-                })}
-              </div>
+          <div className="eventTags">
+            {selectedTags.map((tagName) => {
+              return (
+                <>
+                  {" "}
+                  <p>{tagName.name}</p>{" "}
+                </>
+              );
+            })}
+          </div>
 
-              <div className="eventBoothStats">
-                <br />
-                Total Approved Booths: {Approved}
-                <br />
-                Pending Booths: {Pending}
-                <br />
-                Avalible: {Available}
-                <br />
-              </div>
-            </ul>
-          )}
-        </>
-      );
-    case "vendor":
-      return (
-        <>
-          {eventDetails && (
-            <ul>
-              <h2> {eventDetails.name} </h2>
-              <br />
-              {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
-              {moment(eventDetails.end_date).format("MMMM Do YYYY")}
-              <br />
-              Avalible booths: {Available}
-            </ul>
-          )}
-        </>
-      );
-    default:
-      return <></>;
-  }
+          <div className="eventBoothStats">
+            <br />
+            Total Approved Booths: {Approved}
+            <br />
+            Pending Booths: {Pending}
+            <br />
+            Avalible: {Available}
+            <br />
+          </div>
+        </ul>
+      )}
+    </>
+  );
 }
 
 export default Header;
