@@ -15,8 +15,6 @@ const router = express.Router();
 // the database. Takes in a start date and an end date and 
 // aggregates the sums over those times for all events.
 router.get('/get-event-cost-details-by-date/:startDate/:endDate', rejectUnauthenticated, (req, res) => {
-
-  console.log("HERE~", req.params)
   
   // Set the SQL query.
   //

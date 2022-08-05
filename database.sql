@@ -102,7 +102,8 @@ CREATE TABLE "booths" (
 	"dimensions" VARCHAR (255),
 	"quantity" INTEGER NOT NULL,
 	"description" TEXT,
-	"cost" DECIMAL(10, 2)
+	"cost" DECIMAL(10, 2),
+	"service_charge" DECIMAL(2, 2) DEFAULT 0.1
 );
 
 
