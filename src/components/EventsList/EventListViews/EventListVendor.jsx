@@ -9,8 +9,9 @@ import BoothCard from "../../BoothCard/BoothCard";
 // MUI Imports
 import { Card, Grid, Stack, Tabs, Tab } from "@mui/material";
 
-
+// Exported Component Function
 function EventListVendor() {
+    
     // Stores
     const vendorBooths = useSelector((store) => store.vendorBoothsReducer);
     const allEvents = useSelector((store) => store.events);
@@ -22,12 +23,17 @@ function EventListVendor() {
     const todayDate = moment().format('YYYYMMDD');
     const history = useHistory();
     const dispatch = useDispatch();
+    const approvedBooths = [];
+    const pendingBooths = [];
+    const pastBooths = [];
 
     // Functions
     useEffect(() => {
         dispatch({ type: "FETCH_VENDOR_BOOTHS" });
     },[])
 
+    // Filter out events the vendor user does not have any
+    //  booths at.
     const newEvents = allEvents.filter(event => {
         for (let vBooth of vendorBooths) {
            if (vBooth.event_id === event.id) {
@@ -37,40 +43,40 @@ function EventListVendor() {
         return true;
     });
 
-    let approvedBooths = [];
-    const pendingBooths = [];
-    const pastBooths = [];
-
-   for(let item of vendorBooths) {
-    for(let booth of item){
-        if(
-            booth.approved_by_host === 'APPROVED' 
-            && 
-            Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
-        ){
-            approvedBooths.push(booth)
-        }
-        else if(
-            booth.approved_by_host === 'PENDING'
-            &&
-            Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
-        ){
-            pendingBooths.push(booth)
-        }
-        else if(
-            booth.approved_by_host === 'APPROVED' 
-            &&
-            Number(moment(booth.start_date).format('YYYYMMDD')) <= Number(todayDate)
-        ){
-            pastBooths.push(booth)
+    //  Loop through the vendorBooths array to sort booths based
+    //      on approved, pending, or past approved.
+    for(let item of vendorBooths) {
+        for(let booth of item){
+            if(
+                booth.approved_by_host === 'APPROVED' 
+                && 
+                Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
+            ){
+                approvedBooths.push(booth)
+            }
+            else if(
+                booth.approved_by_host === 'PENDING'
+                &&
+                Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
+            ){
+                pendingBooths.push(booth)
+            }
+            else if(
+                booth.approved_by_host === 'APPROVED' 
+                &&
+                Number(moment(booth.start_date).format('YYYYMMDD')) < Number(todayDate)
+            ){
+                pastBooths.push(booth)
+            }
         }
     }
-   }
 
+    // Event listener to show different booth lists and new events.
     const handleChange = (event, newValue) => {
         setViewList(newValue);
     }
 
+    // Render
     return (
         <Grid 
             container
@@ -140,7 +146,7 @@ function EventListVendor() {
                 }
 
                 {/* Past viewList option render */}
-                {viewList === 'pending' && 
+                {viewList === 'past' && 
                     <BoothCard
                         booths={pastBooths}
                     />

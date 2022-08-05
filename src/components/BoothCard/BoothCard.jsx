@@ -1,9 +1,18 @@
 // Imports
 import { Card } from "@mui/material";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
+// Exported Component Function
 function BoothCard({booths}) {
+    
+    // Vars
+    const history = useHistory();
+
+    // Conditional to only render if prop is not empty.
     if(booths !== []){
+
+        // Render
         return (
             booths.map((booth) => {
                 return (
@@ -36,7 +45,10 @@ function BoothCard({booths}) {
             })
         )
     }
+    // Render nothing if prop is empty.
     else{
+
+        // Render
         return (
             <></>
         )
