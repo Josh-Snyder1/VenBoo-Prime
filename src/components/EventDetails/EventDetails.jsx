@@ -63,11 +63,12 @@ function EventDetails() {
     setEditEvent(!editEvent);
   }
 
-  console.log('in eventDetails', eventDetails)
   return (
     // adding booths and available booths
     <>
-      {editEvent === false ? (
+    {user.type !== 'vendor' &&
+      <>
+        {editEvent === false ? (
         <EditHeader
           toggleEdit={toggleEdit}
           eventId={eventId}
@@ -76,7 +77,9 @@ function EventDetails() {
       ) : (
         <Header toggleEdit={toggleEdit} />
       )}
+      </>
 
+    }
       <h1>Available Booths</h1>
       {eventDetails && <AvailableBooths props={ eventDetails }/>}
       <div>
@@ -84,70 +87,74 @@ function EventDetails() {
         </table>
       </div>
 
-      <TableContainer component={Paper}>
-        <h2>Pending Approval</h2>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="pending">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Vendor Name</TableCell>
-                        <TableCell>Tags</TableCell>
-                        <TableCell>Type</TableCell>
-                   
-                    </TableRow>
-                </TableHead>
+      {user.type !== 'vendor' &&
+        <>
+            <TableContainer component={Paper}>
+            <h2>Pending Approval</h2>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table" className="pending">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Vendor Name</TableCell>
+                            <TableCell>Tags</TableCell>
+                            <TableCell>Type</TableCell>
+                      
+                        </TableRow>
+                    </TableHead>
 
-                <TableBody>
-                    {eventBoothDetails.map((booths)=> {
-                      if(booths.approved_by_host === "PENDING"){
-                        console.log('booth id is>>>>>', booths.booth_id);
-                        return(
-                            
-                        
-                            <TableRow key={booths.id}> 
-                            
-                                <TableCell >{booths.business_name}</TableCell>
-                                <TableCell>{booths.tags}</TableCell>
-                                <TableCell>{booths.type}</TableCell>
+                    <TableBody>
+                        {eventBoothDetails.map((booths)=> {
+                          if(booths.approved_by_host === "PENDING"){
+                            console.log('booth id is>>>>>', booths.booth_id);
+                            return(
                                 
-                                <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
-                                <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
-                    
-                            </TableRow>
-                            )}
-                        })}
-                        </TableBody>
-        </Table>
-      </TableContainer>
+                            
+                                <TableRow key={booths.id}> 
+                                
+                                    <TableCell >{booths.business_name}</TableCell>
+                                    <TableCell>{booths.tags}</TableCell>
+                                    <TableCell>{booths.type}</TableCell>
+                                    
+                                    <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
+                                    <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
+                        
+                                </TableRow>
+                                )}
+                            })}
+                            </TableBody>
+            </Table>
+          </TableContainer>
 
-            <ContactButton contactProps={{emails: ['one', 'two'], buttonText: 'Email Vendors'}} />
-            
-      <TableContainer component={Paper}>
-        <h2>Approved</h2>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="approved">
-                <TableHead>
-                    <TableRow>
-                        <TableCell > Vendor Name</TableCell>
-                        <TableCell> Tags</TableCell>
-                        <TableCell> Booth Size</TableCell>
-                        <TableCell> Description</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                   {eventBoothDetails.map((list) => {
-                      if (list.approved_by_host === "APPROVED")
-                        return(
-                            <TableRow key={list.id}>
-                                <TableCell >{list.business_name}</TableCell >
-                                <TableCell >{list.tags}</TableCell >
-                                <TableCell >{list.dimensions}</TableCell >
-                                <TableCell >{list.description}</TableCell >
-                                <Button variant="outlined" disabled>Approved</Button>
-                            </TableRow>
-                        )
-                    })}
-                </TableBody>
-        </Table>
-      </TableContainer>
+                <ContactButton contactProps={{emails: ['one', 'two'], buttonText: 'Email Vendors'}} />
+                
+          <TableContainer component={Paper}>
+            <h2>Approved</h2>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table" className="approved">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell > Vendor Name</TableCell>
+                            <TableCell> Tags</TableCell>
+                            <TableCell> Booth Size</TableCell>
+                            <TableCell> Description</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {eventBoothDetails.map((list) => {
+                          if (list.approved_by_host === "APPROVED")
+                            return(
+                                <TableRow key={list.id}>
+                                    <TableCell >{list.business_name}</TableCell >
+                                    <TableCell >{list.tags}</TableCell >
+                                    <TableCell >{list.dimensions}</TableCell >
+                                    <TableCell >{list.description}</TableCell >
+                                    <Button variant="outlined" disabled>Approved</Button>
+                                </TableRow>
+                            )
+                        })}
+                    </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      }
     </>
   );
 }
