@@ -90,7 +90,8 @@ function EventDetails() {
                     <TableRow>
                         <TableCell>Vendor Name</TableCell>
                         <TableCell>Tags</TableCell>
-                        <TableCell>Booth Size</TableCell>
+                        <TableCell>Type</TableCell>
+                   
                     </TableRow>
                 </TableHead>
 
@@ -105,8 +106,8 @@ function EventDetails() {
                             
                                 <TableCell >{booths.business_name}</TableCell>
                                 <TableCell>{booths.tags}</TableCell>
-                                <TableCell>{booths.dimensions}</TableCell>
-                                <Stack direction="row" spacing={2}></Stack>
+                                <TableCell>{booths.type}</TableCell>
+                                
                                 <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
                                 <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
                     
