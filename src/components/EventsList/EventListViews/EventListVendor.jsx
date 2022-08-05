@@ -50,14 +50,14 @@ function EventListVendor() {
             if(
                 booth.approved_by_host === 'APPROVED' 
                 && 
-                Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
+                Number(moment(booth.start_date).format('YYYYMMDD')) >= Number(todayDate)
             ){
                 approvedBooths.push(booth)
             }
             else if(
                 booth.approved_by_host === 'PENDING'
                 &&
-                Number(moment(booth.start_date).format('YYYYMMDD')) > Number(todayDate)
+                Number(moment(booth.start_date).format('YYYYMMDD')) >= Number(todayDate)
             ){
                 pendingBooths.push(booth)
             }
