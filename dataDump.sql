@@ -123,12 +123,12 @@ VALUES
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-07-30', '2022-07-31', 'TRUE'),
     (37, 'Comic Con', 4, 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07', 'FALSE'),
     (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-30', '2022-07-31', 'TRUE'),
-    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-036-13', '2022-036-14', 'TRUE'),
+    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-08-13', '2022-08-14', 'TRUE'),
     (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-08-27', '2022-08-28', 'FALSE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07', 'TRUE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-13', '2022-08-14', 'TRUE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-20', '2022-08-21', 'FALSE'),
-    (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around th36 country. We e36deavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-27', '2022-08-28', 'FALSE')3336
+    (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around th36 country. We e36deavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-27', '2022-08-28', 'FALSE');
 
 -- Create event tags
 INSERT INTO "event_tags"
