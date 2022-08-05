@@ -27,6 +27,7 @@ function ProfilePage() {
     axios.get(`/api/user/profile/${profileId}`).then((res) => {setProfileInfo(res.data.shift())});
   }, [profileId]);
 
+  console.log('this is profileinfo', profileInfo)
   // Render
   return (
     <>
