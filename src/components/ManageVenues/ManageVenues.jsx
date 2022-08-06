@@ -9,14 +9,13 @@ import InputUnstyled from "@mui/base/InputUnstyled";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import Autocomplete from '@mui/material/Autocomplete';
 import Button from "@mui/material/Button";
 
 function ManageVenues() {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-
-  const [newTag, setNewTag] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,25 +25,49 @@ function ManageVenues() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_VENUES' });
-  }, []);
+  }, [showAddForm]);
 
   const venues = useSelector(store => store.venues);
 
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const [venueName, setVenueName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const [notes, setNotes] = useState("");
+
+  console.log(venues.map((venue)=>{return venue.name}))
 
   return (
     venues.length > 0 &&
     <>
-      <form onSubmit={handleSubmit}>
+    {showAddForm ?
+    <Button onClick={() => {setShowAddForm(false)}} type="submit" variant="contained" color="primary">
+        Collapse
+    </Button>
+    :
+    <Button onClick={() => {setShowAddForm(true)}} type="submit" variant="contained" color="primary">
+    Add New Venue
+    </Button>
+    }
+    {showAddForm &&
+      <form >
         <br />
-        <TextField
-            sx={{ width: 250 }}
-            id="outlined-required"
-            label="Venue Name"
-            type="text"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            required />
+        <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      freeSolo
+      options={venues.map((venue)=>{return venue.name})}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField onChange={(e) => {setVenueName(e.target.value);}} {...params} label="VenueName" />}
+    />
             <br/>
         <TextField
             sx={{ width: 250 }}
@@ -52,7 +75,7 @@ function ManageVenues() {
             label="Address 1"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setAddress1(e.target.value);
             }}
             />
         <TextField
@@ -61,7 +84,7 @@ function ManageVenues() {
             label="Address 2"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setAddress2(e.target.value);
             }}
             />
         <TextField
@@ -70,7 +93,7 @@ function ManageVenues() {
             label="City"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setCity(e.target.value);
             }}
             />
         <TextField
@@ -79,7 +102,7 @@ function ManageVenues() {
             label="State"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setState(e.target.value);
             }}
             />
         <TextField
@@ -88,7 +111,7 @@ function ManageVenues() {
             label="Zip"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setZip(e.target.value);
             }}
             />
             <br/>
@@ -98,7 +121,7 @@ function ManageVenues() {
             label="Contact Name"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setContactName(e.target.value);
             }}
             />
         <TextField
@@ -107,7 +130,7 @@ function ManageVenues() {
             label="Contact Phone"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setContactPhone(e.target.value);
             }}
             />
         <TextField
@@ -116,7 +139,7 @@ function ManageVenues() {
             label="Contact Email"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setContactEmail(e.target.value);
             }}
             />
         <TextField
@@ -125,7 +148,7 @@ function ManageVenues() {
             label="Venue Website"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setWebsite(e.target.value);
             }}
             />
             <br />
@@ -135,16 +158,16 @@ function ManageVenues() {
             label="Notes"
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setNotes(e.target.value);
             }}
             />
         <Button type="submit" variant="contained" color="primary">
           Add
         </Button>
+    </form>
+    }
         <br />
         <VenueList props={venues} />
-        
-      </form>
     </>
   );
 }

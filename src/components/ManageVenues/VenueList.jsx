@@ -22,6 +22,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link } from "react-router-dom";
 
 
 
@@ -31,14 +32,18 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 function Row({row}) {
 
+const [address, setAddress] = React.useState('');
+
+useEffect(() => {
+    axios.get(`/api/address/${row.id}`).then((res) => {setAddress(res.data.shift())});
+}, [row]);
+
   const dispatch = useDispatch();
   const {eventId} = useParams();
   const Swal = require("sweetalert2");
   const user = useSelector((store) => store.user);
 
   const [edit, setEdit] = React.useState();
-
-  console.log('in row', row)
 
   //edit row with updated information.
   //this function only sets the input fields to editable
@@ -49,7 +54,6 @@ function Row({row}) {
 
   const handleChange = event => {
       setNewType(event.target.value)
-      console.log('in handleChange', event.target.value)
   }
 
   function updateRow(id) {
@@ -91,7 +95,6 @@ function Row({row}) {
 })
   }
 
-
   const [open, setOpen] = React.useState(false);
 
   const [newType, setNewType] = React.useState(row.type);
@@ -109,7 +112,7 @@ function Row({row}) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? <CheckBoxIcon /> : <EditIcon />}
           </IconButton>
         </TableCell>
         {edit === row.id ?
@@ -134,9 +137,10 @@ function Row({row}) {
         :
         <>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.name} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.dimensions} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.quantity} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {address.address} {address.address2}, {address.city} {address.state} {address.zipcode} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.contact_name} <br/> {row.contact_email} <br/> {row.contact_phone} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> <a href={row.contact_url}>Click Here</a> </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.notes} </TableCell>
         </>
         }
         {/* checks to see if user is vendor and if true renders a request booth button */}
@@ -213,16 +217,18 @@ export default function VenueList({props}) {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const [address, setAddress] = React.useState('');
+//   const [address, setAddress] = React.useState('');
 
   function addRow(id) {
     console.log('in addRow')
     dispatch({ type: 'ADD_BOOTH', payload: {id}})
   }
 
-  useEffect(() => {
-    axios.get(`/api/address/${props.id}`).then((res) => {setProfileInfo(res.data.shift())});
-  }, [props]);
+//   useEffect(() => {
+//       console.log('in useEffect', props)
+//     axios.get(`/api/address/${props.id}`).then((res) => {setProfileInfo(res.data.shift())});
+//     console.log('testing axios', props.id)
+//   }, [props]);
   
   return (
     <TableContainer component={Paper}>
@@ -230,16 +236,9 @@ export default function VenueList({props}) {
         <TableHead>
           <TableRow>
             <TableCell>
-              {user.type === 'vendor' ?
-                <></>
-              :               
-                <IconButton>
-                <PlaylistAddIcon onClick={() => {addRow(props.id)}} />
-                </IconButton> 
-              }
               </TableCell>
-            <TableCell align="left" style = {{width: '150%'}}>Venue Name</TableCell>
-            <TableCell align="right">Address</TableCell>
+            <TableCell align="left" style = {{width: '100%'}}>Venue Name</TableCell>
+            <TableCell align="right" sx={{ width: '500px' }} style = {{width: '500px'}}>Address</TableCell>
             <TableCell align="right">Contact Info</TableCell>
             <TableCell align="right" >Venue Website</TableCell>
             <TableCell align="right" >Notes</TableCell>
@@ -248,7 +247,6 @@ export default function VenueList({props}) {
         </TableHead>
         <TableBody>
           {props?.map(row => {
-            console.log('in props.map')
             row.eventOwnerId = props.user_id;
           return <Row key={row.id} row={row} />
           })}
