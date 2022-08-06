@@ -7,37 +7,40 @@ import moment from "moment";
 
 import "./EventDetails.css";
 // MUI
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
 
 import AvailableBooths from './AvailableBooths/AvailableBooths'
 import Header from './Header'
 import ContactButton from '../ReuseableComponents/ContactButton'
 
 function EventDetails() {
-    // Stores
-    const eventBoothDetails = useSelector((store) => store.boothApplications);
-    const user = useSelector((store) => store.user);
-    const events = useSelector((store) => store.events);
+  // Stores
+  const eventBoothDetails = useSelector((store) => store.boothApplications);
+  const user = useSelector((store) => store.user);
+  const events = useSelector((store) => store.events);
 
-    // Local State
-    const [viewList, setViewList] = useState("");
-    const [editEvent, setEditEvent] = useState();
+  // Local State
+  const [viewList, setViewList] = useState("");
+  const [editEvent, setEditEvent] = useState();
 
-    // Vars
-    const { eventId } = useParams();
-    const dispatch = useDispatch();
-    const history = useHistory();
-    let eventDetails = events.filter((event) => event.id === Number(eventId)).pop();
+  // Vars
+  const { eventId } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  let eventDetails = events
+    .filter((event) => event.id === Number(eventId))
+    .pop();
 
   useEffect(() => {
     dispatch({
@@ -50,14 +53,13 @@ function EventDetails() {
 
   function handleApprove(boothId) {
     dispatch({
-      type: 'APPROVE_BOOTH_APP',
+      type: "APPROVE_BOOTH_APP",
       payload: {
-          boothAppId: boothId,
-          id: eventId
-      }
+        boothAppId: boothId,
+        id: eventId,
+      },
     });
   }
-
 
   function toggleEdit() {
     setEditEvent(!editEvent);
@@ -74,19 +76,17 @@ function EventDetails() {
           eventId={eventId}
           eventDetails={eventDetails}
         />
-        ) : (
-          <Header toggleEdit={toggleEdit} />
-        )}
+      ) : (
+        eventDetails && <Header toggleEdit={toggleEdit} />
+      )}
       </>
 
     }
       <h1>Available Booths</h1>
-      {eventDetails && <AvailableBooths props={ eventDetails }/>}
+      {eventDetails && <AvailableBooths props={eventDetails} />}
       <div>
-        <table className='booths_info'>
-        </table>
+        <table className="booths_info"></table>
       </div>
-
       {user.type !== 'vendor' &&
         <>
             <TableContainer component={Paper}>
