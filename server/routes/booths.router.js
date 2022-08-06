@@ -125,5 +125,5 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 })
-
+ 
 module.exports = router;

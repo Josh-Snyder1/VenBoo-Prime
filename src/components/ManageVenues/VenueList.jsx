@@ -24,6 +24,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Link } from "react-router-dom";
 
+import EditRow from './EditRow'
+
 
 
 
@@ -96,12 +98,16 @@ useEffect(() => {
   }
 
   const [open, setOpen] = React.useState(false);
+  const [editStatus, setEditStatus] = React.useState(false)
+
+  const props = {editStatus, row, address}
 
   const [newType, setNewType] = React.useState(row.type);
   const [newDimensions, setNewDimensions] = React.useState(row.dimensions);
   const [newQuantity, setNewQuantity] = React.useState(row.quantity);
   const [newCost, setNewCost] = React.useState(row.cost);
   const [newDescription, setNewDescription] = React.useState(row.desc);
+  
 
   return (
     <React.Fragment>
@@ -137,7 +143,7 @@ useEffect(() => {
         :
         <>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.name} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {address.address} {address.address2}, {address.city} {address.state} {address.zipcode} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {address.address} {address.address2} <br/> {address.city} {address.state} {address.zipcode} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.contact_name} <br/> {row.contact_email} <br/> {row.contact_phone} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> <a href={row.contact_url}>Click Here</a> </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.notes} </TableCell>
@@ -180,28 +186,11 @@ useEffect(() => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Description</TableCell>
-                  </TableRow>
-                </TableHead>
                 <TableBody>
                     <TableRow>
-                    {edit === row.id ?
-                      <TextField 
-                      onChange={(e) => {setNewDescription(e.target.value)}}
-                      style={{ paddingBottom: 0, paddingTop: 0, width: '100%' }}
-                      id="outlined-multiline-flexible" size="small" 
-                      defaultValue={row.description} 
-                      variant="outlined" 
-                      multiline
-                      maxRows={3}
-                      />
-                    :
-                      <TableCell component="th" scope="row">
-                        {row.description}
-                      </TableCell>
-                    }
+                      <TableCell>
+                    <EditRow props={props}/>
+                    </TableCell>
                     </TableRow>
                 </TableBody>
               </Table>

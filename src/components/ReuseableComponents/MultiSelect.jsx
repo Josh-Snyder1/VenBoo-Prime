@@ -47,9 +47,11 @@ export default function MultipleSelectCheckmarks({ props }) {
   const [tagIds, setTagIds] = React.useState([]);
 
   const tagSelection = props.tagSelection;
+
+  const tags = props.tags;
   let value;
   const handleChange = (event) => {
-    console.log("in multiselect handle change", event);
+    console.log("in multiselect handle change", tags);
     const {
       target: { value },
     } = event;
@@ -57,10 +59,10 @@ export default function MultipleSelectCheckmarks({ props }) {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-    tagSelection(value);
+    const values = [];
+    props.tags.map((tag)=>{return value.map((val)=>{val === tag.name && values.push(tag.id) }) })
+    tagSelection(values);
   };
-
-  // console.log('in multiselect', tagSelection)
 
   return (
     props.tags.length > 0 && (
@@ -79,8 +81,8 @@ export default function MultipleSelectCheckmarks({ props }) {
             MenuProps={MenuProps}
           >
             {props.tags.map((name) => (
-              <MenuItem key={name.id} value={name.id}>
-                <Checkbox checked={tagName.indexOf(name.id) > -1} />
+              <MenuItem key={name.name} value={name.name}>
+                <Checkbox checked={tagName.indexOf(name.name) > -1} />
                 <ListItemText primary={name.name} />
               </MenuItem>
             ))}

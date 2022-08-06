@@ -258,6 +258,8 @@ router.put("/", rejectUnauthenticated, (req, res) => {
     }
   });
 
+  console.log('tags', newTags )
+
   // UPDATE EVENT, VENUE AND ADDRESS
   pool
     .query(eventsQuery, eventsParams)
