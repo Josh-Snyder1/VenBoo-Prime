@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -65,10 +66,14 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 /////////////////////// VENDOR && HOST PROFILE FORM ////////////////////////////
 function AddEventForm() {
   const dispatch = useDispatch();
+  const Swal = require("sweetalert2");
+  const history = useHistory();
   // REDUX STORE
   const tags = useSelector((store) => store.tags);
   const user = useSelector((store) => store.user);
-  // console.log("userAddressID", user.address_id);
+
+  console.log("userAddressID", user);
+
   useEffect(() => {
     dispatch({
       type: "FETCH_TAGS",
@@ -89,8 +94,8 @@ function AddEventForm() {
   const [description, setdescription] = useState(user.description);
   // ADDRESS
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("Select State");
+  const [city, setCity] = useState();
+  const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [phone, setTelephone] = useState("");
   // SOCIAL MEDIA
@@ -124,6 +129,29 @@ function AddEventForm() {
         tag,
       },
     });
+    var toastMixin = Swal.mixin({
+      toast: true,
+      icon: "success",
+      title: "General Title",
+      animation: false,
+      position: "middle",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    toastMixin.fire({
+      position: "bottom-right",
+      animation: true,
+      title: "Profile Saved",
+    });
+    setTimeout(function () {
+      history.push(`/profile/${user.id}`);
+    }, 2500);
     e.target.reset();
   };
 
@@ -210,6 +238,7 @@ function AddEventForm() {
           <h2 className="formHeader">Address</h2>
           <br />
           <TextField
+            defaultValue={address}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -374,7 +403,7 @@ function AddEventForm() {
         </div>
         <br />
         <Button type="submit" variant="contained" color="primary">
-          Create
+          Save
         </Button>
       </form>
     </>
