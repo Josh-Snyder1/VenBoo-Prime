@@ -68,7 +68,9 @@ function AddEventForm() {
   // REDUX STORE
   const tags = useSelector((store) => store.tags);
   const user = useSelector((store) => store.user);
-  // console.log("userAddressID", user.address_id);
+
+  console.log("userAddressID", user);
+
   useEffect(() => {
     dispatch({
       type: "FETCH_TAGS",
@@ -89,7 +91,7 @@ function AddEventForm() {
   const [description, setdescription] = useState(user.description);
   // ADDRESS
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState();
   const [state, setState] = useState("Select State");
   const [zip, setZip] = useState("");
   const [phone, setTelephone] = useState("");
@@ -210,6 +212,7 @@ function AddEventForm() {
           <h2 className="formHeader">Address</h2>
           <br />
           <TextField
+            defaultValue={address}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"

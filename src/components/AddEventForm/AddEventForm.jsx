@@ -19,6 +19,23 @@ function AddEventForm() {
   const history = useHistory();
 
   const user = useSelector((store) => store.user);
+  function handleAutoFill() {
+    console.log("in auto fill");
+    setDateRange([new Date("2022-11-11"), new Date("2022-11-12")]);
+    setEventName("Twin Cities Con 2022");
+    setaddress("1301 2nd Ave S");
+    setAddress2("");
+    setVenue("Minneapolis Convetion Center");
+    setPhone("(612) 335-6000");
+    setEmail("info@nerdstreet.net");
+    setCity("Minneapolis");
+    setState("MN");
+    setZip("55407");
+    setDescription(
+      "Twin Cities Con is a celebration of comics, toys, TV, film, art, cosplay, games, and all things nerdy. If you're a fan of Batman, the Avengers, Doctor Who, Star Wars, LEGO, Disney, Star Trek, the Walking Dead, Power Rangers, Game of Thrones, etc., you'll probably fit right in at TCC!!"
+    );
+    setTag(0);
+  }
 
   const [dateRange, setDateRange] = useState([null, null]);
   const [eventName, setEventName] = useState("");
@@ -31,8 +48,8 @@ function AddEventForm() {
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [description, setDescription] = useState("");
-  const [tag, setTag] = useState("");
-
+  const [tag, setTag] = useState();
+  console.log(eventName);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -95,9 +112,12 @@ function AddEventForm() {
 
   return (
     <>
+      <h1 onClick={handleAutoFill}> Add Event </h1>
+
       <form onSubmit={handleSubmit}>
         <br />
         <TextField
+          value={eventName}
           id="outlined-required"
           label="Event Name"
           type="text"
@@ -110,6 +130,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={address}
           id="outlined-required"
           label="Address"
           type="text"
@@ -121,6 +142,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={address2}
           id="outlined-required"
           label="Addres_2"
           type="text"
@@ -142,6 +164,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={venue}
           id="outlined-required"
           label="Venue"
           type="text"
@@ -153,6 +176,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={phone}
           id="outlined-required"
           label="phone"
           type="tel"
@@ -165,6 +189,7 @@ function AddEventForm() {
         <br />
 
         <TextField
+          value={email}
           id="outlined-required"
           label="email"
           type="text"
@@ -176,6 +201,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={city}
           id="outlined-required"
           label="City"
           type="text"
@@ -187,6 +213,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={state}
           id="outlined-required"
           label="State"
           type="text"
@@ -199,6 +226,7 @@ function AddEventForm() {
         <br />
         <br />
         <TextField
+          value={zip}
           id="outlined-required"
           label="Zip"
           type="text"
@@ -211,6 +239,7 @@ function AddEventForm() {
         <br />
 
         <TextareaAutosize
+          value={description}
           placeholder="Description"
           style={{ width: 350, height: 200, resize: "none" }}
           onChange={(e) => {
@@ -222,7 +251,7 @@ function AddEventForm() {
         <br />
         <br />
 
-        <MultiSelect props={props} required />
+        <MultiSelect value={tag} props={props} required />
 
         <Button type="submit" variant="contained" color="primary">
           Create

@@ -11,7 +11,6 @@ function Header({ toggleEdit }) {
   // REDUX STORE
   const events = useSelector((store) => store.events);
   const boothApplications = useSelector((store) => store.boothApplications);
-
   const user = useSelector((store) => store.user);
 
   useEffect(() => {

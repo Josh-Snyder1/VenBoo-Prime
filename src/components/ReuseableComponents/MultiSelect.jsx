@@ -68,7 +68,6 @@ export default function MultipleSelectCheckmarks({ props }) {
         <FormControl sx={{ m: 1, width: 300 }}>
           <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
           <Select
-            required
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             name="testingNAME"
