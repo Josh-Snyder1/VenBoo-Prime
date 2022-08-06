@@ -42,6 +42,7 @@ function ManageVenues() {
   const [contactEmail, setContactEmail] = useState("");
   const [website, setWebsite] = useState("");
   const [notes, setNotes] = useState("");
+  const [capacity, setCapacity] = useState("");
 
   console.log(venues.map((venue)=>{return venue.name}))
 
@@ -149,6 +150,15 @@ function ManageVenues() {
             type="text"
             onChange={(e) => {
               setWebsite(e.target.value);
+            }}
+            />
+            <TextField
+            sx={{ width: 250 }}
+            id="outlined-required"
+            label="Capacity"
+            type="text"
+            onChange={(e) => {
+              setCapacity(e.target.value);
             }}
             />
             <br />
