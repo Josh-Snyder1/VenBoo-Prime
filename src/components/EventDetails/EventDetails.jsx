@@ -74,9 +74,9 @@ function EventDetails() {
           eventId={eventId}
           eventDetails={eventDetails}
         />
-      ) : (
-        <Header toggleEdit={toggleEdit} />
-      )}
+        ) : (
+          <Header toggleEdit={toggleEdit} />
+        )}
       </>
 
     }

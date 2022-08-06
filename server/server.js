@@ -15,6 +15,7 @@ const eventBoothsRouter = require("./routes/eventbooths.router")
 const vendorRouter = require("./routes/vendors.router")
 const adminRouter = require("./routes/admin.router")
 const venuesRouter = require("./routes/venues.router")
+const addressRouter = require("./routes/address.router")
 
 
 // Body parser middleware
@@ -37,6 +38,7 @@ app.use("/api/eventbooths", eventBoothsRouter);
 app.use("/api/vendors", vendorRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/venues", venuesRouter);
+app.use("/api/address", addressRouter);
 
 
 // Serve static files
