@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-const vendorBoothsReducer = (state = [], action) => {
+const venuesReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_VENDOR_BOOTHS':
-            return [action.payload];
+        case 'SET_VENUES':
+            return action.payload;
         case "UNSET_USER":
             return [];
         default:
@@ -11,4 +11,4 @@ const vendorBoothsReducer = (state = [], action) => {
     }
 }
 
-export default vendorBoothsReducer;
+export default venuesReducer;

@@ -17,6 +17,7 @@ import AboutPage from "../AboutPage/AboutPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import AddEventForm from "../AddEventForm/AddEventForm";
 import EventDetails from "../EventDetails/EventDetails";
+import EventListAdmin from "../EventsList/EventListViews/EventListAdmin";
 import Dashboard from "../Dashboard/Dashboard";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
@@ -25,6 +26,7 @@ import MultiSelect from "../ReuseableComponents/MultiSelect";
 import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
 import VendorListAdmin from "../VendorListAdmin/VendorListAdmin";
+import ManageVenues from "../ManageVenues/ManageVenues";
 import "./App.css";
 
 function App() {
@@ -98,6 +100,14 @@ function App() {
             <ManageTagsForm />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/manageVenues"
+          >
+            <ManageVenues />
+          </ProtectedRoute>
+
           <Route exact path="/login">
             {user.id ? (
               <Redirect to="/" />
@@ -119,6 +129,14 @@ function App() {
           <Route path="/event/:eventId">
             <EventDetails />
           </Route>
+
+          <ProtectedRoute path="/admin/events" exact>
+            {user.type === 'admin' ?
+              <EventListAdmin />
+              :
+              <Redirect to="/" />
+            }
+          </ProtectedRoute>
 
           <Route path="/" exact>
             {user.id ? <Dashboard /> : <WelcomePage />}

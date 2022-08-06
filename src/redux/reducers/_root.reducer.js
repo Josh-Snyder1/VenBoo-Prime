@@ -8,6 +8,7 @@ import eventbooths from './eventbooths.reducer';
 import tags from './tags.reducer';
 import vendorBoothsReducer from "./booths.reducer";
 import vendors from "./vendors.reducer"
+import venues from "./venues.reducer"
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   tags,
   vendorBoothsReducer,
   vendors,
+  venues,
 });
 
 export default rootReducer;

@@ -1,24 +1,25 @@
+// Imports
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import moment from "moment";
 import { Card, Grid, Stack, Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 
-
+// Exported Function Component
 function EventListHost() {
     // Stores
     const user = useSelector((store) => store.user);
-    // const vendorBooths = useSelector((store) => store.booths);
     const allEvents = useSelector((store) => store.events);
 
-    // Today's date.
+    // Local state
+    const [viewList, setViewList] = useState('upcoming');
+
+    // Vars
     const todayDate = moment().format('YYYYMMDD');
     const history = useHistory();
 
-
-    // Local state to render items the user wants to view.
-    const [viewList, setViewList] = useState('');
-
+    console.log(allEvents)
+    // Render
     return (
         <Grid 
             container
@@ -30,6 +31,18 @@ function EventListHost() {
                 padding: "1em"
             }}
             >
+                {allEvents.length === 0 &&
+                    <>
+                        <h3>Welcome!</h3>
+                        <h3>Looks like you don't have any events, let's create one!</h3>
+                        <Button
+                            variant="contained"
+                            onClick={() => history.push('/addEventForm')}
+                        >
+                            New Event
+                        </Button>
+                    </>
+                }
                 <Stack
                     direction="row"
                     justifyContent="space-evenly"
@@ -60,9 +73,9 @@ function EventListHost() {
                     if (
                         itemEvent.user_id === user.id
                         &&
-                        viewList === ''
+                        viewList === 'upcoming'
                         &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) > Number(todayDate)
+                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
                         &&
                         itemEvent.verified
                     ){
@@ -89,7 +102,7 @@ function EventListHost() {
                         &&
                         viewList === 'pending'
                         &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) > Number(todayDate)
+                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
                         &&
                         !itemEvent.verified
                     ){

@@ -34,6 +34,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import BusinessIcon from '@mui/icons-material/Business';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
@@ -141,7 +142,7 @@ export default function NavDrawer() {
         },
         {
             text: 'All Events',
-            link: '/allEvents',
+            link: '/admin/events',
             userType: ['admin'],
             upperLowerNav: 'upper',
             icon: <CalendarMonthIcon />
@@ -168,6 +169,13 @@ export default function NavDrawer() {
             icon: <StyleIcon />
         },
         {
+          text: 'Manage Venues',
+          link: '/manageVenues',
+          userType: ['admin'],
+          upperLowerNav: 'upper',
+          icon: <BusinessIcon />
+        },
+        {
             text: 'Profile',
             link: `/profile/${user.id}`,
             userType: ['host', 'vendor'],
@@ -180,7 +188,7 @@ export default function NavDrawer() {
     let profileLetter = user.email && user.email.charAt(0).toUpperCase()
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', padding:0 }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between'  }}>
       <ClickAwayListener onClickAway={handleDrawerClose}>
@@ -195,10 +203,9 @@ export default function NavDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" >
-            <Link to='/' >Venboo</Link>
-            
+            <Link to='/' >Venboo</Link> <br/>
+            <p>Connecting Passionate vendors to the best opportunities</p>
           </Typography>
-          
         </Toolbar>
         
         </ClickAwayListener>

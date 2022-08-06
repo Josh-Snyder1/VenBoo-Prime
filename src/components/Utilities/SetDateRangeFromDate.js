@@ -137,5 +137,19 @@ function AddDayToDate (endDate) {
 }
 
 
+// Function that converts a date to an ISO date string
+// i.e. 2022-08-03
+function DateToISOString (date) {
+
+  // REF: https://stackoverflow.com/a/29774197
+  // Get the timezone offset
+  const offset = date.getTimezoneOffset()
+  // Modify the date to retain local dates (does not revert back to UTC)
+  date = new Date(date.getTime() - (offset*60*1000))
+  // Return the date as a date string
+  return date.toISOString().split('T')[0]
+}
+
+
 // Return the value to the caller
-export { AddDayToDate, AllFutureDates, CurrentMonth, CurrentWeek, NextSevenDays, OneDay, RemoveTimeFromDate }
+export { AddDayToDate, AllFutureDates, CurrentMonth, CurrentWeek, DateToISOString, NextSevenDays, OneDay, RemoveTimeFromDate }
