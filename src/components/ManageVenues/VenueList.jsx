@@ -100,7 +100,7 @@ useEffect(() => {
   const [open, setOpen] = React.useState(false);
   const [editStatus, setEditStatus] = React.useState(false)
 
-  const props = {editStatus, row, address}
+  const props = {editStatus, row, address, setEdit}
 
   const [newType, setNewType] = React.useState(row.type);
   const [newDimensions, setNewDimensions] = React.useState(row.dimensions);
@@ -118,37 +118,16 @@ useEffect(() => {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <CheckBoxIcon /> : <EditIcon />}
+            {open ? <KeyboardArrowUpIcon /> : <EditIcon />}
           </IconButton>
         </TableCell>
-        {edit === row.id ?
-        <>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row">
-          <TextField onChange={(e) => {setNewType(e.target.value)}} id="outlined-basic" size="small" defaultValue={row.type} variant="outlined" />
-            {/* <input sx={{width: 1/10}} defaultValue={row.type} onChange={handleChange} ></input> */}
-          </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> 
-          <TextField onChange={(e) => {setNewDimensions(e.target.value)}} id="outlined-basic" size="small" defaultValue={row.dimensions} variant="outlined" />
-            {/* <input defaultValue={row.dimensions} onChange={handleChange} ></input> */}
-          </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> 
-            <TextField onChange={(e) => {setNewQuantity(e.target.value)}} id="outlined-basic" size="small" defaultValue={row.quantity} variant="outlined" />
-            {/* <input defaultValue={row.quantity} onChange={handleChange} ></input> */}
-          </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0, paddingLeft: 8 }} align="right">  
-          <TextField onChange={(e) => {setNewCost(e.target.value)}} id="outlined-basic" style = {{width: '200%'}} size="small" defaultValue={row.cost} variant="outlined" />
-            {/* <input defaultValue={row.cost} onChange={handleChange} ></input> */}
-          </TableCell>
-        </>
-        :
         <>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.name} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {address.address} {address.address2} <br/> {address.city} {address.state} {address.zipcode} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.contact_name} <br/> {row.contact_email} <br/> {row.contact_phone} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> <a href={row.contact_url}>Click Here</a> </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> <a href={row.contact_url} target="_blank">Click Here</a> </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.notes} </TableCell>
         </>
-        }
         {/* checks to see if user is vendor and if true renders a request booth button */}
         {user?.type === 'vendor' ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
