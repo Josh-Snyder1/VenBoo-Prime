@@ -154,7 +154,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     .query(addressesQuery, addressesParams)
     .then((dbRes) => {
       let addressId = dbRes.rows[0].id;
-      console.log("ADDRESS ID IS >>>>>>", addressId);
+      console.log("ADDRESS ID IS >>>>>>", req.body.tag);
       // Create Venue
       return pool.query(venueQuery, [...venueParmas, addressId]);
     })
@@ -167,12 +167,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     .then((dbRes3) => {
       let eventId = dbRes3.rows[0].id;
       console.log(eventId);
-      // post event ids
-      return pool.query(
-        eventTagsParams.map((tag) => {
+      // post event id
+        return req.body.tag.map((tag) => {
           return pool.query(eventTagsQuery, [tag, eventId]);
         })
-      );
     })
     .then(() => {
       res.sendStatus(200);
