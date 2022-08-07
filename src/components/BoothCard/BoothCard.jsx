@@ -23,7 +23,8 @@ function BoothCard({booths}) {
                         sx={{
                             padding: "1em",
                             margin: '1em',
-                            width: '350px'
+                            width: '350px',
+                            minHeight: '350px'
                         }}
                     >
                         <h3>{booth.name}</h3>

@@ -116,7 +116,9 @@ function EventListVendor() {
                             elevation={4}
                             sx={{
                                 padding: "1em",
-                                margin: '1em'
+                                margin: '1em',
+                                width: '350px',
+                                minHeight: '350px'
                             }}
                             >
                             <h2>{event.name}</h2>
