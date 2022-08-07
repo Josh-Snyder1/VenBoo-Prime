@@ -100,7 +100,7 @@ useEffect(() => {
   const [open, setOpen] = React.useState(false);
   const [editStatus, setEditStatus] = React.useState(false)
 
-  const props = {editStatus, row, address, setEdit}
+  const props = {editStatus, row, address, setOpen}
 
   const [newType, setNewType] = React.useState(row.type);
   const [newDimensions, setNewDimensions] = React.useState(row.dimensions);
@@ -186,17 +186,6 @@ export default function VenueList({props}) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 //   const [address, setAddress] = React.useState('');
-
-  function addRow(id) {
-    console.log('in addRow')
-    dispatch({ type: 'ADD_BOOTH', payload: {id}})
-  }
-
-//   useEffect(() => {
-//       console.log('in useEffect', props)
-//     axios.get(`/api/address/${props.id}`).then((res) => {setProfileInfo(res.data.shift())});
-//     console.log('testing axios', props.id)
-//   }, [props]);
   
   return (
     <TableContainer component={Paper}>

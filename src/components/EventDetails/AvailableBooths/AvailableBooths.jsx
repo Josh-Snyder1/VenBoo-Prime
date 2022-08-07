@@ -37,8 +37,6 @@ function Row({row}) {
 
   const [edit, setEdit] = React.useState();
 
-  console.log('in row', row)
-
   //edit row with updated information.
   //this function only sets the input fields to editable
   function editRow(id){
@@ -48,7 +46,6 @@ function Row({row}) {
 
   const handleChange = event => {
       setNewType(event.target.value)
-      console.log('in handleChange', event.target.value)
   }
 
   function updateRow(id) {
@@ -63,7 +60,6 @@ function Row({row}) {
           newDescription
         }})
 
-    console.log('in updateRow',newType)
     setEdit();
     setOpen(false)
   }
@@ -214,7 +210,6 @@ export default function AvailableBooths({props}) {
   const user = useSelector((store) => store.user);
 
   function addRow(id) {
-    console.log('in addRow')
     dispatch({ type: 'ADD_BOOTH', payload: {id}})
   }
 
@@ -249,7 +244,6 @@ export default function AvailableBooths({props}) {
         </TableHead>
         <TableBody>
           {props?.booths.map(row => {
-            console.log('in props.map')
             row.eventOwnerId = props.user_id;
           return <Row key={row.id} row={row} />
           })}

@@ -62,7 +62,6 @@ function ManageVenues() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  console.log(venues.map((venue)=>{return venue.name}))
 
   return (
     venues.length > 0 &&

@@ -13,7 +13,7 @@ function EditRow({props}) {
     const row = props?.row;
     const editStatus = props?.editStatus;
     const address = props?.address;
-    const setEdit = props?.setEdit;
+    const setOpen = props?.setOpen;
 
     // consodle.log('props',setEdit);
 
@@ -33,7 +33,6 @@ function EditRow({props}) {
     const [longitude, setLongitude] = useState("");
 
     function updateVenue(id) {
-      console.log('address.id', address)
         dispatch({ 
           type: 'EDIT_VENUE', 
           payload: {
@@ -54,7 +53,8 @@ function EditRow({props}) {
             latitude,
             longitude
           }})
-      setEdit('');
+      setOpen(false);
+      console.log('editStatus', editStatus)
     }
 
     return (

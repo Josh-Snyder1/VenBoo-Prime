@@ -106,11 +106,11 @@ router.put('/:venueId', rejectUnauthenticated, (req, res) => {
 
     const addressSqlParams = [
         req.body.addressId,
-        req.body.zipcode,
+        req.body.zip,
         req.body.state,
         req.body.city,
-        req.body.address_2,
-        req.body.address
+        req.body.address2,
+        req.body.newAddress
     ]
 
     const venueSqlQuery =`
@@ -120,9 +120,9 @@ router.put('/:venueId', rejectUnauthenticated, (req, res) => {
                 contact_url = $7,
                 contact_email = $6,
                 contact_phone = $5,
-                contact_name = $4
+                contact_name = $4,
                 capacity = $3,
-                name = $2,
+                name = $2
             WHERE
                 id = $1
             `
@@ -131,10 +131,10 @@ router.put('/:venueId', rejectUnauthenticated, (req, res) => {
         req.body.venueId,
         req.body.venueName, 
         req.body.capacity, 
-        req.body.contact_name,
-        req.body.contact_phone,
-        req.body.contact_email,
-        req.body.contact_url,
+        req.body.contactName,
+        req.body.contactPhone,
+        req.body.contactEmail,
+        req.body.website,
         req.body.notes
     ]
 
