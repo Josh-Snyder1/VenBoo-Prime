@@ -92,6 +92,7 @@ function EventListHost() {
                         flexWrap: 'wrap',
                     }}
                 >
+                    {/* viewList options render */}
                     {viewList === 'approved' &&
                         <EventCardComponent 
                             events={approvedEvents}
@@ -107,96 +108,6 @@ function EventListHost() {
                             events={pastEvents}
                         />
                     }
-                {/* {allEvents.map((itemEvent) => {
-                    if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'approved'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
-                        &&
-                        itemEvent.verified
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em",
-                                    margin: '1em',
-                                    width: '350px',
-                                    minHeight: '350px'
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    <li>Status: Verified ✅</li>
-                                </ul>
-                            </Card>
-                        )
-                    }
-                    else if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'pending'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
-                        &&
-                        !itemEvent.verified
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em",
-                                    margin: '1em',
-                                    width: '350px',
-                                    minHeight: '350px'
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    <li>Status: Pending ❌</li>
-                                </ul>
-                            </Card>
-                        )
-                    }
-                    else if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'past'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) < Number(todayDate)
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em",
-                                    margin: '1em',
-                                    width: '350px',
-                                    minHeight: '350px'
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    {itemEvent.verified}
-                                </ul>
-                            </Card>
-                        )
-                    }
-                })} */}
                 </Stack>
             </Grid>
     )

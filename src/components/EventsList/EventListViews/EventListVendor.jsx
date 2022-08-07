@@ -128,21 +128,17 @@ function EventListVendor() {
                         )
                     }
                 })}
-                {/* Approved viewList option render */}
+                {/* viewList options render */}
                 {viewList === 'approved' && 
                     <BoothCard
                         booths={approvedBooths}
                     />
                 }
-
-                {/* Pending viewList option render */}
                 {viewList === 'pending' && 
                     <BoothCard
                         booths={pendingBooths}
                     />
                 }
-
-                {/* Past viewList option render */}
                 {viewList === 'past' && 
                     <BoothCard
                         booths={pastBooths}
