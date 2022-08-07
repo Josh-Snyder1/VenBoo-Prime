@@ -203,7 +203,7 @@ export default function NavDrawer() {
           </IconButton>
           
           {/* <Typography variant="h6" noWrap component="div" > */}
-            <Link to='/'><img className='nav_ven' src='../Images/venboo.png'></img></Link> <br/>
+            <Link to='/'><img className='nav_ven' src='../Images/venbooColor.png'></img></Link> <br/>
             <p className='p_nav'>Connecting Passionate vendors to the best opportunities</p>
           {/* </Typography> */}
         </Toolbar>
