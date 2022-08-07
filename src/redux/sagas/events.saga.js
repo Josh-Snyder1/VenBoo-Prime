@@ -18,6 +18,7 @@ function* fetchAllEvents() {
 // Function that gets a single event based on a URL param, including
 // event fields, booths by size, and availability of booths
 function* fetchOneEvent(action) {
+  console.log('in events saga fetchOneEvent', action)
   try {
     const res = yield axios.get(`/api/events/events-and-booths/${action.payload.eventId}`);
     yield put({ type: "SET_CURRENT_EVENT", payload: res.data[0] });

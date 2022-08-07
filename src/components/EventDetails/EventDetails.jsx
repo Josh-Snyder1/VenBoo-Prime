@@ -91,7 +91,7 @@ function EventDetails() {
         details: eventDetails
         }} 
     /> */}
-    {user.type !== 'vendor' &&
+    {user &&
       <>
         {editEvent === false ? (
         <EditHeader
@@ -103,7 +103,6 @@ function EventDetails() {
         eventDetails && <Header toggleEdit={toggleEdit} />
       )}
       </>
-
     }
       <h1>Available Booths</h1>
       {eventDetails && <AvailableBooths props={eventDetails} />}

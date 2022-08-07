@@ -42,6 +42,7 @@ function EventListVendor() {
         }
         return true;
     });
+    console.log('newEvents', newEvents)
 
     //  Loop through the vendorBooths array to sort booths based
     //      on approved, pending, or past approved.
@@ -104,6 +105,7 @@ function EventListVendor() {
             >
                 {/* New Events viewList option render */}
                 {newEvents.map(event => {
+                    console.log('in eventListVendor', event.id)
                     if (
                         viewList === 'new_events'
                         &&
