@@ -83,9 +83,6 @@ function EventListVendor() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{
-                padding: "1em"
-            }}
         >
             <br/>
             <h3>Your Booths</h3>
@@ -98,13 +95,11 @@ function EventListVendor() {
             </Tabs>
             <Stack
                 direction="row"
-                justifyContent="space-evenly"
+                justifyContent="center"
                 alignItems="center"
-                spacing={1}
                 sx={{
                     display: 'flex',
-                    flexWrap: 'wrap',
-                    margin: '1em'
+                    flexWrap: 'wrap'
                 }}
             >
                 {/* New Events viewList option render */}
