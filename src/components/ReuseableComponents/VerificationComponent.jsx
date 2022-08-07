@@ -6,8 +6,11 @@ import { useSelector } from "react-redux";
 
 function VerificationComponent({props}) {
 
+    // event details of this specific event
     const event = props.eventDetails;
+    // render of 
     const renderType = props.type;
+
     const view = props.view;
 
     console.log('event', event)

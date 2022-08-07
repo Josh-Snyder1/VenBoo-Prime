@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import FormatMoney from '../../Utilities/FormatMoney';
 
 
 
@@ -135,7 +136,7 @@ function Row({row}) {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} component="th" scope="row"> {row.type} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.dimensions} </TableCell>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.quantity} </TableCell>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {row.cost} </TableCell>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right"> {FormatMoney(row.cost)} </TableCell>
         </>
         }
         {/* checks to see if user is vendor and if true renders a request booth button */}
