@@ -1,9 +1,12 @@
 // Imports
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Card, Grid, Stack, Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import EventCardComponent from "./EventListComponents/EventCardComponent";
+
+// MUI Imports
+import { Tabs, Tab, Grid, Button, Stack, Card } from "@mui/material";
 
 // Exported Function Component
 function EventListHost() {
@@ -12,13 +15,45 @@ function EventListHost() {
     const allEvents = useSelector((store) => store.events);
 
     // Local state
-    const [viewList, setViewList] = useState('upcoming');
+    const [viewList, setViewList] = useState('approved');
 
     // Vars
     const todayDate = moment().format('YYYYMMDD');
     const history = useHistory();
+    const approvedEvents = [];
+    const pendingEvents = [];
+    const pastEvents = [];
 
-    console.log(allEvents)
+    // Event listener to show different booth lists and new events.
+    const handleChange = (event, newValue) => {
+        setViewList(newValue);
+    }
+
+    // Filter all Events that fall under approved, pending, and past.
+    for(let event of allEvents) {
+        if(
+            event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) >= Number(todayDate)
+        ){
+            approvedEvents.push(event)
+        }
+        else if(
+            !event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) >= Number(todayDate)
+        ){
+            pendingEvents.push(event)
+        }
+        else if(
+            event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) < Number(todayDate)
+        ){
+            pastEvents.push(event)
+        }
+    }
+    
     // Render
     return (
         <Grid 
@@ -26,10 +61,6 @@ function EventListHost() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{
-                marginBottom: '1em',
-                padding: "1em"
-            }}
             >
                 {allEvents.length === 0 &&
                     <>
@@ -43,113 +74,40 @@ function EventListHost() {
                         </Button>
                     </>
                 }
+                <br/>
+                <h3>Your Events</h3>
+                <br/>
+                <Tabs value={viewList} onChange={handleChange}>
+                    <Tab value="approved" label="Approved"/>
+                    <Tab value="pending" label="Pending"/>
+                    <Tab value="past" label="Past"/>
+                </Tabs>
                 <Stack
                     direction="row"
-                    justifyContent="space-evenly"
+                    justifyContent="center"
                     alignItems="center"
                     spacing={1}
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        marginTop: '2em'
                     }}
                 >
-                    <Button onClick={() => setViewList('')}>Upcoming</Button>
-                    <Button onClick={() => setViewList('pending')}>Pending Verification</Button>
-                    <Button onClick={() => setViewList('past')}>Past</Button>
-                </Stack>
-                <Stack
-                    direction="column"
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                    spacing={1}
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        marginTop: '1em'
-                    }}
-                >
-                {allEvents.map((itemEvent) => {
-                    if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'upcoming'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
-                        &&
-                        itemEvent.verified
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em"
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    <li>Status: Verified ✅</li>
-                                </ul>
-                            </Card>
-                        )
+                    {/* viewList options render */}
+                    {viewList === 'approved' &&
+                        <EventCardComponent 
+                            events={approvedEvents}
+                        />
                     }
-                    else if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'pending'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
-                        &&
-                        !itemEvent.verified
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em"
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    <li>Status: Pending ❌</li>
-                                </ul>
-                            </Card>
-                        )
+                    {viewList === 'pending' &&
+                        <EventCardComponent 
+                            events={pendingEvents}
+                        />
                     }
-                    else if (
-                        itemEvent.user_id === user.id
-                        &&
-                        viewList === 'past'
-                        &&
-                        Number(moment(itemEvent.start_date).format('YYYYMMDD')) < Number(todayDate)
-                    ){
-                        return (
-                            <Card
-                                onClick={() => history.push(`/event/${itemEvent.id}`)}
-                                key={itemEvent.id}
-                                elevation={4}
-                                sx={{
-                                    padding: "1em"
-                                }}
-                            >
-                                <h4>{itemEvent.name}</h4>
-                                <ul>
-                                    <li>{moment(itemEvent.start_date).format('MMM DD YYYY')} - {moment(itemEvent.end_date).format('MMM DD YYYY')}</li>
-                                    <li>{itemEvent.description}</li>
-                                    {itemEvent.verified}
-                                </ul>
-                            </Card>
-                        )
+                    {viewList === 'past' &&
+                        <EventCardComponent 
+                            events={pastEvents}
+                        />
                     }
-                })}
                 </Stack>
             </Grid>
     )

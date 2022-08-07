@@ -59,10 +59,9 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(userQuery, userParams)
     .then(() => {
-      return pool.query(addressesQuery, addressesParams)
-    .then(() => {
-      res.sendStatus(201)
-    });
+      return pool.query(addressesQuery, addressesParams).then(() => {
+        res.sendStatus(201);
+      });
     })
     .catch((error) => {
       console.log("error in user router", error);
@@ -123,20 +122,31 @@ router.get("/profile/:id", (req, res) => {
             "user".email,
             "user".business_name,
             "user".description,
+            "user".address_id,
+            "addresses".id,
+            "addresses".address,
+            "addresses".address_2,
+            "addresses".city,
+            "addresses".state,
+            "addresses".zipcode,
             "user".phone,
             "user".phone_extension,
             "user".main_url,
             "user".facebook_url,
             "user".etsy_url,
             "user".linkedin_url
-            FROM "user"
-            WHERE "user".id = $1
+            FROM "user" 
+            JOIN "addresses"
+  			ON "user".address_id = "addresses".id
+            WHERE "user".id = $1; 
   `;
   sqlParams = [req.params.id];
 
   pool
     .query(sqlQuery, sqlParams)
     .then((result) => {
+      console.log("res.rows are >>>", result.rows);
+
       res.send(result.rows);
     })
     .catch((err) => console.error("error in getting user profile info", err));

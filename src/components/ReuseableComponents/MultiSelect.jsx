@@ -41,7 +41,8 @@ const MenuProps = {
   },
 };
 
-export default function MultipleSelectCheckmarks({ props }) {
+export default function MultipleSelectCheckmarks({ props, tg }) {
+  console.log(tg);
   console.log("Props are >>>>>>>>>", props);
   const [tagName, setTagName] = React.useState([]);
   const [tagIds, setTagIds] = React.useState([]);
@@ -60,7 +61,11 @@ export default function MultipleSelectCheckmarks({ props }) {
       typeof value === "string" ? value.split(",") : value
     );
     const values = [];
-    props.tags.map((tag)=>{return value.map((val)=>{val === tag.name && values.push(tag.id) }) })
+    props.tags.map((tag) => {
+      return value.map((val) => {
+        val === tag.name && values.push(tag.id);
+      });
+    });
     tagSelection(values);
   };
 
@@ -73,6 +78,7 @@ export default function MultipleSelectCheckmarks({ props }) {
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             name="testingNAME"
+            defaultValue={tg}
             multiple
             value={tagName}
             onChange={handleChange}
