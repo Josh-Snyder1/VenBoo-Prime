@@ -27,13 +27,13 @@ function RegisterPage() {
         alignItems="center"
         sx={{
             padding: "1em",
-            marginTop: '10em'
+            marginTop: '5em'
         }}
       >
         <Card
           elevation={4}
           sx={{
-            padding: '1em'
+            padding: '1em 3em'
           }}
         >
           <RegisterForm />
