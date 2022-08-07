@@ -42,7 +42,7 @@ function ProfilePage() {
         </div>
       }
       <div id="header">
-        <h1>{profileInfo.business_name}</h1>
+        <h1 className="profile_name">{profileInfo.business_name}</h1>
         <Icons profileInfo={profileInfo}/>
         <br />
         <ContactButton contactProps={{emails: profileInfo.email, buttonText: 'CONTACT US'}}/>

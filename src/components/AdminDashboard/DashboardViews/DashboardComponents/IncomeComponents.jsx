@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 // Import the used components
 import StatsCard from "../../../ReuseableComponents/StatsCard";
 
+
 // Import used functions
 import FormatMoney from "../../../Utilities/FormatMoney";
 import { AllFutureDates, CurrentMonth, CurrentWeek, DateToISOString, NextSevenDays } from "../../../Utilities/SetDateRangeFromDate";
