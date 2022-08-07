@@ -65,7 +65,7 @@ function VerificationComponent({props}) {
     <></>
     :
     user?.type === 'admin' && details?.verified === false ?
-        <Stack sx={{ width: 600, padding: 3, borderRadius:5 }} spacing={2}>
+        <Stack sx={{ width: '100%', padding: 3, borderRadius:5 }} spacing={2}>
         <Alert severity="warning" >
             This Event is not Verified! - Do you wish to verify it?
             <Button sx={{marginLeft: 10}}

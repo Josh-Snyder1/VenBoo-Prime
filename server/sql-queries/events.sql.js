@@ -194,6 +194,7 @@ function GetOneEventWithVerboseBoothInformation(req, res) {
   switch (req.user.type) {
     case "admin":
     case "host":
+    case "vendor":
       reduceFunctionByUserType = RestructureBoothInformationForAdminAndHostUser
       break
     default:
@@ -203,6 +204,7 @@ function GetOneEventWithVerboseBoothInformation(req, res) {
   // Call the database
   pool.query(EventsBoothsSQL(onlyOneRecord=true), [req.params.id])
   .then(result => {
+    console.log('sql event', result.rows)
     // Return the formatted result array
     res.send(
       reduceFunctionByUserType(result.rows)

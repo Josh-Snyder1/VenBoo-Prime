@@ -160,13 +160,24 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
 
   const table = req.body.type === 'event' ? 'events' : req.body.type === 'host' ? 'user' : '';
 
-  const userSqlQuery = `
+  const SqlQuery = 
+    req.body.type === 'user' ?
+    `
       UPDATE users 
       SET    
           approved_host = $2
       WHERE
           id = $1
       `
+    :
+    req.body.type === 'event' &&
+    `
+    UPDATE events 
+    SET    
+        verified = $2
+    WHERE
+        id = $1
+    `;
 
   const eventSqlParams = [
       req.body.id,
@@ -185,6 +196,8 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
       req.body.id,
       req.body.value,
   ]
+
+  console.log('sqlQuery', sqlQuery)
 
   // req.body.type === 'user' ?
   //   pool.query(

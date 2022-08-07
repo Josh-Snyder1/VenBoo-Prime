@@ -18,7 +18,7 @@ function BoothCard({booths}) {
                 return (
                     <Card
                         key={booth.id}
-                        onClick={() => history.push(`/event/${booth.id}`)}
+                        onClick={() => history.push(`/event/${booth.event_id}`)}
                         elevation={4}
                         sx={{
                             padding: "1em",

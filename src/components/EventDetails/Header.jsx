@@ -21,8 +21,13 @@ function Header({ toggleEdit }) {
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
+  console.log('in header', event)
   useEffect(() => {
     dispatch({ type: "FETCH_TAGS" });
+  }, []);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_CURRENT_EVENT", payload: {eventId} });
   }, []);
 
   let Pending = 0;
@@ -121,7 +126,7 @@ function Header({ toggleEdit }) {
         </div>
 
         <div className="event-booth-tags">
-          <DisplayTags tags={event.tags} />
+          {event?.tags && <DisplayTags tags={event.tags} />}
         </div>
 
 
