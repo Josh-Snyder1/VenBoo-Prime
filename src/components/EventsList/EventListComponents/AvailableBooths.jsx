@@ -6,7 +6,7 @@ export default function AvailableBooths({ event }) {
     return (
       <>
         <div>
-          <p>Over Booked</p>
+          <p className="booths-overbooked">Over Booked</p>
           <p><span>{event.reserved_booths}</span> of <span>{event.total_booths}</span></p>
         </div>
       </>
@@ -18,7 +18,7 @@ export default function AvailableBooths({ event }) {
     return (
       <>
         <div>
-          <p>Event Full</p>
+          <p className="booths-event-full">Event Full</p>
           <p><span>{event.reserved_booths}</span> of <span>{event.total_booths}</span></p>
         </div>
       </>
@@ -29,8 +29,8 @@ export default function AvailableBooths({ event }) {
   return (
     <>
       <div>
-        <p><span>{event.available_booths}</span> still available</p>
         <p><span>{event.reserved_booths}</span> of <span>{event.total_booths}</span> booths reserved</p>
+        <p><span>{event.available_booths}</span> still available</p>
       </div>
     </>
   )
