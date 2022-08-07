@@ -153,10 +153,9 @@ function AddEventForm() {
           sx={{
               display: 'flex',
               flexWrap: 'wrap',
+              marginTop: '2em'
           }}
         >
-          <br/>
-          <h1 onClick={handleAutoFill}>Add Event</h1>
           <form onSubmit={handleSubmit}>
             <Card
               elevation={4}
@@ -165,6 +164,13 @@ function AddEventForm() {
                 margin: '2em'
               }}
             >
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <h1 onClick={handleAutoFill}>Add Event</h1>
+              </Stack>
               <Stack
                 direction="row"
                 justifyContent="flex-start"
