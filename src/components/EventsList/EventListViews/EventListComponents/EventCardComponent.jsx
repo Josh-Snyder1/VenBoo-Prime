@@ -20,14 +20,14 @@ export default function EventCardComponent({ event }) {
       key={event.id}
       elevation={4}
       sx={{
-          padding: "1em",
-          margin: '1em'
+        padding: "1em",
+        margin: '1em'
       }}
     >
       <h2>{event.name}</h2>
       <p><i>{event.verified ? 'Verified' : ''}</i></p>
-      <h4>{moment(event.start_date).format('MMM DD YYYY')} - {moment(event.end_date).format('MMM DD YYYY')}</h4>
-      <h5>{event.description}</h5>
+      <p><span>{moment(event.start_date).format('MMM DD YYYY')}</span> - <span>{moment(event.end_date).format('MMM DD YYYY')}</span></p>
+      <p>{event.description}</p>
     </Card>
   )
 }
