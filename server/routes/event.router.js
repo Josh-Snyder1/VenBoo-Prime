@@ -10,6 +10,10 @@ const pool = require("../modules/pool");
 // Set the router and make these local routes available on the server
 const router = express.Router();
 
+// Import the used functions
+const { GetEventsWithConsolidatedBoothInformation } = require("../sql-queries/events.sql")
+
+
 // Main route to get the event information.
 // Uses logic to determine the information to return based
 // on whether the user is a host, vendor, or an admin
@@ -344,6 +348,12 @@ router.get("/:id/booth-applications", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+// Function to get events and booths information
+router.get("/events-and-booths", rejectUnauthenticated, (req, res) => {
+  GetEventsWithConsolidatedBoothInformation(req, res)
+})
 
 //duplicate code that is done in the booths.router.js file
 

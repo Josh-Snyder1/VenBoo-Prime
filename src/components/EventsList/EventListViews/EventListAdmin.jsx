@@ -1,5 +1,4 @@
 // Import the core libraries and functions
-import moment from "moment";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +7,7 @@ import { Grid, Stack, Tabs, Tab } from "@mui/material";
 
 // Import the used components
 import EventCardComponent from "./EventListComponents/EventCardComponent";
-import VendorCardComponent from "./EventListComponents/VendorCardComponent";
+import AdminEventCard from "../EventListComponents/AdminEventCard";
 
 // Import used functions
 import { AddDayToDate } from "../../Utilities/SetDateRangeFromDate";
@@ -17,11 +16,8 @@ import { AddDayToDate } from "../../Utilities/SetDateRangeFromDate";
 // Component that shows all the events that the admin can see
 export default function EventListAdmin() {
 
-  // Today's date.
-  const todayDate = moment().format('YYYYMMDD');
-
   // Get the events from the REDUX store
-  const allEvents = useSelector((store) => store.events);
+  const allEvents = useSelector((store) => store.eventsContainer.allEvents);
 
   // Local state to render items the user wants to view.
   const [viewList, setViewList] = useState('APPROVED');
@@ -31,7 +27,7 @@ export default function EventListAdmin() {
 
   // Get an updated events list
   useEffect(() => {
-    dispatch({ type: "FETCH_EVENTS" });
+    dispatch({ type: "FETCH_ALL_EVENTS" });
   },[])
 
   // Click listener to determine which filter to utilize for
@@ -45,13 +41,28 @@ export default function EventListAdmin() {
   // selected label
   const filterEventByCategory = (allEvents) => {
 
+    // Check what filter type the admin is using
     switch (viewList) {
+
+      // Approved events where the end date is in the future
       case "APPROVED":
-        return allEvents.filter(eventObj => eventObj.verified)
+        return allEvents.filter(eventObj => {
+          return (eventObj.verified) &&
+          (AddDayToDate(eventObj.end_date) > new Date())
+        })
+
+      // Un-approved events where the end date is in the future
       case "PENDING":
-        return allEvents.filter(eventObj => !eventObj.verified)
+        return allEvents.filter(eventObj => {
+          return (!eventObj.verified) &&
+          (AddDayToDate(eventObj.end_date) > new Date())
+        })
+
+      // Any event that is in the past
       case "PAST":
         return allEvents.filter(eventObj => AddDayToDate(eventObj.end_date) < new Date())
+
+      // Default case
       default:
         return allEvents
     }
@@ -61,6 +72,7 @@ export default function EventListAdmin() {
   // Build the DOM elements
   return (
 
+    <>
     <Grid 
       container
       direction="column"
@@ -79,27 +91,18 @@ export default function EventListAdmin() {
         <Tab value="PAST" label="Past"/>
         <Tab value="NEW_EVENTS" label="New Events"/>
       </Tabs>
-      <Stack
-        direction="row"
-        justifyContent="space-evenly"
-        alignItems="center"
-        spacing={1}
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          margin: '1em'
-        }}
-      >
-        {/* Filters the events list by the user selected category up top */}
-        {filterEventByCategory(allEvents).map(event => {
+      
+      {filterEventByCategory(allEvents).map(event => {
 
-          // Build the event list blocks
-          return(
-            <EventCardComponent event={event} />
-          )
-        })}
-        
-      </Stack>
+        // Build the event list blocks
+        return(
+          <AdminEventCard
+          // <EventCardComponent
+            key={event.id}
+            event={event} />
+        )
+      })}
     </Grid>
+    </>
   )
 }
