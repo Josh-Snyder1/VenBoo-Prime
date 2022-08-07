@@ -23,7 +23,10 @@ import Paper from "@mui/material/Paper";
 // Import the local stylesheet
 import "./EventDetails.css";
 
-
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+import Header from './Header'
+import ContactButton from '../ReuseableComponents/ContactButton'
+import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 // ----------------------------------------------
 // Component that contains all the display components on
@@ -82,6 +85,15 @@ function EventDetails() {
   return (
     // adding booths and available booths
     <>
+    {/* pass through props to tell component rendering on page vs. card
+        and to render for an event vs host/vendor */}
+    <VerificationComponent
+      props={{
+        view: 'page',
+        type: 'event',
+        eventDetails
+        }} 
+    />
     {user.type !== 'vendor' &&
       <>
         {editEvent === false ? (

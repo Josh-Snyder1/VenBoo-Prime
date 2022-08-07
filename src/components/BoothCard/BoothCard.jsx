@@ -21,7 +21,10 @@ function BoothCard({booths}) {
                         onClick={() => history.push(`/event/${booth.id}`)}
                         elevation={4}
                         sx={{
-                            padding: "1em"
+                            padding: "1em",
+                            margin: '1em',
+                            width: '350px',
+                            minHeight: '350px'
                         }}
                     >
                         <h3>{booth.name}</h3>
