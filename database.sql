@@ -76,6 +76,7 @@ CREATE TABLE "user" (
 	"linkedin_url" VARCHAR (1023),
 	"instagram_url" VARCHAR (1023),
 	"pinterest_url" VARCHAR (1023),
+	"receive_email" BOOLEAN NOT NULL DEFAULT TRUE,
 	"created_on" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 	"last_login" TIMESTAMP WITH TIME ZONE
 );
