@@ -88,7 +88,7 @@ function EventDetails() {
       props={{
         view: 'page',
         type: 'event',
-        eventDetails
+        details: eventDetails
         }} 
     />
     {user.type !== 'vendor' &&
