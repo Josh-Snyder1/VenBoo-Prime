@@ -83,9 +83,6 @@ function EventListVendor() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{
-                padding: "1em"
-            }}
         >
             <br/>
             <h3>Your Booths</h3>
@@ -98,13 +95,11 @@ function EventListVendor() {
             </Tabs>
             <Stack
                 direction="row"
-                justifyContent="space-evenly"
+                justifyContent="center"
                 alignItems="center"
-                spacing={1}
                 sx={{
                     display: 'flex',
-                    flexWrap: 'wrap',
-                    margin: '1em'
+                    flexWrap: 'wrap'
                 }}
             >
                 {/* New Events viewList option render */}
@@ -121,7 +116,9 @@ function EventListVendor() {
                             elevation={4}
                             sx={{
                                 padding: "1em",
-                                margin: '1em'
+                                margin: '1em',
+                                width: '350px',
+                                minHeight: '350px'
                             }}
                             >
                             <h2>{event.name}</h2>
@@ -131,21 +128,17 @@ function EventListVendor() {
                         )
                     }
                 })}
-                {/* Approved viewList option render */}
+                {/* viewList options render */}
                 {viewList === 'approved' && 
                     <BoothCard
                         booths={approvedBooths}
                     />
                 }
-
-                {/* Pending viewList option render */}
                 {viewList === 'pending' && 
                     <BoothCard
                         booths={pendingBooths}
                     />
                 }
-
-                {/* Past viewList option render */}
                 {viewList === 'past' && 
                     <BoothCard
                         booths={pastBooths}
