@@ -1,16 +1,18 @@
+// Import the core libraries and functions
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 
+// Import the used components
+import AvailableBooths from './AvailableBooths/AvailableBooths'
+import ContactButton from '../ReuseableComponents/ContactButton'
 import EditHeader from "./EditHeader";
-import moment from "moment";
+import Header from './Header'
+import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
-import "./EventDetails.css";
-// MUI
+// Import the used MUI components
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
-import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -19,28 +21,40 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+// Import the local stylesheet
+import "./EventDetails.css";
 
-import AvailableBooths from './AvailableBooths/AvailableBooths'
-import Header from './Header'
-import ContactButton from '../ReuseableComponents/ContactButton'
-
+// ----------------------------------------------
+// Component that contains all the display components on
+// the `EventDetails` page for a specific event
 function EventDetails() {
+
   // Stores
   const eventBoothDetails = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
   const events = useSelector((store) => store.events);
+  const event = useSelector(store => store.eventsContainer.currentEvent)
 
   // Local State
   const [viewList, setViewList] = useState("");
   const [editEvent, setEditEvent] = useState();
 
-  // Vars
+  // Initialze the used variables
   const { eventId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   let eventDetails = events
     .filter((event) => event.id === Number(eventId))
     .pop();
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_CURRENT_EVENT",
+      payload: {
+        eventId: eventId,
+      }
+    })
+  }, [eventId])
 
   useEffect(() => {
     dispatch({
@@ -68,6 +82,15 @@ function EventDetails() {
   return (
     // adding booths and available booths
     <>
+    {/* pass through props to tell component rendering on page vs. card
+        and to render for an event vs host/vendor */}
+    <VerificationComponent
+      props={{
+        view: 'page',
+        type: 'event',
+        details: eventDetails
+        }} 
+    />
     {user.type !== 'vendor' &&
       <>
         {editEvent === false ? (

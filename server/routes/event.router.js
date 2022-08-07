@@ -11,7 +11,10 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 // Import the used functions
-const { GetEventsWithConsolidatedBoothInformation } = require("../sql-queries/events.sql")
+const {
+  GetEventsWithConsolidatedBoothInformation,
+  GetOneEventWithVerboseBoothInformation
+} = require("../sql-queries/events.sql")
 
 
 // Main route to get the event information.
@@ -152,7 +155,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     `;
 
   console.log("SHOULD BE ARRAY OF NUMBERS", req.body.tag);
-  const eventTagsParams = [~~req.body.tag];
 
   pool
     .query(addressesQuery, addressesParams)
@@ -172,9 +174,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       let eventId = dbRes3.rows[0].id;
       console.log(eventId);
       // post event id
-        return req.body.tag.map((tag) => {
-          return pool.query(eventTagsQuery, [tag, eventId]);
-        })
+      return req.body.tag.map((tag) => {
+        return pool.query(eventTagsQuery, [tag, eventId]);
+      });
     })
     .then(() => {
       res.sendStatus(200);
@@ -353,6 +355,10 @@ router.get("/:id/booth-applications", (req, res) => {
 // Function to get events and booths information
 router.get("/events-and-booths", rejectUnauthenticated, (req, res) => {
   GetEventsWithConsolidatedBoothInformation(req, res)
+})
+
+router.get("/events-and-booths/:id", rejectUnauthenticated, (req, res) => {
+  GetOneEventWithVerboseBoothInformation(req, res)
 })
 
 //duplicate code that is done in the booths.router.js file

@@ -201,10 +201,11 @@ export default function NavDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" >
-            <Link to='/' >Venboo</Link> <br/>
-            <p>Connecting Passionate vendors to the best opportunities</p>
-          </Typography>
+          
+          {/* <Typography variant="h6" noWrap component="div" > */}
+            <Link to='/'><img className='nav_ven' src='../Images/venboo.png'></img></Link> <br/>
+            <p className='p_nav'>Connecting Passionate vendors to the best opportunities</p>
+          {/* </Typography> */}
         </Toolbar>
         
         </ClickAwayListener>

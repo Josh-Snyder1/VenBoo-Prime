@@ -74,7 +74,7 @@ function AddEventForm() {
     setDescription(
       "Twin Cities Con is a celebration of comics, toys, TV, film, art, cosplay, games, and all things nerdy. If you're a fan of Batman, the Avengers, Doctor Who, Star Wars, LEGO, Disney, Star Trek, the Walking Dead, Power Rangers, Game of Thrones, etc., you'll probably fit right in at TCC!!"
     );
-    setTag(0);
+    setTag([5, 3]);
   }
 
   const handleSubmit = (e) => {

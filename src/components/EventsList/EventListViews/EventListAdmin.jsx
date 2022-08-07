@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Stack, Tabs, Tab } from "@mui/material";
 
 // Import the used components
-import EventCardComponent from "./EventListComponents/EventCardComponent";
 import AdminEventCard from "../EventListComponents/AdminEventCard";
 
 // Import used functions
@@ -89,7 +88,7 @@ export default function EventListAdmin() {
         <Tab value="APPROVED" label="Approved"/>
         <Tab value="PENDING" label="Pending"/>
         <Tab value="PAST" label="Past"/>
-        <Tab value="NEW_EVENTS" label="New Events"/>
+        <Tab value="ALL_EVENTS" label="All Events"/>
       </Tabs>
       
       {filterEventByCategory(allEvents).map(event => {
@@ -97,7 +96,6 @@ export default function EventListAdmin() {
         // Build the event list blocks
         return(
           <AdminEventCard
-          // <EventCardComponent
             key={event.id}
             event={event} />
         )

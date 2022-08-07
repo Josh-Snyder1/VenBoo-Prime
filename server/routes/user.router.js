@@ -59,10 +59,9 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(userQuery, userParams)
     .then(() => {
-      return pool.query(addressesQuery, addressesParams)
-    .then(() => {
-      res.sendStatus(201)
-    });
+      return pool.query(addressesQuery, addressesParams).then(() => {
+        res.sendStatus(201);
+      });
     })
     .catch((error) => {
       console.log("error in user router", error);
@@ -123,23 +122,90 @@ router.get("/profile/:id", (req, res) => {
             "user".email,
             "user".business_name,
             "user".description,
+            "user".address_id,
+            "addresses".id,
+            "addresses".address,
+            "addresses".address_2,
+            "addresses".city,
+            "addresses".state,
+            "addresses".zipcode,
             "user".phone,
             "user".phone_extension,
             "user".main_url,
             "user".facebook_url,
             "user".etsy_url,
             "user".linkedin_url
-            FROM "user"
-            WHERE "user".id = $1
+            FROM "user" 
+            JOIN "addresses"
+  			ON "user".address_id = "addresses".id
+            WHERE "user".id = $1; 
   `;
   sqlParams = [req.params.id];
 
   pool
     .query(sqlQuery, sqlParams)
     .then((result) => {
+      console.log("res.rows are >>>", result.rows);
+
       res.send(result.rows);
     })
     .catch((err) => console.error("error in getting user profile info", err));
 });
+
+
+// used for both updating the verified status of an event or user
+router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
+
+  console.log('in usersverificatio.router.put', req.body)
+
+  const table = req.body.type === 'event' ? 'events' : req.body.type === 'host' ? 'user' : '';
+
+  const userSqlQuery = `
+      UPDATE users 
+      SET    
+          approved_host = $2
+      WHERE
+          id = $1
+      `
+
+  const eventSqlParams = [
+      req.body.id,
+      req.body.value,
+  ]
+
+  const eventSqlQuery = `
+      UPDATE events 
+      SET    
+          verified = $2
+      WHERE
+          id = $1
+      `
+
+  const userSqlParams = [
+      req.body.id,
+      req.body.value,
+  ]
+
+  // req.body.type === 'user' ?
+  //   pool.query(
+  //     req.body.type === 
+  //   )
+  // pool
+  // .query(addressSqlQuery, addressSqlParams)
+  // .then((dbRes) => {
+  //     console.log('after address sql')
+  // //   let addressId = dbRes.rows[0].id;
+  // //   console.log("ADDRESS ID IS >>>>>>", addressId);
+  //   // Create Venue
+  //   return pool.query(venueSqlQuery,venueSqlParams);
+  // })
+  // .then(() => {
+  //   res.sendStatus(200);
+  // })
+  // .catch((err) => {
+  //   console.log(`error in add new venue router, ${err}`);
+  //   res.sendStatus(500);
+  // });
+})
 
 module.exports = router;

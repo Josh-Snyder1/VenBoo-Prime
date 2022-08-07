@@ -9,10 +9,15 @@ import EventsToday from "./DashboardComponents/EventsToday";
 import IncomeComponents from "./DashboardComponents/IncomeComponents"
 import StatsCard from "../../ReuseableComponents/StatsCard";
 import StatsByDateCard from "../../ReuseableComponents/StatsByDateCard";
+import './DashboardComponents/DashboardAdmin.css'
 
 // Import used functions
 import EventsInDateRange from "../../Utilities/EventsInDateRange";
 import { AllFutureDates, CurrentWeek, NextSevenDays } from "../../Utilities/SetDateRangeFromDate";
+
+// MUI
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
 // Component that displays the information an admin would see upon login
@@ -53,14 +58,17 @@ function DashboardAdmin() {
 
   return (
       <>
+      <img className="waves" src="../Images/layeredwaves.jpg"/>
         <Grid
           container
           direction="column"
           justifyContent="center"
           alignItems="center"
         >
-          <h2>DASHBOARD!</h2>
-          <p>You are logged in as a <b><u>{user.type}</u></b></p>
+          <DashboardIcon></DashboardIcon>
+          <h1 className="dash">DASHBOARD!</h1>
+          
+          <p className="p_log">You are logged in as a <b><u>{user.type}</u></b></p>
           <Card
             elevation={4}
             sx={{
@@ -103,9 +111,6 @@ function DashboardAdmin() {
 
           </Stack>
         </Grid>
-
-        <Link to="/admin/events">See Events</Link>
-        <Link to="/">See Vendors</Link>
       </>
     )
 }
