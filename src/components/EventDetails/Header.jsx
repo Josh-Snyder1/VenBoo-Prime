@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import moment from "moment";
+import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 // Import the used components
 import Address from "../Contacts/Address";
@@ -87,7 +88,13 @@ function Header({ toggleEdit }) {
       </div>
 
       <div className="header-container">
-
+        <VerificationComponent
+        props={{
+          view: 'page',
+          type: 'event',
+          details: eventDetails
+          }} 
+        />
         <h2>{event.name}</h2>
         <p className="event-date-range">{`${moment(event.start_date).format("MMM Do YYYY")} - ${moment(event.end_date).format("MMM Do YYYY")}`}</p>
 

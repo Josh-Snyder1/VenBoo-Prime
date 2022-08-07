@@ -84,13 +84,13 @@ function EventDetails() {
     <>
     {/* pass through props to tell component rendering on page vs. card
         and to render for an event vs host/vendor */}
-    <VerificationComponent
+    {/* <VerificationComponent
       props={{
         view: 'page',
         type: 'event',
         details: eventDetails
         }} 
-    />
+    /> */}
     {user.type !== 'vendor' &&
       <>
         {editEvent === false ? (
