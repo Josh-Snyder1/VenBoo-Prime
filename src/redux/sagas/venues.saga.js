@@ -18,7 +18,7 @@ function* addVenue(req) {
         yield put ({ type: 'FETCH_VENUES'})
     }
     catch (err) {
-        console.error('error in add venues post', err);
+        console.error('errdor in add venues post', err);
     }
 }
 
@@ -34,7 +34,7 @@ function* deleteVenue(req) {
 
 function* editVenue(req) {
     try{
-        yield axios.put(`/api/venues/${req.payload.id}`,req.payload);
+        yield axios.put(`/api/venues/${req.payload.venueId}`,req.payload);
         yield put ({ type: 'FETCH_VENUES'});
     }
     catch (err) {

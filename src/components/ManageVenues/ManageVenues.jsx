@@ -19,8 +19,24 @@ function ManageVenues() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  dispatch({ type: 'ADD_TAG', payload: {newTag}})
-  e.target.reset();
+  dispatch({ type: 'ADD_VENUE', 
+      payload: {
+        venueName,
+        address,
+        address2,
+        city,
+        state,
+        zip,
+        contactName,
+        contactPhone,
+        contactEmail,
+        website,
+        capacity,
+        notes,
+        latitude,
+        longitude
+      }})
+  setShowAddForm(false);
   };
 
   useEffect(() => {
@@ -32,7 +48,7 @@ function ManageVenues() {
   const [showAddForm, setShowAddForm] = useState(false);
 
   const [venueName, setVenueName] = useState("");
-  const [address1, setAddress1] = useState("");
+  const [address, setAddress] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -43,8 +59,9 @@ function ManageVenues() {
   const [website, setWebsite] = useState("");
   const [notes, setNotes] = useState("");
   const [capacity, setCapacity] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
-  console.log(venues.map((venue)=>{return venue.name}))
 
   return (
     venues.length > 0 &&
@@ -62,24 +79,35 @@ function ManageVenues() {
       <form >
         <br />
         <Autocomplete
+        size="small"
       disablePortal
       id="combo-box-demo"
       freeSolo
       options={venues.map((venue)=>{return venue.name})}
-      sx={{ width: 300 }}
+      sx={{ width: 500 }}
       renderInput={(params) => <TextField onChange={(e) => {setVenueName(e.target.value);}} {...params} label="VenueName" />}
     />
             <br/>
         <TextField
+          size="small"
+          style={{ paddingBottom: 9, paddingTop: 0 }}
+InputLabelProps={{
+    shrink: true,
+  }}
             sx={{ width: 250 }}
             id="outlined-required"
             label="Address 1"
             type="text"
             onChange={(e) => {
-              setAddress1(e.target.value);
+              setAddress(e.target.value);
             }}
             />
         <TextField
+          size="small"
+          style={{ paddingBottom: 9, paddingTop: 0 }}
+          InputLabelProps={{
+              shrink: true,
+            }}
             sx={{ width: 250 }}
             id="outlined-required"
             label="Address 2"
@@ -89,6 +117,11 @@ function ManageVenues() {
             }}
             />
         <TextField
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+InputLabelProps={{
+    shrink: true,
+  }}
             sx={{ width: 250 }}
             id="outlined-required"
             label="City"
@@ -98,7 +131,12 @@ function ManageVenues() {
             }}
             />
         <TextField
-            sx={{ width: 250 }}
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+InputLabelProps={{
+    shrink: true,
+  }}
+            sx={{ width: 85 }}
             id="outlined-required"
             label="State"
             type="text"
@@ -107,7 +145,8 @@ function ManageVenues() {
             }}
             />
         <TextField
-            sx={{ width: 250 }}
+            size="small"
+            sx={{ width: 85 }}
             id="outlined-required"
             label="Zip"
             type="text"
@@ -117,6 +156,11 @@ function ManageVenues() {
             />
             <br/>
         <TextField
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
             sx={{ width: 250 }}
             id="outlined-required"
             label="Contact Name"
@@ -126,7 +170,12 @@ function ManageVenues() {
             }}
             />
         <TextField
-            sx={{ width: 250 }}
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
+            sx={{ width: 150 }}
             id="outlined-required"
             label="Contact Phone"
             type="text"
@@ -135,7 +184,12 @@ function ManageVenues() {
             }}
             />
         <TextField
-            sx={{ width: 250 }}
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
+            sx={{ width: 300 }}
             id="outlined-required"
             label="Contact Email"
             type="text"
@@ -144,7 +198,12 @@ function ManageVenues() {
             }}
             />
         <TextField
-            sx={{ width: 250 }}
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
+            sx={{ width: 300 }}
             id="outlined-required"
             label="Venue Website"
             type="text"
@@ -153,7 +212,12 @@ function ManageVenues() {
             }}
             />
             <TextField
-            sx={{ width: 250 }}
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
+            sx={{ width: 85 }}
             id="outlined-required"
             label="Capacity"
             type="text"
@@ -163,6 +227,11 @@ function ManageVenues() {
             />
             <br />
         <TextField
+            size="small"
+            style={{ paddingBottom: 9, paddingTop: 0 }}
+            InputLabelProps={{
+                shrink: true,
+              }}
             sx={{ width: 500 }}
             id="outlined-required"
             label="Notes"
@@ -171,7 +240,7 @@ function ManageVenues() {
               setNotes(e.target.value);
             }}
             />
-        <Button type="submit" variant="contained" color="primary">
+        <Button onClick={(e) => {handleSubmit(e)}} type="submit" variant="contained" color="primary">
           Add
         </Button>
     </form>
