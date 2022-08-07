@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -67,7 +68,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 /////////////////////// VENDOR && HOST PROFILE FORM ////////////////////////////
 function AddEventForm({ profileInfo, setClicked }) {
   console.log("YEY PROPS PASSED", profileInfo);
-  // const location = useLocation();
+  const location = useLocation();
   // useEffect(() => {
   //   console.log("Passed from history.push()", location.state.detail);
   // }, [location]);
@@ -159,6 +160,9 @@ function AddEventForm({ profileInfo, setClicked }) {
     });
     setTimeout(function () {
       history.push(`/profile/${user.id}`, setClicked(false));
+      document.location.reload();
+
+      // Functions
     }, 2500);
     e.target.reset();
   };

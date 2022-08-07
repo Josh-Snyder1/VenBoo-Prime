@@ -39,7 +39,11 @@ function ProfilePage() {
       {user.id != profileId ? (
         <></>
       ) : clicked === true ? (
-        <AddEventForm profileInfo={profileInfo} setClicked={setClicked} />
+        <AddEventForm
+          profileInfo={profileInfo}
+          setClicked={setClicked}
+          profileId={profileId}
+        />
       ) : (
         <>
           <div className="pageEdit">
