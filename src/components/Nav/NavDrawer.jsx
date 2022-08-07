@@ -189,7 +189,6 @@ export default function NavDrawer() {
 
   return (
     <Box sx={{ display: 'flex', padding:0 }}>
-      <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between'  }}>
       <ClickAwayListener onClickAway={handleDrawerClose}>
         <Toolbar>
