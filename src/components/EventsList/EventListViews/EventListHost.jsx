@@ -1,9 +1,12 @@
 // Imports
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Card, Grid, Stack, Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import EventCardComponent from "./EventListComponents/EventCardComponent";
+
+// MUI Imports
+import { Tabs, Tab, Grid, Button, Stack, Card } from "@mui/material";
 
 // Exported Function Component
 function EventListHost() {
@@ -12,13 +15,45 @@ function EventListHost() {
     const allEvents = useSelector((store) => store.events);
 
     // Local state
-    const [viewList, setViewList] = useState('upcoming');
+    const [viewList, setViewList] = useState('approved');
 
     // Vars
     const todayDate = moment().format('YYYYMMDD');
     const history = useHistory();
+    const approvedEvents = [];
+    const pendingEvents = [];
+    const pastEvents = [];
 
-    console.log(allEvents)
+    // Event listener to show different booth lists and new events.
+    const handleChange = (event, newValue) => {
+        setViewList(newValue);
+    }
+
+    // Filter all Events that fall under approved, pending, and past.
+    for(let event of allEvents) {
+        if(
+            event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) >= Number(todayDate)
+        ){
+            approvedEvents.push(event)
+        }
+        else if(
+            !event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) >= Number(todayDate)
+        ){
+            pendingEvents.push(event)
+        }
+        else if(
+            event.verified
+            &&
+            Number(moment(event.start_date).format('YYYYMMDD')) < Number(todayDate)
+        ){
+            pastEvents.push(event)
+        }
+    }
+    
     // Render
     return (
         <Grid 
@@ -26,10 +61,6 @@ function EventListHost() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{
-                marginBottom: '1em',
-                padding: "1em"
-            }}
             >
                 {allEvents.length === 0 &&
                     <>
@@ -43,37 +74,44 @@ function EventListHost() {
                         </Button>
                     </>
                 }
+                <br/>
+                <h3>Your Events</h3>
+                <br/>
+                <Tabs value={viewList} onChange={handleChange}>
+                    <Tab value="approved" label="Approved"/>
+                    <Tab value="pending" label="Pending"/>
+                    <Tab value="past" label="Past"/>
+                </Tabs>
                 <Stack
                     direction="row"
-                    justifyContent="space-evenly"
+                    justifyContent="center"
                     alignItems="center"
                     spacing={1}
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        marginTop: '2em'
                     }}
                 >
-                    <Button onClick={() => setViewList('')}>Upcoming</Button>
-                    <Button onClick={() => setViewList('pending')}>Pending Verification</Button>
-                    <Button onClick={() => setViewList('past')}>Past</Button>
-                </Stack>
-                <Stack
-                    direction="column"
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                    spacing={1}
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        marginTop: '1em'
-                    }}
-                >
-                {allEvents.map((itemEvent) => {
+                    {viewList === 'approved' &&
+                        <EventCardComponent 
+                            events={approvedEvents}
+                        />
+                    }
+                    {viewList === 'pending' &&
+                        <EventCardComponent 
+                            events={pendingEvents}
+                        />
+                    }
+                    {viewList === 'past' &&
+                        <EventCardComponent 
+                            events={pastEvents}
+                        />
+                    }
+                {/* {allEvents.map((itemEvent) => {
                     if (
                         itemEvent.user_id === user.id
                         &&
-                        viewList === 'upcoming'
+                        viewList === 'approved'
                         &&
                         Number(moment(itemEvent.start_date).format('YYYYMMDD')) >= Number(todayDate)
                         &&
@@ -85,7 +123,10 @@ function EventListHost() {
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{
-                                    padding: "1em"
+                                    padding: "1em",
+                                    margin: '1em',
+                                    width: '350px',
+                                    minHeight: '350px'
                                 }}
                             >
                                 <h4>{itemEvent.name}</h4>
@@ -112,7 +153,10 @@ function EventListHost() {
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{
-                                    padding: "1em"
+                                    padding: "1em",
+                                    margin: '1em',
+                                    width: '350px',
+                                    minHeight: '350px'
                                 }}
                             >
                                 <h4>{itemEvent.name}</h4>
@@ -137,7 +181,10 @@ function EventListHost() {
                                 key={itemEvent.id}
                                 elevation={4}
                                 sx={{
-                                    padding: "1em"
+                                    padding: "1em",
+                                    margin: '1em',
+                                    width: '350px',
+                                    minHeight: '350px'
                                 }}
                             >
                                 <h4>{itemEvent.name}</h4>
@@ -149,7 +196,7 @@ function EventListHost() {
                             </Card>
                         )
                     }
-                })}
+                })} */}
                 </Stack>
             </Grid>
     )
