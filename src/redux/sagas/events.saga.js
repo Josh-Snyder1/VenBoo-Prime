@@ -15,9 +15,21 @@ function* fetchAllEvents() {
 }
 
 
+// Function that gets a single event based on a URL param, including
+// event fields, booths by size, and availability of booths
+function* fetchOneEvent(action) {
+  try {
+    const res = yield axios.get(`/api/events/events-and-booths/${action.payload.eventId}`);
+    yield put({ type: "SET_CURRENT_EVENT", payload: res.data[0] });
+  } catch (err) {
+    console.error(`Error in fetchAllEvents saga with ${err}`);
+  }
+}
+
 // Check for a matching dispatch call
 function* eventsSaga() {
   yield takeLatest("FETCH_ALL_EVENTS", fetchAllEvents);
+  yield takeLatest("FETCH_CURRENT_EVENT", fetchOneEvent)
 }
 
 

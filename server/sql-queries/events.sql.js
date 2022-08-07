@@ -20,6 +20,19 @@ function EventsBoothsSQL(onlyOneRecord=false) {
       "events"."end_date",
       "events"."venue_id",
       "events"."verified",
+      "venues"."id" AS "venue_id",
+      "venues"."name" AS "venue_name",
+      "venues"."capacity" AS "venue_capacity",
+      "venues"."contact_name" AS "venue_contact_person",
+      "venues"."contact_phone" AS "venue_contact_phone_number",
+      "venues"."contact_email" AS "venue_contact_email",
+      "venues"."contact_url" AS "venue_contact_website",
+      "addresses"."id" AS "address_id",
+      "addresses"."address" AS "venue_address",
+      "addresses"."address_2" AS "venue_address_2",
+      "addresses"."city" AS "venue_city",
+      "addresses"."state" AS "venue_state",
+      "addresses"."zipcode" AS "venue_zipcode",
       COALESCE(json_agg(
         DISTINCT jsonb_build_object(
           'id', "booths"."id",
@@ -56,8 +69,12 @@ function EventsBoothsSQL(onlyOneRecord=false) {
       ON "events"."id" = "event_tags"."event_id"
     JOIN "tags"
       ON "tags"."id" = "event_tags"."tag_id"
+    JOIN "venues"
+      ON "venues"."id" = "events"."venue_id"
+    JOIN "addresses"
+      ON "addresses"."id" = "venues"."address_id"
     ${onlyOneRecord ? whereClause : ""}
-    GROUP BY "events"."id"
+    GROUP BY "addresses"."id", "venues"."id", "events"."id"
     ORDER BY "events"."start_date";
   `
 }
@@ -99,6 +116,39 @@ function ReduceFieldsForAdminUser(eventList) {
 }
 
 
+// Function that reduces the information for what the host needs
+function RestructureBoothInformationForAdminAndHostUser(eventList) {
+
+  // Initialize the output array
+  adminEventsArray = []
+
+  // Loop over all the results
+  for (const eventObj of eventList) {
+
+    // Add the booth values together
+    eventObj["total_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.quantity, 0
+    )
+
+    // Add the reserved booth values
+    eventObj["reserved_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.reserved_booths, 0
+    )
+
+    // Add the available booth values together
+    eventObj["available_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.available_booths, 0
+    )
+
+    // Add this updated object to the output array
+    adminEventsArray.push(eventObj)
+  }
+
+// Return the formatted array
+return adminEventsArray
+}
+
+
 // Function that gets a specific event and shows information
 // relating to the booths that are available
 function GetEventsWithConsolidatedBoothInformation(req, res) {
@@ -132,5 +182,41 @@ function GetEventsWithConsolidatedBoothInformation(req, res) {
 }
 
 
+// Function that gets a singular booth based on a URL param
+function GetOneEventWithVerboseBoothInformation(req, res) {
+
+  // Initialize the variable that will store the function
+  // that will be used to create the events list for the user
+  let reduceFunctionByUserType;
+
+  // Set the function based on user-type to be used later
+  // during the database call and response
+  switch (req.user.type) {
+    case "admin":
+    case "host":
+      reduceFunctionByUserType = RestructureBoothInformationForAdminAndHostUser
+      break
+    default:
+      return
+  }
+
+  // Call the database
+  pool.query(EventsBoothsSQL(onlyOneRecord=true), [req.params.id])
+  .then(result => {
+    // Return the formatted result array
+    res.send(
+      reduceFunctionByUserType(result.rows)
+    )
+  })
+  .catch(error => {
+    console.log(`Error on GetEventsWithConsolidatedBoothInformation with ${error}`)
+    res.sendStatus(500)
+  })
+}
+
+
 // Make the function accessible
-module.exports = { GetEventsWithConsolidatedBoothInformation }
+module.exports = {
+  GetEventsWithConsolidatedBoothInformation,
+  GetOneEventWithVerboseBoothInformation
+}

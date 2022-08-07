@@ -11,7 +11,10 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 // Import the used functions
-const { GetEventsWithConsolidatedBoothInformation } = require("../sql-queries/events.sql")
+const {
+  GetEventsWithConsolidatedBoothInformation,
+  GetOneEventWithVerboseBoothInformation
+} = require("../sql-queries/events.sql")
 
 
 // Main route to get the event information.
@@ -352,6 +355,10 @@ router.get("/:id/booth-applications", (req, res) => {
 // Function to get events and booths information
 router.get("/events-and-booths", rejectUnauthenticated, (req, res) => {
   GetEventsWithConsolidatedBoothInformation(req, res)
+})
+
+router.get("/events-and-booths/:id", rejectUnauthenticated, (req, res) => {
+  GetOneEventWithVerboseBoothInformation(req, res)
 })
 
 //duplicate code that is done in the booths.router.js file
