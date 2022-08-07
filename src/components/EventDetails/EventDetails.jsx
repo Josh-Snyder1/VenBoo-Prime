@@ -5,9 +5,10 @@ import { useHistory, useParams } from "react-router-dom";
 
 // Import the used components
 import AvailableBooths from './AvailableBooths/AvailableBooths'
+import ContactButton from '../ReuseableComponents/ContactButton'
 import EditHeader from "./EditHeader";
 import Header from './Header'
-import ContactButton from '../ReuseableComponents/ContactButton'
+import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 // Import the used MUI components
 import Button from "@mui/material/Button";
@@ -22,11 +23,6 @@ import Paper from "@mui/material/Paper";
 
 // Import the local stylesheet
 import "./EventDetails.css";
-
-import AvailableBooths from './AvailableBooths/AvailableBooths'
-import Header from './Header'
-import ContactButton from '../ReuseableComponents/ContactButton'
-import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 // ----------------------------------------------
 // Component that contains all the display components on
