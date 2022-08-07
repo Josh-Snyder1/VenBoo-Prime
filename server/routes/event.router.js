@@ -131,7 +131,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const eventsQuery = `
     INSERT INTO events (user_id, name, description, start_date, end_date, venue_id)
     VALUES ($1, $2, $3, $4, $5, $6 )
-   
+    RETURNING id
     `;
 
   const eventsParams = [
@@ -141,6 +141,14 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     req.body.date[0],
     req.body.date[1],
   ];
+
+  const eventTagsQuery = `
+    INSERT INTO "event_tags" (tag_id, event_id)
+    VALUES ($1, $2)
+    `;
+
+  console.log("SHOULD BE ARRAY OF NUMBERS", req.body.tag);
+  const eventTagsParams = [~~req.body.tag];
 
   pool
     .query(addressesQuery, addressesParams)
@@ -155,6 +163,16 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       console.log("Venue ID IS >>>>>>", venueId);
       // Create the event
       return pool.query(eventsQuery, [...eventsParams, venueId]);
+    })
+    .then((dbRes3) => {
+      let eventId = dbRes3.rows[0].id;
+      console.log(eventId);
+      // post event ids
+      return pool.query(
+        eventTagsParams.map((tag) => {
+          return pool.query(eventTagsQuery, [tag, eventId]);
+        })
+      );
     })
     .then(() => {
       res.sendStatus(200);
@@ -203,7 +221,7 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   const eventId = Number(req.body.eventId);
 
   // UPDATE TAGS
-
+  console.log("UPDATE TAGS", eventId);
   // old tags
   const currentTagsParams = [eventId];
 
@@ -226,6 +244,7 @@ router.put("/", rejectUnauthenticated, (req, res) => {
   let deleteTags = [];
 
   pool.query(currentTagsQuery, currentTagsParams).then((dbRes) => {
+    console.log(req.body.tag);
     // Makes a new array of Old Tags from object with tag_id and id
     const oldTags = Array.from(dbRes.rows, (x) => x.tag_id);
     // Loops over new tags to find new tags to add to DB
@@ -258,7 +277,7 @@ router.put("/", rejectUnauthenticated, (req, res) => {
     }
   });
 
-  console.log('tags', newTags )
+  console.log("tags", newTags);
 
   // UPDATE EVENT, VENUE AND ADDRESS
   pool
