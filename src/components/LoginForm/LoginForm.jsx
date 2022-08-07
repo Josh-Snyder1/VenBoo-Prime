@@ -29,7 +29,6 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
       <Stack
         direction="column"
         justifyContent="center"
@@ -38,6 +37,7 @@ function LoginForm() {
         sx={{
             display: 'flex',
             flexWrap: 'wrap',
+            marginTop: '1em'
         }}
       >
         {errors.loginMessage && (
