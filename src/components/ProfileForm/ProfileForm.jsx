@@ -65,7 +65,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 });
 
 /////////////////////// VENDOR && HOST PROFILE FORM ////////////////////////////
-function AddEventForm({ profileInfo }) {
+function AddEventForm({ profileInfo, setClicked }) {
   console.log("YEY PROPS PASSED", profileInfo);
   // const location = useLocation();
   // useEffect(() => {
@@ -158,7 +158,7 @@ function AddEventForm({ profileInfo }) {
       title: "Profile Saved",
     });
     setTimeout(function () {
-      history.push(`/profile/${user.id}`);
+      history.push(`/profile/${user.id}`, setClicked(false));
     }, 2500);
     e.target.reset();
   };
