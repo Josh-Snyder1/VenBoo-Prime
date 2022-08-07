@@ -16,14 +16,7 @@ function LoginPage() {
     palette: {
       primary: {
         main: '#5246A6',
-      },
-      secondary: {
-        main: '#CEC4F2'
-      },
-      neutral: {
-        main: '#64748B',
-        contrastText: '#fff',
-      },
+      }
     },
   });
 
@@ -56,7 +49,7 @@ function LoginPage() {
           >
             <img 
               src="../Images/venbooColor.png"
-              class="venbooLoginImg"
+              className="venbooLoginImg"
             />
             <LoginForm />
             <Button
