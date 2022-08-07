@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
+// MUI Imports
+import { Stack, Button } from '@mui/material';
+
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,37 +30,59 @@ function LoginForm() {
   return (
     <form className="formPanel" onSubmit={login}>
       <h2>Login</h2>
-      {errors.loginMessage && (
-        <h3 className="alert" role="alert">
-          {errors.loginMessage}
-        </h3>
-      )}
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-end"
+        spacing={1}
+        sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+        }}
+      >
+        {errors.loginMessage && (
+          <h3 className="alert" role="alert">
+            {errors.loginMessage}
+          </h3>
+        )}
+        <div>
+          <label htmlFor="email">
+            Email:&nbsp;
+            <input
+              type="text"
+              name="email"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="password">
+            Password:&nbsp;
+            <input
+              type="password"
+              name="password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+        </div>
+      </Stack>
       <div>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="text"
-            name="email"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <Button
+          variant='contained'
+          className="btn"
+          type="submit" 
+          name="submit" 
+          value="Log In" 
+          sx={{
+            margin: '1em'
+          }}
+        >
+          Log In
+        </Button>
       </div>
     </form>
   );

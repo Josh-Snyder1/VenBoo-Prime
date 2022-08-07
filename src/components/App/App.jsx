@@ -23,7 +23,6 @@ import LoginPage from "../LoginPage/LoginPage";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
-import WelcomePage from "../WelcomePage/WelcomePage";
 import ManageTagsForm from "../ManageTagsForm/ManageTagsForm";
 import VendorListAdmin from "../VendorListAdmin/VendorListAdmin";
 import ManageVenues from "../ManageVenues/ManageVenues";
@@ -42,7 +41,10 @@ function App() {
   return (
     <Router>
       <div>
-        <NavDrawer />
+        {/* Only render nav bar if user is logged in.*/}
+        {user.id &&
+          <NavDrawer />
+        }
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
@@ -139,7 +141,7 @@ function App() {
           </ProtectedRoute>
 
           <Route path="/" exact>
-            {user.id ? <Dashboard /> : <WelcomePage />}
+            {user.id ? <Dashboard /> : <LoginPage/>}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
