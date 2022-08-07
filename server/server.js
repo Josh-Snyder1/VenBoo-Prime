@@ -11,12 +11,11 @@ const userRouter = require("./routes/user.router");
 const eventsRouter = require("./routes/event.router");
 const boothsRouter = require("./routes/booths.router");
 const tagsRouter = require("./routes/tags.router");
-const eventBoothsRouter = require("./routes/eventbooths.router")
-const vendorRouter = require("./routes/vendors.router")
-const adminRouter = require("./routes/admin.router")
-const venuesRouter = require("./routes/venues.router")
-const addressRouter = require("./routes/address.router")
-
+const eventBoothsRouter = require("./routes/eventbooths.router");
+const vendorRouter = require("./routes/vendors.router");
+const adminRouter = require("./routes/admin.router");
+const venuesRouter = require("./routes/venues.router");
+const addressRouter = require("./routes/address.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -35,11 +34,10 @@ app.use("/api/events", eventsRouter);
 app.use("/api/booths", boothsRouter);
 app.use("/api/tags", tagsRouter);
 app.use("/api/eventbooths", eventBoothsRouter);
-app.use("/api/vendors", vendorRouter)
-app.use("/api/admin", adminRouter)
+app.use("/api/vendors", vendorRouter);
+app.use("/api/admin", adminRouter);
 app.use("/api/venues", venuesRouter);
 app.use("/api/address", addressRouter);
-
 
 // Serve static files
 app.use(express.static("build"));
