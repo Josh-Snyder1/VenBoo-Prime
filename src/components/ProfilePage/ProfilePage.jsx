@@ -55,7 +55,6 @@ function ProfilePage() {
               }}
             />
           </div>
-
           <div id="header">
             <h1>{profileInfo.business_name}</h1>
             <Icons profileInfo={profileInfo} />
