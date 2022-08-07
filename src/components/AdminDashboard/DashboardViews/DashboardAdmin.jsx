@@ -103,9 +103,6 @@ function DashboardAdmin() {
 
           </Stack>
         </Grid>
-
-        <Link to="/admin/events">See Events</Link>
-        <Link to="/">See Vendors</Link>
       </>
     )
 }
