@@ -58,7 +58,7 @@ function EventsBoothsSQL(onlyOneRecord=false) {
       ON "tags"."id" = "event_tags"."tag_id"
     ${onlyOneRecord ? whereClause : ""}
     GROUP BY "events"."id"
-    ORDER BY "events"."id";
+    ORDER BY "events"."start_date";
   `
 }
 

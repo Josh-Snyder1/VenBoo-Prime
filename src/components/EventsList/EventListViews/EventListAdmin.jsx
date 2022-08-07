@@ -7,6 +7,7 @@ import { Grid, Stack, Tabs, Tab } from "@mui/material";
 
 // Import the used components
 import EventCardComponent from "./EventListComponents/EventCardComponent";
+import AdminEventCard from "../EventListComponents/AdminEventCard";
 
 // Import used functions
 import { AddDayToDate } from "../../Utilities/SetDateRangeFromDate";
@@ -40,13 +41,28 @@ export default function EventListAdmin() {
   // selected label
   const filterEventByCategory = (allEvents) => {
 
+    // Check what filter type the admin is using
     switch (viewList) {
+
+      // Approved events where the end date is in the future
       case "APPROVED":
-        return allEvents.filter(eventObj => eventObj.verified)
+        return allEvents.filter(eventObj => {
+          return (eventObj.verified) &&
+          (AddDayToDate(eventObj.end_date) > new Date())
+        })
+
+      // Un-approved events where the end date is in the future
       case "PENDING":
-        return allEvents.filter(eventObj => !eventObj.verified)
+        return allEvents.filter(eventObj => {
+          return (!eventObj.verified) &&
+          (AddDayToDate(eventObj.end_date) > new Date())
+        })
+
+      // Any event that is in the past
       case "PAST":
         return allEvents.filter(eventObj => AddDayToDate(eventObj.end_date) < new Date())
+
+      // Default case
       default:
         return allEvents
     }
@@ -57,59 +73,36 @@ export default function EventListAdmin() {
   return (
 
     <>
-    {filterEventByCategory(allEvents).map(event => {
+    <Grid 
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        padding: "1em"
+      }}
+    >
+      <br/>
+      <h3>Events List</h3>
+      <br/>
+      <Tabs value={viewList} onChange={handleChange}>
+        <Tab value="APPROVED" label="Approved"/>
+        <Tab value="PENDING" label="Pending"/>
+        <Tab value="PAST" label="Past"/>
+        <Tab value="NEW_EVENTS" label="New Events"/>
+      </Tabs>
+      
+      {filterEventByCategory(allEvents).map(event => {
 
-      // Build the event list blocks
-      return(
-        <EventCardComponent
-          key={event.id}
-          event={event} />
-      )
-    })}
+        // Build the event list blocks
+        return(
+          <AdminEventCard
+          // <EventCardComponent
+            key={event.id}
+            event={event} />
+        )
+      })}
+    </Grid>
     </>
-
-    // <Grid 
-    //   container
-    //   direction="column"
-    //   justifyContent="center"
-    //   alignItems="center"
-    //   sx={{
-    //     padding: "1em"
-    //   }}
-    // >
-    //   <br/>
-    //   <h3>Events List</h3>
-    //   <br/>
-    //   <Tabs value={viewList} onChange={handleChange}>
-    //     <Tab value="APPROVED" label="Approved"/>
-    //     <Tab value="PENDING" label="Pending"/>
-    //     <Tab value="PAST" label="Past"/>
-    //     <Tab value="NEW_EVENTS" label="New Events"/>
-    //   </Tabs>
-    //   <Stack
-    //     direction="row"
-    //     justifyContent="space-evenly"
-    //     alignItems="center"
-    //     spacing={1}
-    //     sx={{
-    //       display: 'flex',
-    //       flexWrap: 'wrap',
-    //       margin: '1em'
-    //     }}
-    //   >
-
-    //     {/* Filters the events list by the user selected category up top */}
-    //     {filterEventByCategory(allEvents).map(event => {
-
-    //       // Build the event list blocks
-    //       return(
-    //         <EventCardComponent
-    //           key={event.id}
-    //           event={event} />
-    //       )
-    //     })}
-        
-    //   </Stack>
-    // </Grid>
   )
 }
