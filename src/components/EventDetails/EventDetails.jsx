@@ -33,6 +33,7 @@ function EventDetails() {
   const eventBoothDetails = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
   const events = useSelector((store) => store.events);
+  const event = useSelector(store => store.eventsContainer.currentEvent)
 
   // Local State
   const [viewList, setViewList] = useState("");
@@ -53,7 +54,7 @@ function EventDetails() {
         eventId: eventId,
       }
     })
-  })
+  }, [eventId])
 
   useEffect(() => {
     dispatch({

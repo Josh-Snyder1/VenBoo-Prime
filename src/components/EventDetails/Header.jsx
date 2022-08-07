@@ -4,12 +4,19 @@ import { useState, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import moment from "moment";
 
+// Import the used components
+import Address from "../Contacts/Address";
+import AvailableBooths from "../EventsList/EventListComponents/AvailableBooths";
+import DisplayTags from "../Tags/DisplayTags";
+
+
 function Header({ toggleEdit }) {
   const { eventId } = useParams();
   const dispatch = useDispatch();
 
   // REDUX STORE
   const events = useSelector((store) => store.events);
+  const event = useSelector(store => store.eventsContainer.currentEvent)
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
@@ -33,6 +40,7 @@ function Header({ toggleEdit }) {
   //   total = total + booth.quantity;
   // }
   console.log("BOOTHS ARE BOOOO>>", eventDetails);
+  console.log(">>>>>", event)
   for (const booth of eventDetails.booths) {
     total = total + booth.quantity;
   }
@@ -64,58 +72,53 @@ function Header({ toggleEdit }) {
 
   return (
     <>
-      {
-        <div className="pageEdit">
-          <EditIcon
-            sx={{
-              cursor: "pointer",
-              marginRight: "5px",
-              position: "absolute",
-              display: "flex",
-            }}
-            onClick={() => {
-              toggleEdit();
-            }}
-          />
+      <div className="pageEdit">
+        <EditIcon
+          sx={{
+            cursor: "pointer",
+            marginRight: "5px",
+            position: "absolute",
+            display: "flex",
+          }}
+          onClick={() => {
+            toggleEdit();
+          }}
+        />
+      </div>
+
+      <div className="header-container">
+
+        <h2>{event.name}</h2>
+        <p className="event-date-range">{`${moment(event.start_date).format("MMM Do YYYY")} - ${moment(event.end_date).format("MMM Do YYYY")}`}</p>
+
+        <div className="event-detail-container">
+          <div className="venue-card">
+
+            <p className="venue-name">{event.venue_name}</p>
+            <div className="venue-address-block">
+              <Address
+                address={event.venue_address}
+                address_2={event.venue_address_2}
+                city={event.venue_city}
+                state={event.venue_state}
+                zipcode={event.venue_zipcode}
+              />
+            </div>
+
+          </div>
+
+          <div className="event-booth-stats">
+            <AvailableBooths event={event} />
+          </div>
+
         </div>
-      }
 
-      {eventDetails && (
-        <ul>
-          <h2> {eventDetails.name} </h2>
-          <br />
-          <div className="eventAddress">
-            {moment(eventDetails.start_date).format("MMMM Do")} -{" "}
-            {moment(eventDetails.end_date).format("MMMM Do YYYY")}
-            <br />
-            {eventDetails.venue}
-            {address.address},&nbsp;{address.city},&nbsp;{address.state}
-            &nbsp;
-            {address.zipcode}
-          </div>
+        <div className="event-booth-tags">
+          <DisplayTags tags={event.tags} />
+        </div>
 
-          <div className="eventTags">
-            {selectedTags.map((tagName) => {
-              return (
-                <>
-                  {" "}
-                  <p>{tagName.name}</p>{" "}
-                </>
-              );
-            })}
-          </div>
 
-          <div className="eventBoothStats">
-            <br />
-            Total Approved Booths: {Approved}
-            <br />
-            Pending Booths: {Pending}
-            <br />
-            Avalible: {Available}
-            <br />
-          </div>
-        </ul>
-      )}
+      </div>
     </>
   );
 }
