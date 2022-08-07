@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
@@ -64,10 +65,17 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 });
 
 /////////////////////// VENDOR && HOST PROFILE FORM ////////////////////////////
-function AddEventForm() {
+function AddEventForm({ profileInfo }) {
+  console.log("YEY PROPS PASSED", profileInfo);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   console.log("Passed from history.push()", location.state.detail);
+  // }, [location]);
+
   const dispatch = useDispatch();
   const Swal = require("sweetalert2");
   const history = useHistory();
+
   // REDUX STORE
   const tags = useSelector((store) => store.tags);
   const user = useSelector((store) => store.user);
@@ -93,11 +101,11 @@ function AddEventForm() {
   const [BuisnessName, setBuisnessName] = useState(user.business_name);
   const [description, setdescription] = useState(user.description);
   // ADDRESS
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState();
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [phone, setTelephone] = useState("");
+  const [address, setAddress] = useState(profileInfo.address);
+  const [city, setCity] = useState(profileInfo.city);
+  const [state, setState] = useState(profileInfo.state);
+  const [zip, setZip] = useState(profileInfo.zipcode);
+  const [phone, setTelephone] = useState(profileInfo.phone);
   // SOCIAL MEDIA
   const [website, setWebsite] = useState(user.main_url);
   const [linkedIn, setLinkedIn] = useState(user.linkedin_url);
@@ -250,6 +258,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={city}
             sx={{ width: 320 }}
             type="text"
             id="outlined-required"
@@ -263,6 +272,7 @@ function AddEventForm() {
           <FormControl>
             <InputLabel id="state-select-label">State</InputLabel>
             <Select
+              defaultValue={state}
               sx={{ width: 320 }}
               labelId="state-select-label"
               id="state-select"
@@ -327,6 +337,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={zip}
             sx={{ width: 320 }}
             type="tel"
             id="outlined-required"
@@ -338,6 +349,7 @@ function AddEventForm() {
           <br />
           <br />
           <TextField
+            defaultValue={phone}
             sx={{ width: 320 }}
             type="tel"
             id="outlined-required"

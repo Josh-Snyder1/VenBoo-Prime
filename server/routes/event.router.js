@@ -148,7 +148,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     `;
 
   console.log("SHOULD BE ARRAY OF NUMBERS", req.body.tag);
-  const eventTagsParams = [~~req.body.tag];
 
   pool
     .query(addressesQuery, addressesParams)
@@ -168,9 +167,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       let eventId = dbRes3.rows[0].id;
       console.log(eventId);
       // post event id
-        return req.body.tag.map((tag) => {
-          return pool.query(eventTagsQuery, [tag, eventId]);
-        })
+      return req.body.tag.map((tag) => {
+        return pool.query(eventTagsQuery, [tag, eventId]);
+      });
     })
     .then(() => {
       res.sendStatus(200);

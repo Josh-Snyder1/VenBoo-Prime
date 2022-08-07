@@ -42,9 +42,7 @@ function App() {
     <Router>
       <div>
         {/* Only render nav bar if user is logged in.*/}
-        {user.id &&
-          <NavDrawer />
-        }
+        {user.id && <NavDrawer />}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
@@ -87,11 +85,7 @@ function App() {
           </ProtectedRoute> */}
 
           <ProtectedRoute path="/allvendors" exact>
-            {user.type === 'admin' ?
-              <VendorListAdmin />
-              :
-              <Redirect to="/" />
-            }
+            {user.type === "admin" ? <VendorListAdmin /> : <Redirect to="/" />}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -133,15 +127,11 @@ function App() {
           </Route>
 
           <ProtectedRoute path="/admin/events" exact>
-            {user.type === 'admin' ?
-              <EventListAdmin />
-              :
-              <Redirect to="/" />
-            }
+            {user.type === "admin" ? <EventListAdmin /> : <Redirect to="/" />}
           </ProtectedRoute>
 
           <Route path="/" exact>
-            {user.id ? <Dashboard /> : <LoginPage/>}
+            {user.id ? <Dashboard /> : <LoginPage />}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
