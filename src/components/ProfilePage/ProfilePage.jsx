@@ -20,6 +20,7 @@ function ProfilePage() {
   const [profileInfo, setProfileInfo] = useState({});
   const [clicked, setClicked] = useState();
   console.log(clicked);
+
   // Vars
   const history = useHistory();
   const profileId = useParams().id;
@@ -38,7 +39,11 @@ function ProfilePage() {
       {user.id != profileId ? (
         <></>
       ) : clicked === true ? (
-        <AddEventForm profileInfo={profileInfo} />
+        <AddEventForm
+          profileInfo={profileInfo}
+          setClicked={setClicked}
+          profileId={profileId}
+        />
       ) : (
         <>
           <div className="pageEdit">
