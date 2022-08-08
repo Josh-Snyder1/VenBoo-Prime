@@ -158,31 +158,15 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
 
   console.log('in usersverificatio.router.put', req.body)
 
-  const table = req.body.type === 'event' ? 'events' : req.body.type === 'host' ? 'user' : '';
+  // const table = req.body.type === 'event' ? 'events' : req.body.type === 'host' ? 'user' : '';
 
-  const SqlQuery = 
-    req.body.type === 'user' ?
-    `
+  const userSqlQuery = `
       UPDATE users 
       SET    
           approved_host = $2
       WHERE
           id = $1
-      `
-    :
-    req.body.type === 'event' &&
-    `
-    UPDATE events 
-    SET    
-        verified = $2
-    WHERE
-        id = $1
-    `;
-
-  const eventSqlParams = [
-      req.body.id,
-      req.body.value,
-  ]
+      `;
 
   const eventSqlQuery = `
       UPDATE events 
@@ -190,35 +174,30 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
           verified = $2
       WHERE
           id = $1
-      `
+      `;
 
-  const userSqlParams = [
+  if (req.body.type === 'host') {
+    sqlQuery = userSqlQuery;
+  } else if (req.body.type === 'event') {
+    sqlQuery = eventSqlQuery;
+  };
+
+
+  const sqlParams = [
       req.body.id,
       req.body.value,
   ]
 
-  console.log('sqlQuery', sqlQuery)
+console.log('testing sqlQuery', sqlQuery)
 
-  // req.body.type === 'user' ?
-  //   pool.query(
-  //     req.body.type === 
-  //   )
-  // pool
-  // .query(addressSqlQuery, addressSqlParams)
-  // .then((dbRes) => {
-  //     console.log('after address sql')
-  // //   let addressId = dbRes.rows[0].id;
-  // //   console.log("ADDRESS ID IS >>>>>>", addressId);
-  //   // Create Venue
-  //   return pool.query(venueSqlQuery,venueSqlParams);
-  // })
-  // .then(() => {
-  //   res.sendStatus(200);
-  // })
-  // .catch((err) => {
-  //   console.log(`error in add new venue router, ${err}`);
-  //   res.sendStatus(500);
-  // });
+pool.query( sqlQuery, sqlParams )
+.then(dbRes => {
+    res.sendStatus(201)
+})
+.catch(err => {
+    console.error(err);
+    res.sendStatus(500);
+})
 })
 
 module.exports = router;

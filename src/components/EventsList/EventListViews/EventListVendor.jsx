@@ -84,6 +84,9 @@ function EventListVendor() {
             direction="column"
             justifyContent="center"
             alignItems="center"
+            sx={{
+                backgroundColor: "#CEC4F2"
+            }}
         >
             <br/>
             <h3>Your Booths</h3>

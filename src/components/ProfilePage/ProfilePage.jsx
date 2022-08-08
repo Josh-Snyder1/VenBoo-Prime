@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import Icons from "../Icons/Icons";
-import EditIcon from "@mui/icons-material/Edit";
 import ContactButton from "../ReuseableComponents/ContactButton";
 import AddEventForm from "../ProfileForm/ProfileForm";
 import "./Etsy.png";
 import "./ProfilePage.css";
+
+// MUI Imports
+import EditIcon from "@mui/icons-material/Edit";
+import { Card, Grid, Stack } from "@mui/material";
 
 // Exported Component Function
 
@@ -32,12 +35,24 @@ function ProfilePage() {
     });
   }, [profileId]);
 
-  console.log("this is profileinfo", profileInfo);
+  console.log('this is profileinfo', profileInfo)
   // Render
   return (
     <>
       {user.id != profileId ? (
-        <></>
+        <> <div id="header">
+        <h1>{profileInfo.business_name}</h1>
+        <Icons profileInfo={profileInfo} />
+        <br />
+        <ContactButton
+          contactProps={{
+            emails: profileInfo.email,
+            buttonText: "CONTACT US",
+          }}
+        />
+        <br />
+        <p>{profileInfo.description}</p>
+      </div></>
       ) : clicked === true ? (
         <AddEventForm
           profileInfo={profileInfo}
@@ -45,35 +60,77 @@ function ProfilePage() {
           profileId={profileId}
         />
       ) : (
-        <>
-          <div className="pageEdit">
-            <EditIcon
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Card 
+            id="header"
+            elevation={4}
+            sx={{
+              padding: '2em',
+              margin: '2em',
+              minWidth: '350px',
+              maxWidth: '350px'
+            }}
+          >
+            <div className="pageEdit">
+              <EditIcon
+                sx={{
+                  cursor: "pointer",
+                  marginLeft: "1.5em",
+                  marginTop: "-1em",
+                  position: "absolute",
+                  display: "flex",
+                }}
+                onClick={() => {
+                  setClicked(true);
+                  console.log(clicked);
+                }}
+              />
+            </div>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
               sx={{
-                cursor: "pointer",
-                marginRight: "5px",
-                position: "absolute",
-                display: "flex",
+                  display: 'flex',
+                  flexWrap: 'wrap',
               }}
-              onClick={() => {
-                setClicked(true);
-                console.log(clicked);
-              }}
-            />
-          </div>
-          <div id="header">
-            <h1>{profileInfo.business_name}</h1>
-            <Icons profileInfo={profileInfo} />
-            <br />
-            <ContactButton
-              contactProps={{
-                emails: profileInfo.email,
-                buttonText: "CONTACT US",
-              }}
-            />
-            <br />
-            <p>{profileInfo.description}</p>
-          </div>
-        </>
+            >
+              <div>
+                <h1>{profileInfo.business_name}</h1>
+                <Icons profileInfo={profileInfo} />
+                <br />
+                <ContactButton
+                  contactProps={{
+                    emails: profileInfo.email,
+                    buttonText: "Email Us",
+                  }}
+                />
+                <br/>
+                <br/>
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                  spacing={1}
+                  sx={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                  }}
+                >
+                  <h4>Phone: {profileInfo.phone}</h4>
+                  <h4>Location: {profileInfo.city}, {profileInfo.state}</h4>
+                  <h4>About Us: {profileInfo.description}</h4>
+                </Stack>
+              </div>
+            </Stack>
+          </Card>
+        </Grid>
       )}
     </>
   );

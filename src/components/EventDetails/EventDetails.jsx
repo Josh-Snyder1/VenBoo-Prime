@@ -106,7 +106,7 @@ function EventDetails() {
           eventDetails={eventDetails}
         />
       ) : (
-        eventDetails && <Header event={eventDetails} toggleEdit={toggleEdit} />
+        eventDetails && <Header toggleEdit={toggleEdit} eventDetails={eventDetails} />
       )}
       </>
     }

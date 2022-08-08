@@ -62,6 +62,9 @@ function EventListHost() {
             direction="column"
             justifyContent="center"
             alignItems="center"
+            sx={{
+                backgroundColor: "#CEC4F2"
+            }}
             >
                 {allEvents.length === 0 &&
                     <>

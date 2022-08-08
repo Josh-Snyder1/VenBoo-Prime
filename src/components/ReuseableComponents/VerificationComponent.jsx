@@ -14,13 +14,13 @@ function VerificationComponent({props}) {
 
     const user = useSelector((store) => store.user);
 
-    const event = useSelector(store => store.eventsContainer.currentEvent)
+    //const event = useSelector(store => store.eventsContainer.currentEvent)
 
     console.log(event)
 
     // event details of this specific event OR user details
     const details = props?.details;
-    // render of event vs user
+    // send sql to update event vs user
     const renderType = props.type;
     // render of page vs card
     const view = props.view;
@@ -58,8 +58,8 @@ function VerificationComponent({props}) {
             </Stack>
         </>
     :
-    user?.type === 'vendor' || user?.type === 'host' && event.verified === false ?
-        <Stack sx={{display:'flex', flexDirection: 'row-reverse'}} direction="row" spacing={1}>
+    user?.type === 'vendor' || user?.type === 'host' && details?.verified === false ?
+        <Stack sx={{display:'flex'}} direction="row" spacing={1}>
             <Alert variant="filled" severity="info" sx={{margin: 2}}>
                 Not Verified
             </Alert>
@@ -68,8 +68,8 @@ function VerificationComponent({props}) {
     user?.type !== 'admin' ?
     <></>
     :
-    user?.type === 'admin' && event.verified === false ?
-        <Stack sx={{ width: '100%', padding: 3, borderRadius:5 }} spacing={2}>
+    user?.type === 'admin' && details?.verified === false ?
+        <Stack sx={{ width: '100%', padding: 3, borderRadius:5, display: 'flex' }} spacing={2}>
         <Alert severity="warning" >
             This Event is not Verified! - Do you wish to verify it?
             <Button sx={{marginLeft: 10}}

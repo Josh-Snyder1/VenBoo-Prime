@@ -13,12 +13,7 @@ import VenueContact from "./VenueContact";
 import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 
-// Component that shows the header of the host
-export default function Header({ event, toggleEdit }) {
-
-  console.log(event,"????")
-
-  // Get the event ID from the URL parameters
+function Header({ toggleEdit, eventDetails }) {
   const { eventId } = useParams();
   // Initialize the dispatch function
   const dispatch = useDispatch();
@@ -29,10 +24,60 @@ export default function Header({ event, toggleEdit }) {
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_CURRENT_EVENT", payload: {eventId} });
-  // }, []);
+  console.log('in header', event)
+  useEffect(() => {
+    dispatch({ type: "FETCH_TAGS" });
+  }, []);
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_CURRENT_EVENT", payload: {eventId} });
+  }, []);
+
+  let Pending = 0;
+  let Approved = 0;
+  let Available = 0;
+  let total = 0;
+
+  // let eventDetails = events.filter((event) => {
+  //   if (event.id === Number(eventId)) {
+  //     return event;
+  //   }
+  // });
+  // eventDetails = eventDetails.pop();
+
+  // for (const booth of eventDetails.booths) {
+  //   total = total + booth.quantity;
+  // }
+  // console.log("BOOTHS ARE BOOOO>>", eventDetails);
+  // console.log(">>>>>", event)
+  // for (const booth of eventDetails.booths) {
+  //   total = total + booth.quantity;
+  // }
+  for (const booth of boothApplications) {
+    // Checks to see if the booth is approved and If it belongs to the current user
+    // Renders total Approved and total Pending booths quantity
+
+    if (Number(eventId) === booth.event_id) {
+      if (booth.approved_by_host === "PENDING") {
+        Pending += booth.quantity;
+      }
+      if (booth.approved_by_host === "APPROVED") {
+        Approved += booth.quantity;
+      }
+    }
+    // total = Pending + Approved;
+    // Available = total - Approved;
+  }
+  Available = total - Approved;
+  console.log(total);
+  // total = totalbooth.quantity;
+  // const booths = eventDetails.booths;
+
+  // total = total;
+
+  const address = eventDetails?.address[0];
+
+  const selectedTags = eventDetails?.tags;
 
   return (
     <>
