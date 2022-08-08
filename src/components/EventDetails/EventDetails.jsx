@@ -32,7 +32,7 @@ function EventDetails() {
   // Stores
   const eventBoothDetails = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
-  // const events = useSelector((store) => store.events);
+  const events1 = useSelector((store) => store.events);
   const events = useSelector(store => store.eventsContainer.allEvents)
   const event = useSelector(store => store.eventsContainer.currentEvent)
 
@@ -44,7 +44,7 @@ function EventDetails() {
   const { eventId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  let eventDetails = events
+  let eventDetails = events1
     .filter((event) => event.id === Number(eventId))
     .pop();
 
