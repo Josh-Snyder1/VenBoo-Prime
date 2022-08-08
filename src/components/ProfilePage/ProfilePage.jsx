@@ -37,7 +37,19 @@ function ProfilePage() {
   return (
     <>
       {user.id != profileId ? (
-        <></>
+        <> <div id="header">
+        <h1>{profileInfo.business_name}</h1>
+        <Icons profileInfo={profileInfo} />
+        <br />
+        <ContactButton
+          contactProps={{
+            emails: profileInfo.email,
+            buttonText: "CONTACT US",
+          }}
+        />
+        <br />
+        <p>{profileInfo.description}</p>
+      </div></>
       ) : clicked === true ? (
         <AddEventForm
           profileInfo={profileInfo}
