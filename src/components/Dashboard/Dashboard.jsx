@@ -25,7 +25,8 @@ export default function Dashboard() {
     return (
       
       <section className="landing_page" >
-        <img className="venboo_img" src='../Images/venboo.png'/>
+        <EventsList />
+        {/* <img className="venboo_img" src='../Images/venboo.png'/>
 
         <div className="curved_upper">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#CEC4F2" fillOpacity="1" d="M0,32L48,64C96,96,192,160,288,176C384,192,480,160,576,128C672,96,768,64,864,80C960,96,1056,160,1152,192C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
@@ -36,13 +37,12 @@ export default function Dashboard() {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fillOpacity="1" d="M0,32L48,64C96,96,192,160,288,176C384,192,480,160,576,128C672,96,768,64,864,80C960,96,1056,160,1152,192C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
 
         </div>
-        <EventsList />
         <p className="venboo_description" >Focus on Passion</p>
         <p className="summary_ven">Venboo simplifies the vendor booking process so you can focus more on what matters to you.</p>
         <img className="booth_img" src="../Images/booths.png" />
         
         <br />
         
-       
+        */}
       </section>
     )}}

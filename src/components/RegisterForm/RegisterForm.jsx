@@ -50,7 +50,19 @@ const theme = createTheme({
   return (
     <ThemeProvider theme={theme}>
       <form className="formPanel" onSubmit={registerUser}>
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            marginTop: '1em'
+        }}
+      >
         <h2>Register User</h2>
+      </Stack>
         <Stack
           direction="column"
           justifyContent="center"
@@ -115,7 +127,6 @@ const theme = createTheme({
               margin: '1em'
           }}
         >
-          <br/>
           <h4>Select a user type:</h4>
           <Tabs 
               value={userType} 
@@ -125,10 +136,8 @@ const theme = createTheme({
               <Tab value="vendor" label="Vendor"/>
               <Tab value="host" label="Host"/>
             </Tabs>
-        </Stack>
-        <br/>
-        <div>
-          <Button
+            <br/>
+            <Button
             variant='contained'
             className="btn" 
             type="submit" 
@@ -138,8 +147,7 @@ const theme = createTheme({
           >
             Register
           </Button>
-        </div>
-        <br/>
+        </Stack>
       </form>
     </ThemeProvider>
     

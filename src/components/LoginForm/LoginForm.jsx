@@ -70,7 +70,17 @@ function LoginForm() {
           </label>
         </div>
       </Stack>
-      <div>
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            marginTop: '1em'
+        }}
+      >
         <Button
           variant='contained'
           className="btn"
@@ -83,7 +93,7 @@ function LoginForm() {
         >
           Log In
         </Button>
-      </div>
+      </Stack>
     </form>
   );
 }
