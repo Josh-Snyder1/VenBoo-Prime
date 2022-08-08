@@ -20,6 +20,11 @@ function EventsBoothsSQL(onlyOneRecord=false) {
       "events"."end_date",
       "events"."venue_id",
       "events"."verified",
+      "user"."first_name" AS "host_first_name",
+      "user"."last_name" AS "host_last_name",
+      "user"."email" AS "host_email",
+      "user"."phone" AS "host_phone",
+      "user"."main_url" AS "host_website",
       "venues"."id" AS "venue_id",
       "venues"."name" AS "venue_name",
       "venues"."capacity" AS "venue_capacity",
@@ -73,8 +78,10 @@ function EventsBoothsSQL(onlyOneRecord=false) {
       ON "venues"."id" = "events"."venue_id"
     JOIN "addresses"
       ON "addresses"."id" = "venues"."address_id"
+    JOIN "user"
+      ON "user"."id" = "events"."user_id"
     ${onlyOneRecord ? whereClause : ""}
-    GROUP BY "addresses"."id", "venues"."id", "events"."id"
+    GROUP BY "addresses"."id", "venues"."id", "events"."id", "user"."id"
     ORDER BY "events"."start_date";
   `
 }
@@ -149,6 +156,55 @@ return adminEventsArray
 }
 
 
+// Function that reduces the information for what the host needs
+function RestructureBoothInformationForStandardUser(eventList) {
+
+  // Initialize the output array
+  adminEventsArray = []
+
+  // Loop over all the results
+  for (const eventObj of eventList) {
+
+    // Add the booth values together
+    eventObj["total_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.quantity, 0
+    )
+
+    // Add the reserved booth values
+    eventObj["reserved_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.reserved_booths, 0
+    )
+
+    // Add the available booth values together
+    eventObj["available_booths"] = eventObj.booths.reduce(
+      (value, boothObj) => value + boothObj.available_booths, 0
+    )
+
+    // Remove specific contact information for standard users (vendors)
+    const keyValuesToRemove = [
+      "host_first_name",
+      "host_last_name",
+      "host_email",
+      "host_phone",
+      "host_website",
+      "venue_capacity",
+      "venue_contact_person",
+      "venue_contact_phone_number",
+      "venue_contact_email",
+      "venue_contact_website"
+    ]
+    // Remove the specified values from the object
+    keyValuesToRemove.forEach(e => delete eventObj[e])
+
+    // Add this updated object to the output array
+    adminEventsArray.push(eventObj)
+  }
+
+// Return the formatted array
+return adminEventsArray
+}
+
+
 // Function that gets a specific event and shows information
 // relating to the booths that are available
 function GetEventsWithConsolidatedBoothInformation(req, res) {
@@ -192,12 +248,16 @@ function GetOneEventWithVerboseBoothInformation(req, res) {
   // Set the function based on user-type to be used later
   // during the database call and response
   switch (req.user.type) {
+
+    // `admin` and `host` get access to contact information
     case "admin":
     case "host":
       reduceFunctionByUserType = RestructureBoothInformationForAdminAndHostUser
       break
+
+    // `vendors` do not get contact information
     default:
-      return
+      reduceFunctionByUserType = RestructureBoothInformationForStandardUser
   }
 
   // Call the database

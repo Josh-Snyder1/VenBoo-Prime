@@ -1,13 +1,21 @@
 @import "./_reset.css";
 
 :root {
+  --clr-gray: hsl(0, 0%, 95%);
+  --clr-primary-light: hsl(253, 64%, 86%);
+  --clr-primary: hsl(248, 43%, 56%);
+  --clr-primary-dark: hsl(248, 41%, 46%);
+  --clr-shadow: hsl(0, 0%, 86%);
+  --clr-white: hsl(0, 0%, 100%);
 }
 
 .header-container {
   margin: 0 2ch;
-  border-radius: 4px;
+  border: 8px solid var(--clr-primary);
+  border-radius: 16px;
   padding: 5ch;
-  box-shadow: 0px 0px 12px rgb(224, 224, 224);
+  box-shadow: 0px 0px 12px var(--clr-primary-dark);
+  background-color: var(--clr-white);
 }
 
 .header-container h2 {

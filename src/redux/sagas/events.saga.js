@@ -20,7 +20,10 @@ function* fetchAllEvents() {
 function* fetchOneEvent(action) {
   try {
     const res = yield axios.get(`/api/events/events-and-booths/${action.payload.eventId}`);
-    yield put({ type: "SET_CURRENT_EVENT", payload: res.data[0] });
+    // Check that data was returned
+    if (res.data[0]) {
+      yield put({ type: "SET_CURRENT_EVENT", payload: res.data[0] });
+    }
   } catch (err) {
     console.error(`Error in fetchAllEvents saga with ${err}`);
   }
