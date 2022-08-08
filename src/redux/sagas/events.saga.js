@@ -30,10 +30,25 @@ function* fetchOneEvent(action) {
   }
 }
 
+
+// Function that allows admins to verify a host event
+function* submitVerification(req) {
+  console.log("Okay...", req)
+  try{
+    console.log('in submit verification saga', req.payload)
+    yield axios.put(`/api/events/verification/${req.payload.id}`,req.payload);
+    yield put({ type: "FETCH_CURRENT_EVENT", payload: {id: req.payload.id}})
+  }
+  catch (err) {
+      console.error('error in edit user verification saga', err)
+  }
+}
+
 // Check for a matching dispatch call
 function* eventsSaga() {
   yield takeLatest("FETCH_ALL_EVENTS", fetchAllEvents);
   yield takeLatest("FETCH_CURRENT_EVENT", fetchOneEvent)
+  yield takeLatest("SUBMIT_VERIFICATION", submitVerification);
 }
 
 

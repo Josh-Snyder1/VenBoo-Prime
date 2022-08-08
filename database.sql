@@ -144,8 +144,3 @@ CREATE TABLE "event_tags" (
 	"tag_id" INTEGER REFERENCES "tags" ON DELETE CASCADE,
 	UNIQUE ("event_id", "tag_id")
 );
-
-
-return eventTagsParams.map((tag)=>{ 
-	return pool.query(eventsQuery, tag)
-})

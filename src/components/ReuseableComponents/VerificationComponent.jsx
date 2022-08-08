@@ -14,6 +14,10 @@ function VerificationComponent({props}) {
 
     const user = useSelector((store) => store.user);
 
+    const event = useSelector(store => store.eventsContainer.currentEvent)
+
+    console.log(event)
+
     // event details of this specific event OR user details
     const details = props?.details;
     // render of event vs user
@@ -25,7 +29,7 @@ function VerificationComponent({props}) {
     console.log('type/view', renderType, view)
 
     function handleVerify() {
-        console.log('handleVerify', details.id)
+        console.log('handleVerify', event.id)
         Swal.fire({
             title: `Verify this ${renderType}?`,
             icon: 'question',
@@ -35,7 +39,7 @@ function VerificationComponent({props}) {
             showCancelButton: true
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch({ type: 'SUBMIT_VERIFICATION', payload: {id: details.id, type: renderType, value: true}})
+              dispatch({ type: 'SUBMIT_VERIFICATION', payload: {id: event.id}})
               Swal.fire('Request Submitted!', '', 'success')
             } else if (result.isDenied) {
               Swal.fire('Changes are not saved', '', 'info')
@@ -45,7 +49,7 @@ function VerificationComponent({props}) {
 
     return (
         <>
-    {user?.type === 'vendor' || 'host' && details?.verified === true ? 
+    {user?.type === 'vendor' || 'host' && event.verified === true ? 
         <>
             <Stack sx={{display:'flex'}} direction="row" spacing={1}>
                 <Alert variant="filled" severity="success" sx={{margin: 2}}>
@@ -54,7 +58,7 @@ function VerificationComponent({props}) {
             </Stack>
         </>
     :
-    user?.type === 'vendor' || user?.type === 'host' && details?.verified === false ?
+    user?.type === 'vendor' || user?.type === 'host' && event.verified === false ?
         <Stack sx={{display:'flex', flexDirection: 'row-reverse'}} direction="row" spacing={1}>
             <Alert variant="filled" severity="info" sx={{margin: 2}}>
                 Not Verified
@@ -64,7 +68,7 @@ function VerificationComponent({props}) {
     user?.type !== 'admin' ?
     <></>
     :
-    user?.type === 'admin' && details?.verified === false ?
+    user?.type === 'admin' && event.verified === false ?
         <Stack sx={{ width: '100%', padding: 3, borderRadius:5 }} spacing={2}>
         <Alert severity="warning" >
             This Event is not Verified! - Do you wish to verify it?

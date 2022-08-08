@@ -13,6 +13,7 @@ function EventListHost() {
     // Stores
     const user = useSelector((store) => store.user);
     const allEvents = useSelector((store) => store.events);
+    console.log(allEvents)
 
     // Local state
     const [viewList, setViewList] = useState('approved');

@@ -12,6 +12,7 @@ const router = express.Router();
 
 // Import the used functions
 const {
+  AdminApproveEvent,
   GetEventsWithConsolidatedBoothInformation,
   GetOneEventWithVerboseBoothInformation
 } = require("../sql-queries/events.sql")
@@ -357,8 +358,14 @@ router.get("/events-and-booths", rejectUnauthenticated, (req, res) => {
   GetEventsWithConsolidatedBoothInformation(req, res)
 })
 
+// Function that gets a specific event by ID
 router.get("/events-and-booths/:id", rejectUnauthenticated, (req, res) => {
   GetOneEventWithVerboseBoothInformation(req, res)
+})
+
+// Route that allows the admin to verify an event
+router.put("/verification/:id", rejectUnauthenticated, (req, res) => {
+  AdminApproveEvent(req, res)
 })
 
 //duplicate code that is done in the booths.router.js file
