@@ -74,6 +74,11 @@
   font-style: italic;
 }
 
+.header-container .venue-contact-container .venue-contact-title {
+  font-size: 126%;
+  font-weight: bold;
+}
+
 body {
     padding-top: 100px;
 }

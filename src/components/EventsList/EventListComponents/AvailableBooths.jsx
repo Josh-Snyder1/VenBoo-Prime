@@ -1,6 +1,8 @@
 // Component that determines the remaining booth display
 export default function AvailableBooths({ event }) {
 
+  console.log("))))))))", event)
+
   // Check if the event is over-booked
   if (event.reserved_booths > event.total_booths) {
     return (

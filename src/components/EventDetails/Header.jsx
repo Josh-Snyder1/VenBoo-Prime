@@ -1,23 +1,26 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+// Import the used libraries and functions
 import EditIcon from "@mui/icons-material/Edit";
 import moment from "moment";
-import VerificationComponent from '../ReuseableComponents/VerificationComponent'
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 // Import the used components
 import Address from "../Contacts/Address";
 import AvailableBooths from "../EventsList/EventListComponents/AvailableBooths";
 import DisplayTags from "../Tags/DisplayTags";
+import VenueContact from "./VenueContact";
+import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 
 function Header({ toggleEdit, eventDetails }) {
   const { eventId } = useParams();
+  // Initialize the dispatch function
   const dispatch = useDispatch();
 
   // REDUX STORE
   const events = useSelector((store) => store.events);
-  const event = useSelector(store => store.eventsContainer.currentEvent)
+  // const event = useSelector(store => store.eventsContainer.currentEvent)
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
@@ -97,7 +100,8 @@ function Header({ toggleEdit, eventDetails }) {
         props={{
           view: 'page',
           type: 'event',
-          details: eventDetails
+          // details: eventDetails
+          details: event
           }} 
         />
         <h2>{event.name}</h2>
@@ -119,6 +123,17 @@ function Header({ toggleEdit, eventDetails }) {
 
           </div>
 
+          {user.type !== 'vendor' ?
+            <VenueContact
+              contactPerson={event.venue_contact_person}
+              contactEmail={event.venue_contact_email}
+              contactPhone={event.venue_contact_phone_number}
+              contactWebsite={event.venue_contact_website}
+            />
+            :
+            null
+          }
+
           <div className="event-booth-stats">
             <AvailableBooths event={event} />
           </div>
@@ -134,5 +149,3 @@ function Header({ toggleEdit, eventDetails }) {
     </>
   );
 }
-
-export default Header;

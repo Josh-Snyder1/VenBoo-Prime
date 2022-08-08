@@ -32,12 +32,13 @@ function EventDetails() {
   // Stores
   const eventBoothDetails = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
-  const events = useSelector((store) => store.events);
+  // const events = useSelector((store) => store.events);
+  const events = useSelector(store => store.eventsContainer.allEvents)
   const event = useSelector(store => store.eventsContainer.currentEvent)
 
   // Local State
   const [viewList, setViewList] = useState("");
-  const [editEvent, setEditEvent] = useState();
+  const [editEvent, setEditEvent] = useState(false);
 
   // Initialze the used variables
   const { eventId } = useParams();
@@ -46,6 +47,11 @@ function EventDetails() {
   let eventDetails = events
     .filter((event) => event.id === Number(eventId))
     .pop();
+
+  console.log("AAAAAAAAAAA", eventDetails, ";;;;;")
+
+  console.log("EVENT DETAILS", eventDetails)
+  console.log("EVENT", event)
 
   useEffect(() => {
     dispatch({
@@ -93,7 +99,7 @@ function EventDetails() {
     /> */}
     {user &&
       <>
-        {editEvent === false ? (
+        {editEvent === true ? (
         <EditHeader
           toggleEdit={toggleEdit}
           eventId={eventId}
