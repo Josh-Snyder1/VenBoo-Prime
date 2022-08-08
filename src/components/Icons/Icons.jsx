@@ -24,7 +24,7 @@ function Icons({profileInfo}) {
           </a>
         </IconButton>
       }
-      {profileInfo.esty_url &&
+      {profileInfo.etsy_url &&
         <IconButton className="etsy">
           <a href={profileInfo.esty_url} target="_blank">
             <img
