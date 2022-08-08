@@ -12,6 +12,8 @@ import FormControl from "@mui/material/FormControl";
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from "@mui/material/Button";
 
+import './ManageVenues.css'
+
 function ManageVenues() {
 
   const dispatch = useDispatch();
@@ -79,12 +81,13 @@ function ManageVenues() {
       <form >
         <br />
         <Autocomplete
+        className="autocompleteInput"
         size="small"
       disablePortal
       id="combo-box-demo"
       freeSolo
       options={venues.map((venue)=>{return venue.name})}
-      sx={{ width: 500 }}
+
       renderInput={(params) => <TextField onChange={(e) => {setVenueName(e.target.value);}} {...params} label="VenueName" />}
     />
             <br/>
