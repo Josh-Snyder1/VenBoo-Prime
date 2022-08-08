@@ -189,7 +189,7 @@ export default function NavDrawer() {
 
   return (
     <Box sx={{ display: 'flex', padding:0 }}>
-      <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between'  }}>
+      <AppBar position="fixed" open={open} sx={{ flexDirection:'row', justifyContent:'space-between', backgroundColor: '#5246A6'  }}>
       <ClickAwayListener onClickAway={handleDrawerClose}>
         <Toolbar>
           <IconButton
@@ -203,7 +203,7 @@ export default function NavDrawer() {
           </IconButton>
           
           {/* <Typography variant="h6" noWrap component="div" > */}
-            <Link to='/'><img className='nav_ven' src='../Images/venbooColor.png'></img></Link> <br/>
+            <Link to='/'><img className='nav_ven' src='../Images/whiteVenboo.png'></img></Link> <br/>
             <p className='p_nav'>Connecting Passionate vendors to the best opportunities</p>
           {/* </Typography> */}
         </Toolbar>

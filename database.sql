@@ -146,6 +146,3 @@ CREATE TABLE "event_tags" (
 );
 
 
-return eventTagsParams.map((tag)=>{ 
-	return pool.query(eventsQuery, tag)
-})
