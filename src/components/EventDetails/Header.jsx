@@ -11,7 +11,7 @@ import AvailableBooths from "../EventsList/EventListComponents/AvailableBooths";
 import DisplayTags from "../Tags/DisplayTags";
 
 
-function Header({ toggleEdit }) {
+function Header({ toggleEdit, eventDetails }) {
   const { eventId } = useParams();
   const dispatch = useDispatch();
 
@@ -35,21 +35,21 @@ function Header({ toggleEdit }) {
   let Available = 0;
   let total = 0;
 
-  let eventDetails = events.filter((event) => {
-    if (event.id === Number(eventId)) {
-      return event;
-    }
-  });
-  eventDetails = eventDetails.pop();
+  // let eventDetails = events.filter((event) => {
+  //   if (event.id === Number(eventId)) {
+  //     return event;
+  //   }
+  // });
+  // eventDetails = eventDetails.pop();
 
   // for (const booth of eventDetails.booths) {
   //   total = total + booth.quantity;
   // }
-  console.log("BOOTHS ARE BOOOO>>", eventDetails);
-  console.log(">>>>>", event)
-  for (const booth of eventDetails.booths) {
-    total = total + booth.quantity;
-  }
+  // console.log("BOOTHS ARE BOOOO>>", eventDetails);
+  // console.log(">>>>>", event)
+  // for (const booth of eventDetails.booths) {
+  //   total = total + booth.quantity;
+  // }
   for (const booth of boothApplications) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity

@@ -157,7 +157,7 @@ export default function NavDrawer() {
         {
             text: 'All Venues',
             link: '/allVenues',
-            userType: ['admin'],
+            userType: ['none'],
             upperLowerNav: 'upper',
             icon: <StorefrontIcon />
         },
