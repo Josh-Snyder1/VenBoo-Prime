@@ -13,14 +13,14 @@ import VenueContact from "./VenueContact";
 import VerificationComponent from '../ReuseableComponents/VerificationComponent'
 
 
-function Header({ toggleEdit, eventDetails }) {
+export default function Header({ toggleEdit, eventDetails }) {
   const { eventId } = useParams();
   // Initialize the dispatch function
   const dispatch = useDispatch();
 
   // REDUX STORE
   const events = useSelector((store) => store.events);
-  // const event = useSelector(store => store.eventsContainer.currentEvent)
+  const event = useSelector(store => store.eventsContainer.currentEvent)
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
