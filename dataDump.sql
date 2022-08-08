@@ -61,11 +61,11 @@ INSERT INTO "user"
     ("email", "password", "type", "first_name", "last_name", "title", "business_name", "description","address_id", "phone","main_url", "facebook_url", "etsy_url", "linkedin_url", "instagram_url", "pinterest_url")
 VALUES
     -- Admin
-    ('admin1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Colin', 'Oraskovich', 'CEO', 'Weather', 'Weather is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com', 'https://www.instagram.com', 'https://www.pintrest.com'),
+    ('admin1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Nimo', 'Abdi', 'CEO', 'Admin', 'Admin', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com', 'https://www.instagram.com', 'https://www.pintrest.com'),
 
     -- Vendors (friends)
-    ('vendor1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Neil', 'Hanson', 'CEO', 'Banana Store', 'We only sell the finest bananas', '2', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com','',''),
-    ('vendor2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nimo', 'Abdi', 'CEO', 'TV Shows Store', 'We sell tv shows', '3', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', '','',''),
+    ('vendor1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Colin', 'Oraskovich', 'CEO', 'Colin Comics', 'We source the highest graded comic books ranging from the Golden Age to the current day issues. We also have tons of officially licensed merch! Check us out at our social media links!', '6', '123-123-1234', '', '', 'https://www.etsy.com/', '','',''),
+    ('vendor2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Cakes', 'Maras', 'CEO', 'TV Shows Store', 'We sell tv shows', '3', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', '','',''),
     ('vendor3@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'John', 'Maras', 'CEO', 'Dog Store', 'We make good daog treats', '4', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', 'https://www.linkedin.com','',''),
     ('vendor4@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Edan', 'Schwartz', 'CEO', 'Mushroom Store', 'We sell great shrooms', '5', '123-123-1234', '', '', '', '','',''),
     
@@ -100,7 +100,7 @@ VALUES
     ('vendor32@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Kayleigh', 'Duncan', 'Founder', 'Toothpaste', 'It''s free. Take the hint...', '41', '123-123-1234', '', '', '', '','',''),
 
     -- Host
-    ('host1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Azzazi', 'CEO', 'Food Host Company', 'Food Event is a cool website', '6', '123-123-1234', '', '', 'https://www.etsy.com/', '','',''),
+    ('host1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Neil', 'Hanson', 'CEO', 'Hanson Event Co.', 'We host the highest attending events in the Twin Cities. For 25 years, my family has been dedicated to making our events a memorable experience for our guests and vendors.', '2', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com','',''),
     ('host2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Synder', 'CEO', 'River Run Hosting Company', 'River Run Event is a cool website', '7', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','https://www.instagram.com',''),
     ('host3@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Jean-Luc', 'LaCosse', 'CEO', 'Wine Tasting Events INC', 'WE host the biggest wine tasting events in MN!', '8', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','https://www.instagram.com',''),
     ('host4@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Alex', 'Ratanas', 'CEO', 'Hotdog Eating Events INC', 'We only host the greatest hotdog events', '9', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','','https://www.pintrest.com');
