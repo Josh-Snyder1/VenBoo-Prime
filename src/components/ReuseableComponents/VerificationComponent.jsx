@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 function VerificationComponent({props}) {
 
-    useEffect(() => {
-      }, [events]);
+    // useEffect(() => {
+    //   }, [events]);
 
     const dispatch = useDispatch();
     //sweet alert for confirmation of verifying user/event
