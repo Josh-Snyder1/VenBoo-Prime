@@ -136,3 +136,35 @@ body {
   justify-content: space-evenly;
   margin-bottom: 1em;
 }
+
+.admin-dashboard h2 {
+  text-align: center;
+  font-size: 225%;
+}
+
+.admin-dashboard .event-container p {
+  padding: 1em 0;
+  margin-left: 15%;
+  font-size: 125%;
+}
+
+.admin-dashboard .event-container span {
+  float: right;
+  transform: translateY(-10px);
+  margin-right: 25%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 112.5%;
+  width: 50px;
+  border: 1px solid var(--clr-gray);
+  border-radius: 4px;
+  padding: 0.25em 0.25em;
+  box-shadow: 0 0 2px;
+}
+
+.stats-container p {
+  text-align: center;
+  padding-top: 0.5ch 0 2ch;
+  font-size: 175%;
+  font-weight: bold;
+}
