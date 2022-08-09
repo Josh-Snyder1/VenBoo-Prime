@@ -36,7 +36,7 @@ export default function AdminEventCard({ event }) {
       }}
     >
 
-      <p className="event-date-range"><span>{moment(event.start_date).format('MMM DD YYYY')}</span> - <span>{moment(event.end_date).format('MMM DD YYYY')}</span></p>
+      <p className="event-date-range"><span>{moment(event.start_date).format('MMM DD, YYYY')}</span> - <span>{moment(event.end_date).format('MMM DD, YYYY')}</span></p>
       {event.verified ? <p className="event-verified"><StarIcon /></p> : null}
       <h2 className="event-title">{event.name}</h2>
       <div className="event-info-container">

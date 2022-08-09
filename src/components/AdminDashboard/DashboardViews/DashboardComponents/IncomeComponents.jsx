@@ -32,10 +32,10 @@ export default function IncomeComponents() {
   // Build the DOM elements
   return (
     <>
-      <StatsCard title={"Number of Events:"} message={currentCosts.number_of_events} />
-      <StatsCard title={"Total Amount:"} message={`${FormatMoney(currentCosts.total_cost)}`}/>
-      <StatsCard title={"Income:"} message={`${FormatMoney(currentCosts.income)}`}/>
-      <StatsCard title={"Host Payment:"} message={`${FormatMoney(currentCosts.host_payment)}`}/>
+      <StatsCard title={"Number of Current Ongoing Events:"} message={currentCosts.number_of_events} />
+      <StatsCard title={"Total Amount of Current Ongoing Events:"} message={`${FormatMoney(currentCosts.total_cost)}`}/>
+      <StatsCard title={"Income from Current Ongoing Events:"} message={`${FormatMoney(currentCosts.income)}`}/>
+      <StatsCard title={"Host Payment from Current Ongoing Events:"} message={`${FormatMoney(currentCosts.host_payment)}`}/>
     </>
   )
 }

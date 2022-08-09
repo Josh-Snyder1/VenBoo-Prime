@@ -39,7 +39,10 @@ function AdminDashboardCost(req, res) {
 
   // Make the DB request
   pool.query(sqlQuery, sqlParams)
-  .then(result => res.send(result.rows))
+  .then(result => {
+    console.log(result.rows)
+    res.send(result.rows)
+  })
   .catch(error => {
     console.log(`Error occurred in /get-event-cost-details-by-date/ with ${error}`)
     res.sendStatus(500)

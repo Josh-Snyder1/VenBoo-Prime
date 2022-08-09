@@ -57,7 +57,7 @@ function DashboardAdmin() {
 
 
   return (
-      <>
+      <section className="admin-dashboard">
     
       {/* <img className="waves" src="../Images/layeredwaves.jpg"/> */}
         <Grid
@@ -67,22 +67,21 @@ function DashboardAdmin() {
           alignItems="center"
         >
           <DashboardIcon></DashboardIcon>
-          <h1 className="dash">DASHBOARD!</h1>
-          
-          <p className="p_log">You are logged in as a <b><u>{user.type}</u></b></p>
+          <h1 className="dash">Admin Dashboard</h1>
+        
           <Card
+            className="event-container"
             elevation={4}
             sx={{
               margin: '1em',
-              padding: '1em'
+              padding: '1em',
+              width: '70%'
             }}
           >
-            <h3>Events</h3>
-            <h4>New Events requesting verification: {pendingVerification}</h4>
-            <br/>
-            <h4>Events within the next week: # {EventsInDateRange(allEvents, NextSevenDays()).length}</h4>
-            <br/>
-            <h4>Total upcoming events: # {EventsInDateRange(allEvents, AllFutureDates()).length}</h4>
+            <h2>Events:</h2>
+            <p>New Events requesting verification: <span>{pendingVerification}</span></p>
+            <p>Events within the next week: <span>{EventsInDateRange(allEvents, NextSevenDays()).length}</span></p>
+            <p>Total upcoming events: <span>{EventsInDateRange(allEvents, AllFutureDates()).length}</span></p>
           </Card>
           <Stack
             direction="row"
@@ -94,25 +93,26 @@ function DashboardAdmin() {
                 marginTop: '1em'
             }}
           >
-            <Typography
-              variant="h4"
-            >
-              Stats:
-            </Typography>
+            <div className="stats-container">
+              <Typography
+                variant="h4"
+              >
+                Stats:
+              </Typography>
 
 
-            {/* Card for display the number of events for today */}
-            <StatsByDateCard allEvents={allEvents} dateRange={"OneDay"}/>
+              {/* Card for display the number of events for today */}
+              <StatsByDateCard allEvents={allEvents} dateRange={"OneDay"}/>
 
-            {/* Recap the main highlights of the events over a time range */}
-            <IncomeComponents />
+              {/* Recap the main highlights of the events over a time range */}
+              <IncomeComponents />
 
-            {/* Card for display the total number of vendors */}
-            <StatsCard title="Number of Vendors:" message={vendors.allVendors.length} />
-
+              {/* Card for display the total number of vendors */}
+              <StatsCard title="Number of Vendors:" message={vendors.allVendors.length} />
+            </div>
           </Stack>
         </Grid>
-      </>
+      </section>
     )
 }
 export default DashboardAdmin;
