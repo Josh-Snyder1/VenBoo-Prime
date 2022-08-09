@@ -94,9 +94,9 @@ function ManageVenues() {
         <TextField
           size="small"
           style={{ paddingBottom: 9, paddingTop: 0 }}
-InputLabelProps={{
-    shrink: true,
-  }}
+        InputLabelProps={{
+            shrink: true,
+          }}
             sx={{ width: 250 }}
             id="outlined-required"
             label="Address 1"

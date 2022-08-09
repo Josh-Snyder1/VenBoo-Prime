@@ -186,6 +186,7 @@ export default function VenueList({props}) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 //   const [address, setAddress] = React.useState('');
+
   
   return (
     <TableContainer component={Paper}>
@@ -194,8 +195,8 @@ export default function VenueList({props}) {
           <TableRow>
             <TableCell>
               </TableCell>
-            <TableCell align="left" style = {{width: '100%'}}>Venue Name</TableCell>
-            <TableCell align="right" sx={{ width: '500px' }} style = {{width: '500px'}}>Address</TableCell>
+            <TableCell align="left" >Venue Name</TableCell>
+            <TableCell align="right" >Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</TableCell>
             <TableCell align="right">Contact Info</TableCell>
             <TableCell align="right" >Venue Website</TableCell>
             <TableCell align="right" >Notes</TableCell>
