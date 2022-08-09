@@ -26,8 +26,7 @@ function RegisterPage() {
         justifyContent="center"
         alignItems="center"
         sx={{
-            padding: "1em",
-            marginTop: '5em'
+            padding: "1em"
         }}
       >
         <Card
