@@ -61,11 +61,11 @@ INSERT INTO "user"
     ("email", "password", "type", "first_name", "last_name", "title", "business_name", "description","address_id", "phone","main_url", "facebook_url", "etsy_url", "linkedin_url", "instagram_url", "pinterest_url")
 VALUES
     -- Admin
-    ('admin1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Colin', 'Oraskovich', 'CEO', 'Weather', 'Weather is a cool website', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com', 'https://www.instagram.com', 'https://www.pintrest.com'),
+    ('admin1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'admin', 'Nimo', 'Abdi', 'CEO', 'Admin', 'Admin', '1', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com', 'https://www.instagram.com', 'https://www.pintrest.com'),
 
     -- Vendors (friends)
-    ('vendor1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Neil', 'Hanson', 'CEO', 'Banana Store', 'We only sell the finest bananas', '2', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com','',''),
-    ('vendor2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nimo', 'Abdi', 'CEO', 'TV Shows Store', 'We sell tv shows', '3', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', '','',''),
+    ('vendor1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Colin', 'Oraskovich', 'CEO', 'Colin Comics', 'We source the highest graded comic books ranging from the Golden Age to the current day issues. We also have tons of officially licensed merch! Check us out at our social media links!', '6', '123-123-1234', '', '', 'https://www.etsy.com/', '','',''),
+    ('vendor2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Cakes', 'Maras', 'CEO', 'TV Shows Store', 'We sell tv shows', '3', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', '','',''),
     ('vendor3@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'John', 'Maras', 'CEO', 'Dog Store', 'We make good daog treats', '4', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', 'https://www.linkedin.com','',''),
     ('vendor4@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Edan', 'Schwartz', 'CEO', 'Mushroom Store', 'We sell great shrooms', '5', '123-123-1234', '', '', '', '','',''),
     
@@ -100,7 +100,7 @@ VALUES
     ('vendor32@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Kayleigh', 'Duncan', 'Founder', 'Toothpaste', 'It''s free. Take the hint...', '41', '123-123-1234', '', '', '', '','',''),
 
     -- Host
-    ('host1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Tarek', 'Azzazi', 'CEO', 'Food Host Company', 'Food Event is a cool website', '6', '123-123-1234', '', '', 'https://www.etsy.com/', '','',''),
+    ('host1@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Neil', 'Hanson', 'CEO', 'Hanson Event Co.', 'We host the highest attending events in the Twin Cities. For 25 years, my family has been dedicated to making our events a memorable experience for our guests and vendors.', '2', '123-123-1234', 'https://github.com/PrimeAcademy', 'https://www.facebook.com/', 'https://www.etsy.com/', 'https://www.linkedin.com','',''),
     ('host2@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Josh', 'Synder', 'CEO', 'River Run Hosting Company', 'River Run Event is a cool website', '7', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','https://www.instagram.com',''),
     ('host3@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Jean-Luc', 'LaCosse', 'CEO', 'Wine Tasting Events INC', 'WE host the biggest wine tasting events in MN!', '8', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','https://www.instagram.com',''),
     ('host4@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'host', 'Alex', 'Ratanas', 'CEO', 'Hotdog Eating Events INC', 'We only host the greatest hotdog events', '9', '123-123-1234', 'https://github.com/PrimeAcademy', '', '', '','','https://www.pintrest.com');
@@ -118,13 +118,13 @@ VALUES
 INSERT INTO "events"
     ("user_id", "name", "venue_id", "description", "start_date", "end_date", "verified")
 VALUES
-    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-16', '2022-07-17', 'TRUE'),
-    (35, 'Minnesota State Fair', 2, 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-05', '2022-08-13', 'TRUE'),
+    (34, 'Comic City Central', 1, 'An event for all things about Comic Books! Join us for a weekend of cosplay competitions, comic books signings, and celebrity panels!', '2022-07-16', '2022-07-17', 'TRUE'),
+    (35, 'Minnesota State Fair', 2, 'The Minnesota State Fair is one of the largest and best-attended expositions in North America, attracting 2 million visitors annually. In addition to being a showcase for Minnesota’s finest agriculture, art and industry, the fair features hundreds of entertainment options including music all around the fairgrounds; educational exhibits; hands-on experiences; more than 60 carnival rides; thousands of competitions; 11 nights of Grandstand shows; and more than 500 different foods.', '2022-08-12', '2022-08-15', 'TRUE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-07-30', '2022-07-31', 'TRUE'),
     (37, 'Comic Con', 4, 'A comic book convention or comic con is an event with a primary focus on comic books and comic book culture, in which comic book fans gather to meet creators, experts, and each other. Commonly, comic conventions are multi-day events hosted at convention centers, hotels, or college campuses.', '2022-09-06', '2022-09-07', 'FALSE'),
-    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-07-30', '2022-07-31', 'TRUE'),
-    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-08-13', '2022-08-14', 'TRUE'),
-    (34, 'Billy''s Bee Bonanza', 1, 'And event for bee keepers and lovers to explore the world of bee keeping', '2022-08-27', '2022-08-28', 'FALSE'),
+    (34, 'Comic City Central', 1, 'An event for all things about Comic Books! Join us for a weekend of cosplay competitions, comic books signings, and celebrity panels!', '2022-07-30', '2022-07-31', 'TRUE'),
+    (34, 'Comic City Central', 1, 'An event for all things about Comic Books! Join us for a weekend of cosplay competitions, comic books signings, and celebrity panels!', '2022-08-13', '2022-08-14', 'TRUE'),
+    (34, 'Comic City Central', 1, 'An event for all things about Comic Books! Join us for a weekend of cosplay competitions, comic books signings, and celebrity panels!', '2022-08-27', '2022-08-28', 'FALSE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-06', '2022-08-07', 'TRUE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-13', '2022-08-14', 'TRUE'),
     (36, 'Farm Fest', 3, 'At Farmfest, we strive to bring together the best in agribusiness from Minnesota and around the country. We endeavor to provide one place for farmers to network, experience and learn to grow their farming operations.', '2022-08-20', '2022-08-21', 'FALSE'),
@@ -191,17 +191,17 @@ VALUES
     -- 10 booths
     (1,2,'APPROVED'), (1,4,'APPROVED'), (1,5,'REJECTED'), (1,6,'PENDING'), (1,8,'APPROVED'), (1,9,'APPROVED'), (1,10,'REJECTED'), (1,11,'PENDING'), (1,13,'APPROVED'), (1,14,'APPROVED'), (1,15,'REJECTED'), (1,16,'PENDING'), (1,18,'APPROVED'), (1,19,'APPROVED'), (1,20,'REJECTED'), (1,21,'PENDING'), (1,23,'APPROVED'), (1,24,'APPROVED'), (1,25,'REJECTED'), (1,26,'PENDING'),
     -- 4 booths
-    (2,2,'APPROVED'), (2,3,'APPROVED'), (2,5,'REJECTED'), (2,6,'REJECTED'), (2,7,'APPROVED'), (2,9,'PENDING'), (2,10,'REJECTED'), (2,11,'PENDING'), (2,13,'PENDING'), (2,14,'APPROVED'), (2,15,'REJECTED'),
+    (2,3,'REJECTED'), (2,5,'REJECTED'), (2,6,'REJECTED'), (2,7,'APPROVED'), (2,9,'PENDING'), (2,10,'REJECTED'), (2,11,'PENDING'), (2,13,'PENDING'), (2,14,'APPROVED'), (2,15,'REJECTED'),
     -- 1 booths
     (3,2,'REJECTED'), (3,3,'REJECTED'), (3,4,'REJECTED'), (3,5,'APPROVED'),
     -- 32 booths
-    (4,2,'PENDING'), (4,3,'APPROVED'), (4,4,'PENDING'), (4,5,'PENDING'), (4,6,'PENDING'), (4,7,'PENDING'), (4,8,'PENDING'), (4,9,'APPROVED'), (4,10,'REJECTED'), (4,11,'PENDING'), (4,12,'PENDING'), (4,13,'APPROVED'), (4,14,'PENDING'), (4,15,'PENDING'), (4,16,'PENDING'), (4,17,'PENDING'), (4,18,'PENDING'), (4,19,'APPROVED'), (4,20,'PENDING'), (4,21,'PENDING'), (4,22,'PENDING'), (4,23,'APPROVED'), (4,24,'PENDING'), (4,25,'PENDING'), (4,26,'PENDING'), (4,27,'PENDING'), (4,28,'PENDING'), (4,29,'APPROVED'), (4,30,'PENDING'), (4,31,'PENDING'), (4,32,'PENDING'), (4,33,'PENDING'),
+    (4,2,'APPROVED'), (4,3,'APPROVED'), (4,4,'PENDING'), (4,5,'PENDING'), (4,6,'PENDING'), (4,7,'PENDING'), (4,8,'PENDING'), (4,9,'APPROVED'), (4,10,'REJECTED'), (4,11,'PENDING'), (4,12,'PENDING'), (4,13,'APPROVED'), (4,14,'PENDING'), (4,15,'PENDING'), (4,16,'PENDING'), (4,17,'PENDING'), (4,18,'PENDING'), (4,19,'APPROVED'), (4,20,'PENDING'), (4,21,'PENDING'), (4,22,'PENDING'), (4,23,'APPROVED'), (4,24,'PENDING'), (4,25,'PENDING'), (4,26,'PENDING'), (4,27,'PENDING'), (4,28,'PENDING'), (4,29,'APPROVED'), (4,30,'PENDING'), (4,31,'PENDING'), (4,32,'PENDING'), (4,33,'PENDING'),
     -- 16 booths
-    (5,2,'PENDING'), (5,3,'PENDING'), (5,4,'PENDING'), (5,11,'PENDING'), (5,12,'PENDING'), (5,13,'APPROVED'), (5,14,'PENDING'), (5,15,'PENDING'), (5,18,'PENDING'), (5,19,'APPROVED'), (5,20,'PENDING'), (5,22,'PENDING'), (5,23,'APPROVED'), (5,24,'PENDING'), (5,25,'PENDING'), (5,26,'PENDING'), (5,27,'PENDING'), (5,28,'PENDING'), (5,29,'PENDING'), (5,30,'PENDING'), (5,31,'PENDING'),
+    (5,2,'REJECTED'), (5,3,'PENDING'), (5,4,'PENDING'), (5,11,'PENDING'), (5,12,'PENDING'), (5,13,'APPROVED'), (5,14,'PENDING'), (5,15,'PENDING'), (5,18,'PENDING'), (5,19,'APPROVED'), (5,20,'PENDING'), (5,22,'PENDING'), (5,23,'APPROVED'), (5,24,'PENDING'), (5,25,'PENDING'), (5,26,'PENDING'), (5,27,'PENDING'), (5,28,'PENDING'), (5,29,'PENDING'), (5,30,'PENDING'), (5,31,'PENDING'),
     --12 booths
-    (6,2,'PENDING'), (6,3,'PENDING'), (6,5,'PENDING'), (6,6,'PENDING'), (6,7,'PENDING'), (6,10,'REJECTED'), (6,11,'PENDING'), (6,13,'APPROVED'), (6,15,'PENDING'), (6,18,'PENDING'), (6,20,'PENDING'), (6,21,'PENDING'), (6,22,'PENDING'), (6,23,'APPROVED'), (6,25,'PENDING'), (6,26,'PENDING'), (6,27,'PENDING'), (6,31,'PENDING'), (6,33,'PENDING'),
+    (6,2,'REJECTED'), (6,3,'PENDING'), (6,5,'PENDING'), (6,6,'PENDING'), (6,7,'PENDING'), (6,10,'REJECTED'), (6,11,'PENDING'), (6,13,'APPROVED'), (6,15,'PENDING'), (6,18,'PENDING'), (6,20,'PENDING'), (6,21,'PENDING'), (6,22,'PENDING'), (6,23,'APPROVED'), (6,25,'PENDING'), (6,26,'PENDING'), (6,27,'PENDING'), (6,31,'PENDING'), (6,33,'PENDING'),
     -- 10 booths
-    (7,2,'PENDING'), (7,3,'PENDING'), (7,7,'PENDING'), (7,10,'REJECTED'), (7,15,'PENDING'), (7,17,'APPROVED'), (7,18,'PENDING'), (7,19,'PENDING'), (7,20,'PENDING'), (7,21,'PENDING'), (7,24,'PENDING'), (7,25,'APPROVED'), (7,26,'PENDING'), (7,27,'PENDING'), (7,31,'PENDING'), (7,32,'PENDING'),
+    (7,2,'REJECTED'), (7,3,'PENDING'), (7,7,'PENDING'), (7,10,'REJECTED'), (7,15,'PENDING'), (7,17,'APPROVED'), (7,18,'PENDING'), (7,19,'PENDING'), (7,20,'PENDING'), (7,21,'PENDING'), (7,24,'PENDING'), (7,25,'APPROVED'), (7,26,'PENDING'), (7,27,'PENDING'), (7,31,'PENDING'), (7,32,'PENDING'),
     -- 5 booths
     (8,16,'REJECTED'), (8,17,'REJECTED'), (8,19,'APPROVED'), (8,20,'PENDING'), (8,21,'REJECTED'), (8,22,'REJECTED'), (8,23,'APPROVED'), (8,24,'REJECTED'), (8,25,'REJECTED'), (8,26,'PENDING'), (8,27,'REJECTED'), (8,29,'APPROVED'), (8,30,'REJECTED'), (8,31,'PENDING'), (8,32,'APPROVED'), (8,33,'APPROVED'),
     -- 5 booths
@@ -209,13 +209,13 @@ VALUES
     -- 3 booths
     (10,16,'REJECTED'), (10,17,'APPROVED'), (10,20,'APPROVED'), (10,22,'REJECTED'), (10,23,'APPROVED'), (10,28,'REJECTED'), (10,25,'REJECTED'), (10,26,'PENDING'),
     -- 20 booths
-    (11,2,'PENDING'), (11,3,'APPROVED'), (11,4,'PENDING'), (11,5,'PENDING'), (11,6,'PENDING'), (11,7,'PENDING'), (11,8,'PENDING'), (11,9,'APPROVED'), (11,10,'REJECTED'), (11,11,'PENDING'), (11,12,'PENDING'), (11,13,'APPROVED'), (11,14,'PENDING'), (11,15,'PENDING'), (11,16,'PENDING'), (11,17,'PENDING'), (11,18,'PENDING'), (11,19,'APPROVED'), (11,20,'PENDING'), (11,21,'PENDING'), (11,22,'PENDING'), (11,23,'APPROVED'), (11,24,'PENDING'), (11,25,'PENDING'), (11,26,'PENDING'), (11,27,'PENDING'), (11,28,'PENDING'), (11,29,'APPROVED'), (11,30,'PENDING'), (11,31,'PENDING'), (11,32,'PENDING'), (11,33,'PENDING'),
+    (11,2,'REJECTED'), (11,3,'APPROVED'), (11,4,'PENDING'), (11,5,'PENDING'), (11,6,'PENDING'), (11,7,'PENDING'), (11,8,'PENDING'), (11,9,'APPROVED'), (11,10,'REJECTED'), (11,11,'PENDING'), (11,12,'PENDING'), (11,13,'APPROVED'), (11,14,'PENDING'), (11,15,'PENDING'), (11,16,'PENDING'), (11,17,'PENDING'), (11,18,'PENDING'), (11,19,'APPROVED'), (11,20,'PENDING'), (11,21,'PENDING'), (11,22,'PENDING'), (11,23,'APPROVED'), (11,24,'PENDING'), (11,25,'PENDING'), (11,26,'PENDING'), (11,27,'PENDING'), (11,28,'PENDING'), (11,29,'APPROVED'), (11,30,'PENDING'), (11,31,'PENDING'), (11,32,'PENDING'), (11,33,'PENDING'),
     -- 10 booths
     (12,2,'PENDING'), (12,3,'PENDING'), (12,4,'PENDING'), (12,11,'PENDING'), (12,12,'PENDING'), (12,13,'APPROVED'), (12,14,'PENDING'), (12,15,'PENDING'), (12,18,'PENDING'), (12,19,'APPROVED'), (12,20,'PENDING'), (12,22,'PENDING'), (12,23,'APPROVED'), (12,24,'PENDING'), (12,25,'PENDING'), (12,26,'PENDING'), (12,27,'PENDING'), (12,28,'PENDING'), (12,29,'PENDING'), (12,30,'PENDING'), (12,31,'PENDING'),
     -- 10 booths
     (13,2,'APPROVED'), (13,4,'APPROVED'), (13,5,'REJECTED'), (13,6,'PENDING'), (13,8,'APPROVED'), (13,9,'APPROVED'), (13,10,'REJECTED'), (13,11,'PENDING'), (13,13,'APPROVED'), (13,14,'APPROVED'), (13,15,'REJECTED'), (13,16,'PENDING'), (13,18,'APPROVED'), (13,19,'APPROVED'), (13,20,'REJECTED'), (13,21,'PENDING'), (13,23,'APPROVED'), (13,24,'APPROVED'), (13,25,'REJECTED'), (13,26,'PENDING'),
     -- 4 booths
-    (14,2,'APPROVED'), (14,3,'APPROVED'), (14,5,'REJECTED'), (14,6,'REJECTED'), (14,7,'APPROVED'), (14,9,'PENDING'), (14,10,'REJECTED'), (14,11,'PENDING'), (14,13,'PENDING'), (14,14,'APPROVED'), (14,15,'REJECTED'),
+    (14,3,'APPROVED'), (14,5,'REJECTED'), (14,6,'REJECTED'), (14,7,'APPROVED'), (14,9,'PENDING'), (14,10,'REJECTED'), (14,11,'PENDING'), (14,13,'PENDING'), (14,14,'APPROVED'), (14,15,'REJECTED'),
     -- 1 booths
     (15,2,'REJECTED'), (15,15,'REJECTED'), (15,4,'REJECTED'), (15,5,'APPROVED'),
     -- 10 booths
@@ -225,9 +225,9 @@ VALUES
     -- 1 booths
     (18,2,'REJECTED'), (18,3,'REJECTED'), (18,4,'REJECTED'), (18,5,'APPROVED'),
     -- 10 booths
-    (19,2,'APPROVED'), (19,4,'APPROVED'), (19,5,'REJECTED'), (19,6,'PENDING'), (19,8,'APPROVED'), (19,9,'APPROVED'), (19,10,'REJECTED'), (19,11,'PENDING'), (19,13,'APPROVED'), (19,14,'APPROVED'), (19,15,'REJECTED'), (19,16,'PENDING'), (19,18,'APPROVED'), (19,19,'APPROVED'), (19,20,'REJECTED'), (19,21,'PENDING'), (19,23,'APPROVED'), (19,24,'APPROVED'), (19,25,'REJECTED'), (19,26,'PENDING'),
+    (19,2,'REJECTED'), (19,4,'APPROVED'), (19,5,'REJECTED'), (19,6,'PENDING'), (19,8,'APPROVED'), (19,9,'APPROVED'), (19,10,'REJECTED'), (19,11,'PENDING'), (19,13,'APPROVED'), (19,14,'APPROVED'), (19,15,'REJECTED'), (19,16,'PENDING'), (19,18,'APPROVED'), (19,19,'APPROVED'), (19,20,'REJECTED'), (19,21,'PENDING'), (19,23,'APPROVED'), (19,24,'APPROVED'), (19,25,'REJECTED'), (19,26,'PENDING'),
     -- 4 booths
-    (20,2,'APPROVED'), (20,3,'APPROVED'), (20,5,'REJECTED'), (20,6,'REJECTED'), (20,7,'APPROVED'), (20,9,'PENDING'), (20,10,'REJECTED'), (20,11,'PENDING'), (20,13,'PENDING'), (20,14,'APPROVED'), (20,15,'REJECTED'),
+    (20,3,'APPROVED'), (20,5,'REJECTED'), (20,6,'REJECTED'), (20,7,'APPROVED'), (20,9,'PENDING'), (20,10,'REJECTED'), (20,11,'PENDING'), (20,13,'PENDING'), (20,14,'APPROVED'), (20,15,'REJECTED'),
     -- 1 booths
     (21,2,'REJECTED'), (21,3,'REJECTED'), (21,4,'REJECTED'), (21,5,'APPROVED'),
     -- 5 booths
