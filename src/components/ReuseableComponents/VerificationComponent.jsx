@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
@@ -8,11 +9,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 function VerificationComponent({props}) {
 
+    // useEffect(() => {
+    //   }, [events]);
+
     const dispatch = useDispatch();
     //sweet alert for confirmation of verifying user/event
     const Swal = require("sweetalert2");
 
     const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events)
+    
 
     // event details of this specific event OR user details
     const details = props?.details;

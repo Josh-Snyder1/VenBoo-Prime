@@ -363,11 +363,6 @@ router.get("/events-and-booths/:id", rejectUnauthenticated, (req, res) => {
   GetOneEventWithVerboseBoothInformation(req, res)
 })
 
-// Route that allows the admin to verify an event
-router.put("/verification/:id", rejectUnauthenticated, (req, res) => {
-  AdminApproveEvent(req, res)
-})
-
 //duplicate code that is done in the booths.router.js file
 
 // router.delete('/:id', (req, res)=> {
