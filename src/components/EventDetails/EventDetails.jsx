@@ -20,9 +20,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import { Grid, Stack } from "@mui/material";
 // Import the local stylesheet
-import "./EventDetails.css";
+// import "./EventDetails.css";
 
 // ----------------------------------------------
 // Component that contains all the display components on
@@ -47,11 +47,6 @@ function EventDetails() {
   let eventDetails = events1
     .filter((event) => event.id === Number(eventId))
     .pop();
-
-  console.log("AAAAAAAAAAA", eventDetails, ";;;;;")
-
-  console.log("EVENT DETAILS", eventDetails)
-  console.log("EVENT", event)
 
   useEffect(() => {
     dispatch({
@@ -87,7 +82,12 @@ function EventDetails() {
 
   return (
     // adding booths and available booths
-    <>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
     {/* pass through props to tell component rendering on page vs. card
         and to render for an event vs host/vendor */}
     {/* <VerificationComponent
@@ -110,14 +110,30 @@ function EventDetails() {
       )}
       </>
     }
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        sx={{
+          margin: '1em'
+        }}
+      >
       <h1>Available Booths</h1>
-      {eventDetails && <AvailableBooths props={eventDetails} />}
+      {eventDetails && 
+        <AvailableBooths props={eventDetails} />
+      }
       <div>
         <table className="booths_info"></table>
       </div>
       {user.type !== 'vendor' &&
         <>
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                padding: '1em'
+              }}
+            >
             <h2>Pending Approval</h2>
             <Table sx={{ minWidth: 650 }} aria-label="simple table" className="pending">
                     <TableHead>
@@ -132,12 +148,8 @@ function EventDetails() {
                     <TableBody>
                         {eventBoothDetails.map((booths)=> {
                           if(booths.approved_by_host === "PENDING"){
-                            console.log('booth', booths);
                             return(
-                                
-                            
                                 <TableRow key={booths.id}> 
-                                
                                     <TableCell 
                                       onClick={() => history.push(`/profile/${booths.vendor_id}`)}
                                     >
@@ -145,10 +157,8 @@ function EventDetails() {
                                     </TableCell>
                                     <TableCell>{booths.tags}</TableCell>
                                     <TableCell>{booths.type}</TableCell>
-                                    
                                     <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
                                     <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
-                        
                                 </TableRow>
                                 )}
                             })}
@@ -156,9 +166,14 @@ function EventDetails() {
             </Table>
           </TableContainer>
 
-                <ContactButton contactProps={{emails: ['one', 'two'], buttonText: 'Email Vendors'}} />
+          <ContactButton contactProps={{emails: ['one', 'two'], buttonText: 'Email Vendors'}} />
                 
-          <TableContainer component={Paper}>
+          <TableContainer 
+            component={Paper}
+            sx={{
+              padding: '1em'
+            }}
+          >
             <h2>Approved</h2>
             <Table sx={{ minWidth: 650 }} aria-label="simple table" className="approved">
                     <TableHead>
@@ -191,7 +206,9 @@ function EventDetails() {
           </TableContainer>
         </>
       }
-    </>
+      </Stack>
+      
+    </Grid>
   );
 }
 export default EventDetails;
