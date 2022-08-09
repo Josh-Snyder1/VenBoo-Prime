@@ -139,8 +139,8 @@ function EventDetails() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Vendor Name</TableCell>
-                            <TableCell>Tags</TableCell>
                             <TableCell>Type</TableCell>
+                            <TableCell>Description</TableCell>
                       
                         </TableRow>
                     </TableHead>
@@ -155,8 +155,8 @@ function EventDetails() {
                                     >
                                       {booths.business_name}
                                     </TableCell>
-                                    <TableCell>{booths.tags}</TableCell>
                                     <TableCell>{booths.type}</TableCell>
+                                    <TableCell>{booths.description}</TableCell>
                                     <Button size="small" variant="outlined" onClick={() => handleApprove(booths.boothApp_id)}>✅</Button>
                                     <Button size="small" variant="outlined" startIcon={<DeleteIcon />} onClick={ () => dispatch({type: 'DELETE_BOOTH', payload: {id: booths.booth_id} })} ></Button>
                                 </TableRow>
@@ -179,8 +179,7 @@ function EventDetails() {
                     <TableHead>
                         <TableRow>
                             <TableCell > Vendor Name</TableCell>
-                            <TableCell> Tags</TableCell>
-                            <TableCell> Booth Size</TableCell>
+                            <TableCell> Type</TableCell>
                             <TableCell> Description</TableCell>
                         </TableRow>
                     </TableHead>
@@ -194,8 +193,7 @@ function EventDetails() {
                                     >
                                       {list.business_name}
                                     </TableCell >
-                                    <TableCell >{list.tags}</TableCell >
-                                    <TableCell >{list.dimensions}</TableCell >
+                                    <TableCell >{list.type}</TableCell >
                                     <TableCell >{list.description}</TableCell >
                                     <Button variant="outlined" disabled>Approved</Button>
                                 </TableRow>

@@ -75,14 +75,14 @@ VALUES
     ('vendor7@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Amelia', 'Small', '', 'Ford Trucks', 'Va-Room!!!!!!!!!!!!!!', '16', '123-123-1234', '', '', '', '','',''),
     ('vendor8@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Gabriel', 'Richardson', 'Founder', 'Balloon Parties', 'Putting the He He in balloons!', '17', '123-123-1234', '', '', '', '','',''),
     ('vendor9@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Lena', 'Carrillo', 'Founder', 'Slippers & More!', 'Keep your feet warm and covered!', '18', '123-123-1234', '', '', '', '','',''),
-    ('vendor10@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Monique', 'Bailey', '', 'Spoons', 'We sell soups and spoons', '19', '123-123-1234', '', '', '', '','',''),
+    ('vendor10@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Monique', 'Bailey', '', 'Grandmas Antique SilverWare and Kitchen Essentials', 'We have all kinds of antique kitchen essentials that are hundreds of years old! The best selection in the midwest!', '19', '123-123-1234', '', '', '', '','',''),
     ('vendor11@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Tyrone', 'Villa', 'Owner', 'Clothes With Style', 'More than white shirts!', '20', '123-123-1234', '', '', '', '','',''),
-    ('vendor12@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Sanai', 'Rollins', '', 'Leg Warmers', 'Cover your knees if you going to be walking around...', '21', '123-123-1234', '', '', '', '','',''),
-    ('vendor13@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nola', 'Key', '', 'Lace & Delicates', 'Wear clothes, but not too much.', '22', '123-123-1234', '', '', '', '','',''),
+    ('vendor12@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Sanai', 'Rollins', '', 'Mikes Vintage T-Shirts & Apparel', 'We specialize in hunting down the most uniqe and vintage clothing around! we have thousands of shirts to select from for just about any customer. Come see what we have!', '21', '123-123-1234', '', '', '', '','',''),
+    ('vendor13@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Nola', 'Key', '', 'Smart Home Automation Wizzards', 'We have everything you need to get started in automating your dumb home into a SMART home! Alexa, Google home, Apple, you name it we can set you up! have your garage open, door unlock, and lights turn on all at the click of a button!', '22', '123-123-1234', '', '', '', '','',''),
     ('vendor14@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Jesse', 'Orr', '', 'Shovels', 'If you''re in a whole, ya just gotta dig yourself out', '23', '123-123-1234', '', '', '', '','',''),
-    ('vendor15@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Richard', 'Stark', 'Owner', 'Candles', 'Mostly vanilla scented', '24', '123-123-1234', '', '', '', '','',''),
+    ('vendor15@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Richard', 'Stark', 'Owner', 'Wicks, Lighters, Wax - Candles', 'All of your candle needs! We have organic and non organic, all shapes and sizes, we have fake and real candles, lots to choose from! Come browse our selection!', '24', '123-123-1234', '', '', '', '','',''),
     ('vendor16@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Willow', 'Poole', 'Founder', 'Cars & Trackors', 'People need to get places. We offer solutions. And cars. And trackors.', '25', '123-123-1234', '', '', '', '','',''),
-    ('vendor17@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Cameron', 'Chambers', 'Owner', 'Sketch Pad Store', 'Artist choice shop', '26', '123-123-1234', '', '', '', '','',''),
+    ('vendor17@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Cameron', 'Chambers', 'Owner', 'Super Special Stationairy Plus', 'Any pencil or paper needs you have and we got it, oh and pens too! take a look at our selection of notepads, journals, diaries, fountain pens, etc. Stop by, we know you wont be disappointed', '26', '123-123-1234', '', '', '', '','',''),
     ('vendor18@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Shamar', 'Vazquez', 'Founder', 'Cats and Spaghetti', 'When you don''t know what to sell, sell everything.', '27', '123-123-1234', '', '', '', '','',''),
     ('vendor19@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Sadie', 'Wilson', '', 'Piano Tuners', 'You''re not a bad musician, your piano''s just out of tune!', '28', '123-123-1234', '', '', '', '','',''),
     ('vendor20@example.com', '$2a$10$1luP05zl8k51vCWkTaSu9.O8jwisNGB3dhzwoALeJynhbyNTj0QKe', 'vendor', 'Rhett', 'Ortiz', 'Owner', 'Shawls, Scarfs, and More', 'Fashion on a budget', '29', '123-123-1234', '', '', '', '','',''),
@@ -110,9 +110,9 @@ INSERT INTO "venues"
     ("name", "address_id", "contact_name", "contact_phone", "contact_email", "contact_url")
 VALUES
     ('Xcel Energy Center', 10, 'Bill Billson', '(651) 265-4800', 'xcel@example.com', 'https://www.xcelenergycenter.com/'),
-    ('Minnesota State Fairgrounds', 11, 'Olga Norberg', '(651) 288-4400', 'mn-state-fair@example.com', 'https://www.mnstatefair.org'),
+    ('Minnesota State Fairgrounds', 11, 'Olga Norberdg', '(651) 288-4400', 'mn-state-fair@example.com', 'https://www.mnstatefair.org'),
     ('St. John''s Lutheran Church', 12, 'Susan Anderson', '123-123-1234', 'church@example.com', 'https://www.church-website.com/'),
-    ('Minneapolis Convention Center', 13, 'Christa Allez', '(612) 335-6000', 'mn-convention@example.com', 'https://www.minneapolis.com');
+    ('Target Center', 13, 'Christa Allez', '(612) 335-6000', 'mn-convention@example.com', 'https://www.minneapolis.com');
 
 -- Generate events for the user
 INSERT INTO "events"
