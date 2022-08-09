@@ -48,7 +48,6 @@ function* submitVerification(req) {
 function* eventsSaga() {
   yield takeLatest("FETCH_ALL_EVENTS", fetchAllEvents);
   yield takeLatest("FETCH_CURRENT_EVENT", fetchOneEvent)
-  yield takeLatest("SUBMIT_VERIFICATION", submitVerification);
 }
 
 

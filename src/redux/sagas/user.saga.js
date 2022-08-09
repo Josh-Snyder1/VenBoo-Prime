@@ -44,6 +44,7 @@ function* fetchUser() {
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("UPDATE_PROFILE", updateUserProfile);
+  yield takeLatest("SUBMIT_VERIFICATION", submitVerification);
 }
 
 export default userSaga;
