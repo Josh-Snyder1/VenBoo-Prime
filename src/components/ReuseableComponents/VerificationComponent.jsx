@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
@@ -7,6 +8,10 @@ import StarIcon from '@mui/icons-material/Star';
 import { useDispatch, useSelector } from "react-redux";
 
 function VerificationComponent({props}) {
+
+    useEffect(() => {
+        // dispatch({ type: "" });
+      }, [details]);
 
     const dispatch = useDispatch();
     //sweet alert for confirmation of verifying user/event

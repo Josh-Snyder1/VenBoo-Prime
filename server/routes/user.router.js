@@ -177,9 +177,22 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
       `;
 
   if (req.body.type === 'host') {
-    sqlQuery = userSqlQuery;
+    const sqlQuery =`
+    UPDATE users 
+    SET    
+        approved_host = $2
+    WHERE
+        id = $1
+    `;
+
   } else if (req.body.type === 'event') {
-    sqlQuery = eventSqlQuery;
+    const sqlQuery = `
+      UPDATE events 
+      SET    
+          verified = $2
+      WHERE
+          id = $1
+      `;
   };
 
 
