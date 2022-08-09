@@ -35,8 +35,21 @@ function Row({row}) {
   const {eventId} = useParams();
   const Swal = require("sweetalert2");
   const user = useSelector((store) => store.user);
+  const boothApplications = useSelector((store) => store.boothApplications)
 
   const [edit, setEdit] = React.useState();
+
+
+  const applicationPending = boothApplications
+                              .filter((boothApp) => {
+                                  if (boothApp.vendor_id === user.id && boothApp.event_id === row.event_id) {
+                                    console.log('true')
+                                    return true;
+  } })
+
+  // const newTest = applicationPending.map((app) => {if (app.id === row.id)})
+
+  console.log('new', row)
 
   //edit row with updated information.
   //this function only sets the input fields to editable
@@ -136,11 +149,18 @@ function Row({row}) {
         </>
         }
         {/* checks to see if user is vendor and if true renders a request booth button */}
-        {user?.type === 'vendor' ?
+        {applicationPending.length > 0 ?
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
-            <Button onClick={() =>  requestBooth(row.id)}>
-              Request
+            <Button disabled >
+              REQUESTED
             </Button>
+          </TableCell>
+          :
+          user?.type === 'vendor' ?
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} align="right">
+          <Button onClick={() =>  requestBooth(row.id)}>
+            Request
+          </Button>
           </TableCell>
           :
           user?.id === row?.eventOwnerId &&
