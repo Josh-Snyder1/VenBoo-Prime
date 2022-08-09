@@ -10,14 +10,15 @@ import { useDispatch, useSelector } from "react-redux";
 function VerificationComponent({props}) {
 
     useEffect(() => {
-        // dispatch({ type: "" });
-      }, [details]);
+      }, [events]);
 
     const dispatch = useDispatch();
     //sweet alert for confirmation of verifying user/event
     const Swal = require("sweetalert2");
 
     const user = useSelector((store) => store.user);
+    const events = useSelector((store) => store.events)
+    
 
     // event details of this specific event OR user details
     const details = props?.details;
