@@ -85,9 +85,9 @@ export default function Header({ toggleEdit, eventDetails }) {
         <EditIcon
           sx={{
             cursor: "pointer",
-            marginRight: "5px",
+            marginRight: "5em",
             position: "absolute",
-            display: "flex",
+            display: "flex"
           }}
           onClick={() => {
             toggleEdit();

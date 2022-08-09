@@ -223,7 +223,12 @@ export default function AvailableBooths({props}) {
   }, [props]);
   
   return (
-    <TableContainer component={Paper}>
+    <TableContainer 
+      component={Paper}
+      sx={{
+        padding: '1em'
+      }}
+    >
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
