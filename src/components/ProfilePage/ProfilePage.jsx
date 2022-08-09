@@ -22,7 +22,6 @@ function ProfilePage() {
   // Local State
   const [profileInfo, setProfileInfo] = useState({});
   const [clicked, setClicked] = useState();
-  console.log(clicked);
 
   // Vars
   const history = useHistory();
@@ -35,31 +34,16 @@ function ProfilePage() {
     });
   }, [profileId]);
 
-  console.log('this is profileinfo', profileInfo)
-  // Render
+
   return (
     <>
-      {user.id != profileId ? (
-        <> <div id="header">
-        <h1>{profileInfo.business_name}</h1>
-        <Icons profileInfo={profileInfo} />
-        <br />
-        <ContactButton
-          contactProps={{
-            emails: profileInfo.email,
-            buttonText: "CONTACT US",
-          }}
-        />
-        <br />
-        <p>{profileInfo.description}</p>
-      </div></>
-      ) : clicked === true ? (
+      {clicked === true && 
         <AddEventForm
           profileInfo={profileInfo}
           setClicked={setClicked}
           profileId={profileId}
         />
-      ) : (
+      }
         <Grid
           container
           direction="column"
@@ -76,21 +60,23 @@ function ProfilePage() {
               maxWidth: '350px'
             }}
           >
-            <div className="pageEdit">
-              <EditIcon
-                sx={{
-                  cursor: "pointer",
-                  marginLeft: "1.5em",
-                  marginTop: "-1em",
-                  position: "absolute",
-                  display: "flex",
-                }}
-                onClick={() => {
-                  setClicked(true);
-                  console.log(clicked);
-                }}
-              />
-            </div>
+            {user.id === Number(profileId) &&
+              <div className="pageEdit">
+                <EditIcon
+                  sx={{
+                    cursor: "pointer",
+                    marginLeft: "1.5em",
+                    marginTop: "-1em",
+                    position: "absolute",
+                    display: "flex",
+                  }}
+                  onClick={() => {
+                    setClicked(true);
+                    console.log(clicked);
+                  }}
+                />
+              </div>
+            }
             <Stack
               direction="column"
               justifyContent="center"
@@ -131,7 +117,6 @@ function ProfilePage() {
             </Stack>
           </Card>
         </Grid>
-      )}
     </>
   );
 }
