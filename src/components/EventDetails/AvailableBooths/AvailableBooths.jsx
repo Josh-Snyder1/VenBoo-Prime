@@ -48,8 +48,7 @@ function Row({row}) {
   } })
 
   // const newTest = applicationPending.map((app) => {if (app.id === row.id)})
-
-  console.log('new', row)
+  console.log('appPending', applicationPending)
 
   //edit row with updated information.
   //this function only sets the input fields to editable

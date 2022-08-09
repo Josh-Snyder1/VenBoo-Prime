@@ -13,10 +13,17 @@
     text-align: center;
 }
 .css-1k9ek97 {
-    /* margin-left: 10px; */
+display: flex;
     margin-left: auto;
     padding: 20px;
 }
 .new_tag {
     padding-top: 30px;
+}
+
+.tagContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
 }
