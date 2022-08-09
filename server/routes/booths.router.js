@@ -42,10 +42,10 @@ router.get('/vendor', rejectUnauthenticated, (req, res) => {
 
 router.post('/', rejectUnauthenticated, (req, res) => {
 
-    const sqlQuery = `INSERT INTO booths (event_id, type, quantity)
-                        VALUES ($1, $2, $3)`
+    const sqlQuery = `INSERT INTO booths (event_id, type, quantity, dimensions, description)
+                        VALUES ($1, $2, $3, $4, $5)`
 
-    const sqlParams = [req.body.id, 'Medium', 5]
+    const sqlParams = [req.body.id, 'Example: Basic Small', 5, '5x5', 'Example: Our basic booth option comes with 2 chairs and 1 table.']
     console.log('in booths.router post', req.body)
 
     pool.query( sqlQuery, sqlParams )
