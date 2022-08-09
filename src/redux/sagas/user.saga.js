@@ -44,8 +44,10 @@ function* fetchUser() {
 function* submitVerification(req) {
   try{
     console.log('in submit verification saga', req.payload)
+    console.log('req.payload', req.payload)
       yield axios.put(`/api/user/verification/${req.payload.id}`,req.payload);
       yield put ({ type: 'FETCH_USER'});
+      yield put({ type: "FETCH_CURRENT_EVENT", payload: {id: req.payload.id}})
   }
   catch (err) {
       console.error('error in edit user verification saga', err)
