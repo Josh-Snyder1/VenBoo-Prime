@@ -53,7 +53,7 @@ export default function InteractiveList() {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+    <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}
       direction="column"
       alignItems="center"

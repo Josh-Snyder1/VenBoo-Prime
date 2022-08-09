@@ -27,7 +27,7 @@ function ManageTagsForm() {
 
   return (
     tags.length > 0 &&
-    <>
+    <div className="tagContainer">
       <TagList />
       <form className="tag_form" onSubmit={handleSubmit}>
         <label className="new_tag">New Tag: </label>
@@ -45,7 +45,7 @@ function ManageTagsForm() {
 
         <Button className="submit" variant="contained" color="success">Create</Button>
       </form>
-    </>
+    </div>
   );
 }
 
