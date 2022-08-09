@@ -275,42 +275,8 @@ function GetOneEventWithVerboseBoothInformation(req, res) {
   })
 }
 
-
-// Function that allows the admin to approve a host event
-function AdminApproveEvent(req, res) {
-  
-  // Check that only admins have access to this function
-  if (req.user.type !== "admin") {
-    return
-  }
-
-  // Set the SQL for the admin to approve an event
-  const sqlQuery = `
-  UPDATE "events" 
-  SET    
-    "verified" = $2
-  WHERE
-    "id" = $1
-  `
-
-  // Set the SQL parameters
-  const sqlParams = [
-    req.params.id,
-    true,
-  ]
-
-  // Call the database
-  pool.query(sqlQuery, sqlParams)
-  .then(() => res.sendStatus(200))
-  .catch(error => {
-    console.log(`Error on GetEventsWithConsolidatedBoothInformation with ${error}`)
-    res.sendStatus(500)
-  })
-}
-
 // Make the function accessible
 module.exports = {
-  AdminApproveEvent,
   GetEventsWithConsolidatedBoothInformation,
   GetOneEventWithVerboseBoothInformation
 }

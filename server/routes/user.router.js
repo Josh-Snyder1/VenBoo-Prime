@@ -160,33 +160,34 @@ router.put('/verification/:id', rejectUnauthenticated, (req, res) => {
 
   // const table = req.body.type === 'event' ? 'events' : req.body.type === 'host' ? 'user' : '';
 
-  const userSqlQuery = `
-      UPDATE users 
-      SET    
-          approved_host = $2
-      WHERE
-          id = $1
-      `;
+  // const userSqlQuery = `
+  //     UPDATE users 
+  //     SET    
+  //         approved_host = $2
+  //     WHERE
+  //         id = $1
+  //     `;
 
-  const eventSqlQuery = `
-      UPDATE events 
-      SET    
-          verified = $2
-      WHERE
-          id = $1
-      `;
+  // const eventSqlQuery = `
+  //     UPDATE events 
+  //     SET    
+  //         verified = $2
+  //     WHERE
+  //         id = $1
+  //     `;
+
+  let sqlQuery;
 
   if (req.body.type === 'host') {
-    const sqlQuery =`
+    sqlQuery =`
     UPDATE users 
     SET    
         approved_host = $2
     WHERE
         id = $1
     `;
-
   } else if (req.body.type === 'event') {
-    const sqlQuery = `
+    sqlQuery = `
       UPDATE events 
       SET    
           verified = $2

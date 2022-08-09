@@ -41,6 +41,17 @@ function* fetchUser() {
 }
 
 
+function* submitVerification(req) {
+  try{
+    console.log('in submit verification saga', req.payload)
+      yield axios.put(`/api/user/verification/${req.payload.id}`,req.payload);
+      yield put ({ type: 'FETCH_USER'});
+  }
+  catch (err) {
+      console.error('error in edit user verification saga', err)
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("UPDATE_PROFILE", updateUserProfile);
