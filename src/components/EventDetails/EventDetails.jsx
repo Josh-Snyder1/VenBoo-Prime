@@ -132,13 +132,17 @@ function EventDetails() {
                     <TableBody>
                         {eventBoothDetails.map((booths)=> {
                           if(booths.approved_by_host === "PENDING"){
-                            console.log('booth id is>>>>>', booths.booth_id);
+                            console.log('booth', booths);
                             return(
                                 
                             
                                 <TableRow key={booths.id}> 
                                 
-                                    <TableCell >{booths.business_name}</TableCell>
+                                    <TableCell 
+                                      onClick={() => history.push(`/profile/${booths.vendor_id}`)}
+                                    >
+                                      {booths.business_name}
+                                    </TableCell>
                                     <TableCell>{booths.tags}</TableCell>
                                     <TableCell>{booths.type}</TableCell>
                                     
@@ -170,7 +174,11 @@ function EventDetails() {
                           if (list.approved_by_host === "APPROVED")
                             return(
                                 <TableRow key={list.id}>
-                                    <TableCell >{list.business_name}</TableCell >
+                                    <TableCell 
+                                      onClick={() => history.push(`/profile/${list.vendor_id}`)}
+                                    >
+                                      {list.business_name}
+                                    </TableCell >
                                     <TableCell >{list.tags}</TableCell >
                                     <TableCell >{list.dimensions}</TableCell >
                                     <TableCell >{list.description}</TableCell >
