@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TagList from './TagList'
+import './ManageTags.css'
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 function ManageTagsForm() {
 
@@ -26,10 +29,10 @@ function ManageTagsForm() {
     tags.length > 0 &&
     <>
       <TagList />
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="eventForm">New Tag: </label>
+      <form className="tag_form" onSubmit={handleSubmit}>
+        <label className="new_tag">New Tag: </label>
         <br />
-        <input
+        <TextField
           type="text"
           placeholder="Event Name"
           onChange={(e) => {
@@ -40,7 +43,7 @@ function ManageTagsForm() {
         <br />
 
 
-        <button className="submit">Create</button>
+        <Button className="submit" variant="contained" color="success">Create</Button>
       </form>
     </>
   );

@@ -54,9 +54,14 @@ export default function InteractiveList() {
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2}
+      direction="column"
+      alignItems="center"
+      justify="center">
         
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6}
+        >
+       
           <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             Manage Tags
           </Typography>
