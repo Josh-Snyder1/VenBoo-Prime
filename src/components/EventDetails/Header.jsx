@@ -100,8 +100,7 @@ export default function Header({ toggleEdit, eventDetails }) {
         props={{
           view: 'page',
           type: 'event',
-          // details: eventDetails
-          details: event
+          details: eventDetails,
           }} 
         />
         <h2>{event.name}</h2>
