@@ -196,7 +196,7 @@ export default function VenueList({props}) {
             <TableCell>
               </TableCell>
             <TableCell align="left" >Venue Name</TableCell>
-            <TableCell align="right" >Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</TableCell>
+            <TableCell align="right" >Address</TableCell>
             <TableCell align="right">Contact Info</TableCell>
             <TableCell align="right" >Venue Website</TableCell>
             <TableCell align="right" >Notes</TableCell>
