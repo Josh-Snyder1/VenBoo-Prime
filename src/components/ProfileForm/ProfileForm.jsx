@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import MultiSelect from "../ReuseableComponents/MultiSelect";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -11,6 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { Stack, Grid, Card } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { styled } from "@mui/system";
 import "./ProfileForm.css";
@@ -177,252 +178,376 @@ function AddEventForm({ profileInfo, setClicked }) {
     tagSelection,
   };
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#5246A6",
+      },
+    },
+  });
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div id="profileInfo">
-          <h2 className="formHeader">Profile Info</h2>
-          <br />
-          <TextField
-            defaultValue={name}
-            sx={{ width: 320 }}
-            id="outlined-required"
-            label="First Name"
-            type="text"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={lastName}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Last Name"
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={title}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-          <br />
-          {currentUser === true ? <MultiSelect props={props} /> : <h2></h2>}
-          <br />
-          <TextField
-            defaultValue={BuisnessName}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Buisness Name"
-            onChange={(e) => {
-              setBuisnessName(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={description}
-            sx={{ width: 320 }}
-            id="outlined-required"
-            label="Description"
-            multiline
-            rows={6}
-            onChange={(e) => {
-              setdescription(e.target.value);
-            }}
-          />
-        </div>
-        <br />
-
-        <div id="address">
-          <h2 className="formHeader">Address</h2>
-          <br />
-          <TextField
-            defaultValue={address}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Address"
-            onChange={(e) => {
-              setAddress(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={city}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="City"
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <FormControl>
-            <InputLabel id="state-select-label">State</InputLabel>
-            <Select
-              defaultValue={state}
-              sx={{ width: 320 }}
-              labelId="state-select-label"
-              id="state-select"
-              label="State"
-              onChange={(e) => {
-                setState(e.target.value);
+    <ThemeProvider theme={theme}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            marginTop: "2em",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <Card
+              elevation={4}
+              sx={{
+                padding: "2em",
+                margin: "2em",
               }}
             >
-              <MenuItem value="AL">Alabama</MenuItem>
-              <MenuItem value="AK">Alaska</MenuItem>
-              <MenuItem value="AZ">Arizona</MenuItem>
-              <MenuItem value="AR">Arkansas</MenuItem>
-              <MenuItem value="CA">California</MenuItem>
-              <MenuItem value="CO">Colorado</MenuItem>
-              <MenuItem value="CT">Connecticut</MenuItem>
-              <MenuItem value="DE">Delaware</MenuItem>
-              <MenuItem value="DC">District Of Columbia</MenuItem>
-              <MenuItem value="FL">Florida</MenuItem>
-              <MenuItem value="GA">Georgia</MenuItem>
-              <MenuItem value="HI">Hawaii</MenuItem>
-              <MenuItem value="ID">Idaho</MenuItem>
-              <MenuItem value="IL">Illinois</MenuItem>
-              <MenuItem value="IN">Indiana</MenuItem>
-              <MenuItem value="IA">Iowa</MenuItem>
-              <MenuItem value="KS">Kansas</MenuItem>
-              <MenuItem value="KY">Kentucky</MenuItem>
-              <MenuItem value="LA">Louisiana</MenuItem>
-              <MenuItem value="ME">Maine</MenuItem>
-              <MenuItem value="MD">Maryland</MenuItem>
-              <MenuItem value="MA">Massachusetts</MenuItem>
-              <MenuItem value="MI">Michigan</MenuItem>
-              <MenuItem value="MN">Minnesota</MenuItem>
-              <MenuItem value="MS">Mississippi</MenuItem>
-              <MenuItem value="MO">Missouri</MenuItem>
-              <MenuItem value="MT">Montana</MenuItem>
-              <MenuItem value="NE">Nebraska</MenuItem>
-              <MenuItem value="NV">Nevada</MenuItem>
-              <MenuItem value="NH">New Hampshire</MenuItem>
-              <MenuItem value="NJ">New Jersey</MenuItem>
-              <MenuItem value="NM">New Mexico</MenuItem>
-              <MenuItem value="NY">New York</MenuItem>
-              <MenuItem value="NC">North Carolina</MenuItem>
-              <MenuItem value="ND">North Dakota</MenuItem>
-              <MenuItem value="OH">Ohio</MenuItem>
-              <MenuItem value="OK">Oklahoma</MenuItem>
-              <MenuItem value="OR">Oregon</MenuItem>
-              <MenuItem value="PA">Pennsylvania</MenuItem>
-              <MenuItem value="RI">Rhode Island</MenuItem>
-              <MenuItem value="SC">South Carolina</MenuItem>
-              <MenuItem value="SD">South Dakota</MenuItem>
-              <MenuItem value="TN">Tennessee</MenuItem>
-              <MenuItem value="TX">Texas</MenuItem>
-              <MenuItem value="UT">Utah</MenuItem>
-              <MenuItem value="VT">Vermont</MenuItem>
-              <MenuItem value="VA">Virginia</MenuItem>
-              <MenuItem value="WA">Washington</MenuItem>
-              <MenuItem value="WV">West Virginia</MenuItem>
-              <MenuItem value="WI">Wisconsin</MenuItem>
-              <MenuItem value="WY">Wyoming</MenuItem>
-            </Select>
-          </FormControl>
-          <br />
-          <br />
-          <TextField
-            defaultValue={zip}
-            sx={{ width: 320 }}
-            type="tel"
-            id="outlined-required"
-            label="Zip Code"
-            onChange={(e) => {
-              setZip(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={phone}
-            sx={{ width: 320 }}
-            type="tel"
-            id="outlined-required"
-            label="Phone Number"
-            onChange={(e) => {
-              setTelephone(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-        </div>
+              <div id="profileInfo">
+                <h2 className="formHeader">Profile Info</h2>
+                <br />
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={name}
+                    sx={{ width: 320 }}
+                    id="outlined-required"
+                    label="First Name"
+                    type="text"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                  <br />
+                  <br />
+                  <TextField
+                    defaultValue={lastName}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Last Name"
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                  />
+                </Stack>
 
-        <div id="socialMedia">
-          <h2 className="formHeader">Social Media</h2>
-          <br />
-          <TextField
-            defaultValue={website}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Website"
-            onChange={(e) => {
-              setWebsite(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={linkedIn}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="LinkedIn"
-            onChange={(e) => {
-              setLinkedIn(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <TextField
-            defaultValue={facebook}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Facebook"
-            onChange={(e) => {
-              setFacebook(e.target.value);
-            }}
-          />
-          <br />
-          <br />
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={title}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Title"
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                  />
+                  <br />
+                  {currentUser === true ? (
+                    <MultiSelect props={props} />
+                  ) : (
+                    <h2></h2>
+                  )}
+                  <br />
 
-          <TextField
-            defaultValue={etsy}
-            sx={{ width: 320 }}
-            type="text"
-            id="outlined-required"
-            label="Etsy"
-            onChange={(e) => {
-              setEtsy(e.target.value);
-            }}
-          />
-        </div>
-        <br />
-        <Button type="submit" variant="contained" color="primary">
-          Save
-        </Button>
-      </form>
-    </>
+                  <TextField
+                    defaultValue={BuisnessName}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Buisness Name"
+                    onChange={(e) => {
+                      setBuisnessName(e.target.value);
+                    }}
+                  />
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={description}
+                    sx={{ width: 320 }}
+                    id="outlined-required"
+                    label="Description"
+                    multiline
+                    rows={6}
+                    onChange={(e) => {
+                      setdescription(e.target.value);
+                    }}
+                  />
+                </Stack>
+              </div>
+              <br />
+
+              <div id="address">
+                <h2 className="formHeader">Address</h2>
+                <br />
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={address}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Address"
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                    }}
+                  />
+                  <br />
+                  <br />
+                  <TextField
+                    defaultValue={city}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="City"
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                    }}
+                  />
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <FormControl>
+                    <InputLabel id="state-select-label">State</InputLabel>
+                    <Select
+                      defaultValue={state}
+                      sx={{ width: 320 }}
+                      labelId="state-select-label"
+                      id="state-select"
+                      label="State"
+                      onChange={(e) => {
+                        setState(e.target.value);
+                      }}
+                    >
+                      <MenuItem value="AL">Alabama</MenuItem>
+                      <MenuItem value="AK">Alaska</MenuItem>
+                      <MenuItem value="AZ">Arizona</MenuItem>
+                      <MenuItem value="AR">Arkansas</MenuItem>
+                      <MenuItem value="CA">California</MenuItem>
+                      <MenuItem value="CO">Colorado</MenuItem>
+                      <MenuItem value="CT">Connecticut</MenuItem>
+                      <MenuItem value="DE">Delaware</MenuItem>
+                      <MenuItem value="DC">District Of Columbia</MenuItem>
+                      <MenuItem value="FL">Florida</MenuItem>
+                      <MenuItem value="GA">Georgia</MenuItem>
+                      <MenuItem value="HI">Hawaii</MenuItem>
+                      <MenuItem value="ID">Idaho</MenuItem>
+                      <MenuItem value="IL">Illinois</MenuItem>
+                      <MenuItem value="IN">Indiana</MenuItem>
+                      <MenuItem value="IA">Iowa</MenuItem>
+                      <MenuItem value="KS">Kansas</MenuItem>
+                      <MenuItem value="KY">Kentucky</MenuItem>
+                      <MenuItem value="LA">Louisiana</MenuItem>
+                      <MenuItem value="ME">Maine</MenuItem>
+                      <MenuItem value="MD">Maryland</MenuItem>
+                      <MenuItem value="MA">Massachusetts</MenuItem>
+                      <MenuItem value="MI">Michigan</MenuItem>
+                      <MenuItem value="MN">Minnesota</MenuItem>
+                      <MenuItem value="MS">Mississippi</MenuItem>
+                      <MenuItem value="MO">Missouri</MenuItem>
+                      <MenuItem value="MT">Montana</MenuItem>
+                      <MenuItem value="NE">Nebraska</MenuItem>
+                      <MenuItem value="NV">Nevada</MenuItem>
+                      <MenuItem value="NH">New Hampshire</MenuItem>
+                      <MenuItem value="NJ">New Jersey</MenuItem>
+                      <MenuItem value="NM">New Mexico</MenuItem>
+                      <MenuItem value="NY">New York</MenuItem>
+                      <MenuItem value="NC">North Carolina</MenuItem>
+                      <MenuItem value="ND">North Dakota</MenuItem>
+                      <MenuItem value="OH">Ohio</MenuItem>
+                      <MenuItem value="OK">Oklahoma</MenuItem>
+                      <MenuItem value="OR">Oregon</MenuItem>
+                      <MenuItem value="PA">Pennsylvania</MenuItem>
+                      <MenuItem value="RI">Rhode Island</MenuItem>
+                      <MenuItem value="SC">South Carolina</MenuItem>
+                      <MenuItem value="SD">South Dakota</MenuItem>
+                      <MenuItem value="TN">Tennessee</MenuItem>
+                      <MenuItem value="TX">Texas</MenuItem>
+                      <MenuItem value="UT">Utah</MenuItem>
+                      <MenuItem value="VT">Vermont</MenuItem>
+                      <MenuItem value="VA">Virginia</MenuItem>
+                      <MenuItem value="WA">Washington</MenuItem>
+                      <MenuItem value="WV">West Virginia</MenuItem>
+                      <MenuItem value="WI">Wisconsin</MenuItem>
+                      <MenuItem value="WY">Wyoming</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <br />
+                  <br />
+                  <TextField
+                    defaultValue={zip}
+                    sx={{ width: 320 }}
+                    type="tel"
+                    id="outlined-required"
+                    label="Zip Code"
+                    onChange={(e) => {
+                      setZip(e.target.value);
+                    }}
+                  />
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={phone}
+                    sx={{ width: 320 }}
+                    type="tel"
+                    id="outlined-required"
+                    label="Phone Number"
+                    onChange={(e) => {
+                      setTelephone(e.target.value);
+                    }}
+                  />
+                </Stack>
+                <br />
+                <br />
+              </div>
+
+              <div id="socialMedia">
+                <h2 className="formHeader">Social Media</h2>
+                <br />
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={website}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Website"
+                    onChange={(e) => {
+                      setWebsite(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    defaultValue={linkedIn}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="LinkedIn"
+                    onChange={(e) => {
+                      setLinkedIn(e.target.value);
+                    }}
+                  />
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    margin: "1em",
+                  }}
+                >
+                  <TextField
+                    defaultValue={facebook}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Facebook"
+                    onChange={(e) => {
+                      setFacebook(e.target.value);
+                    }}
+                  />
+
+                  <TextField
+                    defaultValue={etsy}
+                    sx={{ width: 320 }}
+                    type="text"
+                    id="outlined-required"
+                    label="Etsy"
+                    onChange={(e) => {
+                      setEtsy(e.target.value);
+                    }}
+                  />
+                </Stack>
+              </div>
+              <br />
+              <Button type="submit" variant="contained" color="primary">
+                Save
+              </Button>
+            </Card>
+          </form>
+        </Stack>
+      </Grid>
+    </ThemeProvider>
   );
 }
 export default AddEventForm;
