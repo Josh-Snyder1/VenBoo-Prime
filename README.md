@@ -68,4 +68,7 @@ Video walkthrough of app: https://www.youtube.com/watch?v=j9FIXXvbMaI
 
 - The app has been deployed via Heroku
 - Heroku login info is located in the hand off document
-- If you need to make updates to the source code and have to push up to Heroku
+- If you need to make updates you'll have to push up to Heroku
+- In your editor terminal type... `heroku git:remote` to show the link to your heroku server
+- In the terminal type... `git push heroku main`, this is push your updates to heroku
+- The new updates will take a minute to be live.
