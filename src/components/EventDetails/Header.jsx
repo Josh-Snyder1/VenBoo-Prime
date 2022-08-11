@@ -24,7 +24,7 @@ export default function Header({ toggleEdit, eventDetails }) {
   const boothApplications = useSelector((store) => store.boothApplications);
   const user = useSelector((store) => store.user);
 
-  console.log('in header', event)
+  console.log('in header', eventDetails)
   useEffect(() => {
     dispatch({ type: "FETCH_TAGS" });
   }, []);
@@ -38,21 +38,6 @@ export default function Header({ toggleEdit, eventDetails }) {
   let Available = 0;
   let total = 0;
 
-  // let eventDetails = events.filter((event) => {
-  //   if (event.id === Number(eventId)) {
-  //     return event;
-  //   }
-  // });
-  // eventDetails = eventDetails.pop();
-
-  // for (const booth of eventDetails.booths) {
-  //   total = total + booth.quantity;
-  // }
-  // console.log("BOOTHS ARE BOOOO>>", eventDetails);
-  // console.log(">>>>>", event)
-  // for (const booth of eventDetails.booths) {
-  //   total = total + booth.quantity;
-  // }
   for (const booth of boothApplications) {
     // Checks to see if the booth is approved and If it belongs to the current user
     // Renders total Approved and total Pending booths quantity
@@ -65,15 +50,9 @@ export default function Header({ toggleEdit, eventDetails }) {
         Approved += booth.quantity;
       }
     }
-    // total = Pending + Approved;
-    // Available = total - Approved;
   }
-  Available = total - Approved;
-  console.log(total);
-  // total = totalbooth.quantity;
-  // const booths = eventDetails.booths;
 
-  // total = total;
+  Available = total - Approved;
 
   const address = eventDetails?.address[0];
 
@@ -103,20 +82,20 @@ export default function Header({ toggleEdit, eventDetails }) {
           details: eventDetails,
           }} 
         />
-        <h2>{event.name}</h2>
-        <p className="event-date-range">{`${moment(event.start_date).format("MMM Do YYYY")} - ${moment(event.end_date).format("MMM Do YYYY")}`}</p>
+        <h2>{eventDetails.name}</h2>
+        <p className="event-date-range">{`${moment(eventDetails.start_date).format("MMM Do YYYY")} - ${moment(eventDetails.end_date).format("MMM Do YYYY")}`}</p>
 
         <div className="event-detail-container">
           <div className="venue-card">
 
-            <p className="venue-name">{event.venue_name}</p>
+            <p className="venue-name">{eventDetails.venue_name}</p>
             <div className="venue-address-block">
               <Address
-                address={event.venue_address}
-                address_2={event.venue_address_2}
-                city={event.venue_city}
-                state={event.venue_state}
-                zipcode={event.venue_zipcode}
+                address={eventDetails.address[0].address}
+                address_2={eventDetails.address[0].address_2}
+                city={eventDetails.address[0].city}
+                state={eventDetails.address[0].state}
+                zipcode={eventDetails.address[0].zipcode}
               />
             </div>
 
